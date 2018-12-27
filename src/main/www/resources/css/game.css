@@ -1,0 +1,336 @@
+option { padding-left: 0.4em;}
+.center2{margin: 0 auto;width: 1200px;}
+.game-bg .center2{ position: relative; }
+.game-bg{min-height: 1208px;  width:100%;padding-top: 20px;background-attachment: fixed;}
+/*.main-bg{ background: url(game/game-bg.png)#fffef3 center; }*/
+.game-kaicai { width:100%;padding-left: 50px;}
+.game-kaicai .lot-logo{width:140px; height: 134px; padding-top: 55px; background: url("game/caiz-bg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/caiz-bg.png*/ no-repeat center; } 
+.game-kaicai .lot-logo img{display: block; margin:0 auto; width:120px; height:53px;}
+.game-kaicai .lot-logo p{ text-align: center;  line-height: 15px}
+.game-kaicai .kjq-kaijqiu{ background: url("game/kjq-bg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/kjq-bg.png*/ no-repeat center; width:702px; padding-left: 15px; padding-top: 10px; height: 134px; margin-left: 2px;}
+.game-kaicai .kjq-kaijqiu .kaijq{ width:68%; } 
+.game-kaicai .kjq-kaijqiu .shangqi{ margin:5px 0;font-size: 16px; }
+.game-kaicai .kjq-kaijqiu .qihao{ height: 20px; line-height: 20px;}
+.game-kaicai .kjq-kaijqiu .qihao .text-left{ padding-left: 48px; font-size: 16px; }
+.game-kaicai .kjq-kaijqiu .shij{ width: 32%; margin-top: 10px}
+.game-kaicai .kjq-kaijqiu .qihao span{ display: inline-block; width:50px; height: 20px; line-height: 20px; border-radius: 2px; background: #e44540; text-align: center;}
+.game-kaicai .kjq-kaijqiu  .shij .bj{display:inline-block; width:61px; height: 50px; background: url("game/xq-bg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/xq-bg.png*/ no-repeat center; float:left; text-align: center;     margin-right: 10px;}
+.game-kaicai .kjq-kaijqiu  .shij .digit{ font-size: 36px; color:#25779d; letter-spacing: 9px; position: relative;left: 5px;float: left }
+.game-kaicai .kjq-kaijqiu  .shij .digit .cttop{ color:#25779d; }
+.game-kaicai .kjq-kaijqiu  .shij .digit .ctbottom{ color:#25779d;}
+ul[class*="qiusty"] li {display: block;float: left;text-align: center;color: #25779d;border-radius: 50%;background: #F5F5F5;}
+.lotter-bigqiu5 > li, .lotter-bigqiu3 > li { position: relative; display: block;float: left; margin-right:20px;}
+.lotter-bigqiu3{padding-left: 90px;}
+.lotter-bigqiu5{padding-left: 35px;}
+.lotter-bigsmll8{padding-left: 35px; overflow: hidden;padding-top: 13px;  }   
+.lotter-bigsmll10{ padding-top: 14px;}
+.lotter-bigqiu3 > li > span , .lotter-bigqiu5 > li > span { width: 63px;height: 63px;line-height: 63px;font-size: 36px; display: inline-block;}
+.lotter-bigqiu5, .lotter-bigqiu3 {position: relative; top: 0px;}
+.lotter-bigqiu8 > li > span , .lotter-bigqiu10 > li > span { width: 38px; height: 38px; line-height: 38px;font-size: 24px;}
+.lotter-bigsmll8 li,
+.lotter-bigsmll10 li {width: 38px;height: 38px; line-height: 38px; font-size: 24px; margin-right: 8px; margin-bottom: 4px;}
+.game-kaicai .ef-kj-lishi{width:304px;  margin-left: 1px; background: #25779d;}
+.ef-kj-lishi .ssc-jq {display: block;width: 26px;height: 84px; background: #0179ab;color: #00f8fa;text-align: center; margin-top: 30px;}
+.ef-kj-lishi .kaijhma { background: #25779d; width: 100%; height:38px;}
+.ef-kj-lishi .kaijhma span {display: inline-block;width: 46%;text-align: center; color: #fff;line-height: 38px; height: 38px;}
+.ef-kj-lishi dl { background: #005176;width: 100%;     height: 96px;overflow-y: auto;}
+.ef-kj-lishi dd {display: block;width: 100%;float: left;margin-top: -1px;margin-left: -1px;  padding: 3px 0px;text-align: center; color: #fff; border: 1px dashed #115d7f; cursor: default;}
+.ef-kj-lishi dl dd p {display: inline-block;width: 40%;line-height: 24px;text-align: center; padding-left: 10px; float: left;}
+.ef-kj-lishi dl dd .kjqiu-sty3,
+.ef-kj-lishi dl dd .kjqiu-sty1{ width: 54%; float:right; }
+.ef-kj-lishi dl dd .kjqiu-sty2{ width: 46%; float:right; padding-right: 20px;}
+.ef-kj-lishi dd span {display: inline-block;line-height: 20px;height: 20px;width: 20px; margin: 2px 3px;color: #005176;font-size: 12px;background: #f5f5f5; border-radius: 50%;}
+.kjq-qiu3-tips .qhxq{ display:none;left: -27px;padding: 6px;  background: #fff; box-shadow: 1px 1px 3px rgba(0,0,0,.3); z-index: 55; width: 150px;}
+.kjq-qiu5-tips .qhxq p em{ font-size: 11px; }
+.kjq-qiu5-tips .qhxq:before{ content: ""; border-style: solid; border-width:  0 8px 8px; }
+.kjq-qiu5-tips .qhxq:before{ border-color:  #f34545 transparent;position: absolute;top: -8px; left:55px; }
+.kjq-qiu5-tips .qhxq p{word-wrap: break-word;position: relative;font-size: 11px;display: block;line-height: 15px; padding: 0 5px;border-bottom: 1px dashed #eaeaea; width:125px; color: #787878;}
+.kjq-qiu5-tips .qhxq{ border: 1px solid #e44540;background: #fff;box-shadow: 1px 1px 3px rgba(0,0,0,.3);z-index: 105;text-align: center;width: 127px;}
+.kjq-qiu5-tips .qhxq{position: absolute;top: 134px; right: 38px;display: none; }
+
+.kjq-qiu3-tips .qhxq p em{ font-size: 11px; }
+.kjq-qiu3-tips .qhxq:before{ content: ""; border-style: solid; border-width:  0 8px 8px; }
+.kjq-qiu3-tips .qhxq:before{ border-color:  #f34545 transparent;position: absolute;top: -8px; left:95px; }
+.kjq-qiu3-tips .qhxq p{word-wrap: break-word;position: relative;font-size: 11px;display: block;line-height: 15px; padding: 0 5px;border-bottom: 1px dashed #eaeaea; width:175px; color: #787878;}
+.kjq-qiu3-tips .qhxq{ border: 1px solid #e44540;background: #fff;box-shadow: 1px 1px 3px rgba(0,0,0,.3);z-index: 105;text-align: center;width: 188px;}
+.kjq-qiu3-tips .qhxq{position: absolute;top: 134px; left: 995px;display: none; }
+
+.game-main{ margin-top: 14px;padding-left:5px; position: relative;}
+.lott-Control .efnav-game { width: 1146px;overflow: hidden;  background: #25779d;}
+.lott-Control .efnav-game ul li { color: #fff;text-align: center;cursor: pointer; float:left; height:50px; line-height: 50px; width:76px;}
+.lott-Control .efnav-game ul{ padding:0 25px; }
+.lott-Control .efnav-game ul li:hover,
+.lott-Control .efnav-game ul .cur{width: 76px; height: 50px;line-height: 50px; background: #e44540;z-index: 100;}
+.lott-Control .efnav-game ul li div{display:none; width:74px; position: absolute; top:-4px;z-index: 100; height:58px; line-height: 58px; background: url("game/liho.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/liho.png*/ center; }
+.lott-Control .efnav-game .cur div,
+.lott-Control .efmenu-game {max-width:1146px;width: 100%; height:40px;position: absolute;background: #77b5d2; z-index: 99;-moz-box-shadow:0px 10px 20px rgba(189,213,215,.6); -webkit-box-shadow:0px 10px 20px rgba(189,213,215,.6); box-shadow:0px 10px 20px rgba(189,213,215,.6);}
+.lott-Control .efmenu-game ul {overflow: hidden;padding: 0px 15px;}
+.lott-Control .l-c-item span { display: block;float: left;line-height: 39px;color: #005176;}
+.lott-Control .efmenu-game ul li:hover, .efmenu-game ul li.cur { color: #e44540; border-bottom: 2px solid  #e44540;}
+.lott-Control .efmenu-game ul li { display: block; float: left; padding: 9px 10px; cursor: pointer;color: #005176;margin-right: 35px;}
+.lott-Control .pos-r { padding: 0 15px; position: relative;}
+.cz-wanfa { overflow: hidden; color: #25779d;}
+.cz-wanfa i{display:inline-block; width:15px; cursor: pointer; height: 15px; line-height: 15px; text-align: center; border-radius: 50%;background: #005176; color:#fff; font-size: 12px;} 
+.cz-wanfa div {  margin: 0 0px 10px; line-height: 22px;vertical-align: middle;}
+div.sm-wfsm {display: none; position: absolute; z-index: 60; top: 30px;left:0px;padding: 10px;width: 360px;height: auto;border-radius: 4px;background: #fff;box-shadow: 1px 1px 2px rgba(150,150,150,.5);color: #afafaf;font-size: 12px;}
+.ef-touzhu{ border: 1px solid #77b5d2; position: relative;border-top: none; background: #fffef3;margin-top: 42px}
+.touzhu-one {padding: 10px 0px 0px; overflow: hidden;}
+.danshi { margin: 0 20px;padding: 10px 20px;}
+.danshi span {display: block; color: #999; height: 30px; line-height: 30px;}
+.danshi textarea {resize: none;border: 1px solid #ddd;width: 98%;overflow-y:auto; height: 200px;padding: 8px;font-size: 14px;color: #333;}
+.danshi .xwInput {overflow: hidden;padding: 10px  0 0;}
+.danshi .xwInput li{ float:left; margin-right:20px;}
+.touzhu-one dl dd {overflow: hidden; padding: 7px 0 0;}
+.touzhu-one dl dd h5 {display: block;float: left;margin: 2px 18px 0 10px; width: 72px;height: 34px;line-height: 34px;text-align: center;font-size: 16px;font-weight: normal; color: #333;}
+.touzhu-one dl dd ul.sz-qiu { display: block;float: left;}
+#zhixhzqs .sz-qiu{ width:728px; }
+#zhixhzqs .gongn{ margin-right: 50px; }
+#kl10dwd1 .sz-qiu,
+#kl10dt2z2 .sz-qiu,
+#kl10qszxfs .sz-qiu,
+#kl10elzx .sz-qiu,
+#kl10rx1z1 .sz-qiu{ width:670px; }
+#kl10dwd1 .gongn{ margin-right:50px;}
+.touzhu-one .sz-qiu{ width:700px; }
+
+
+
+#jsk3hzzx .sz-qiu,
+#zhixhzqs .sz-qiu,
+#zhixhzqe .sz-qiu,
+#zhixhzhe .sz-qiu,
+#zhixhzhs .sz-qiu,
+#zhixhzzs .sz-qiu,
+#zhixhzhe .sz-qiu,
+#zuxhzqs .sz-qiu,
+#zuxhzzs .sz-qiu,
+#zuxhzhs .sz-qiu{ width:700px; } 
+
+#jsk3hzzx .gongn,
+#zhixhzqs .gongn,
+#zhixhzqe .gongn,
+#zhixhzhe .gongn,
+#zhixhzhs .gongn,
+#zhixhzzs .gongn,
+#zhixhzhe .gongn,
+#zuxhzqs  .gongn,
+#zuxhzzs .gongn,
+#zuxhzhs .gongn{ margin-right:70px; } 
+
+
+
+.touzhu-one dl dd ul.sz-qiu li {display: block;float: left;margin: 0 24px 7px 0;width: 38px;height: 38px;line-height: 34px; text-align: center; background: #77b5d2;border-radius: 50%;color: #fff;font-size: 23px;cursor: pointer; border:2px solid #77b5d2;}
+.touzhu-one dl dd ul.gongn li {display: block;float: left;font-size: 16px;color: #787878;width: 38px;line-height: 38px;text-align: center;margin: 3px; cursor:pointer;}
+.touzhu-one dl dd ul.gongn li:hover{ background:#77b5d2; color:#fff; border-radius: 50%; }
+.touzhu-one dl.danqiu dd ul.gongn { float: right;margin-right: 50px;}
+.touzhu-one dl.danqiu dd ul span{width: 22px;height: 22px;border-radius: 50%;display: inline-block;margin-top: 7px;}
+.touzhu-one dl dd ul.gongn {display: block;border-radius: 30px;border: 1px solid #e4e4e4;background: #fff;overflow: hidden;margin-left: 4px;}
+.touzhu-one dl dd ul.sz-qiu li:hover { border: 2px solid #25779d; background: #fff;color: #25779d;}
+.touzhu-one dl dd ul.sz-qiu li:active, .touzhu-one dl dd ul.sz-qiu li.cur{ background:url("game/qiu-bg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/qiu-bg.png*/ no-repeat 0px 0px; border:none;  color: #25779d; line-height: 38px;}
+.jiangjin {text-align: center;color: #999;padding: 0 18px; margin-top: 10px;}
+.jiangjin .zhu { height: 33px;line-height: 33px; }
+.jiangjin .zhu ul {overflow: hidden;}
+.jiangjin .zhu ul .sty{color:#e44540;}
+.jiangjin .zhu li strong { font-weight: normal;}
+.efiaform { position: relative; width: 105px;}
+.efiaform .efmin { background: url("game/efmin.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/efmin.png*/ no-repeat;}
+.efiaform input {width: 38px;height: 26px;line-height: 26px; padding: 0 4px;color: #787878; text-align: center; border: 1px solid #ddd;}
+.efiaform .efadd { background: url("game/efadd.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/efadd.png*/ no-repeat;}
+.efiaform span {top: 4px;position: relative;display: inline-block;width: 17px;height: 17px; cursor: pointer;}
+.jiangjin .zhu li {display: inline-block;float: left; font-size: 14px;}
+.ym-fbox-select { border: 1px solid #ddd;  height: 26px;   line-height: 26px;  width: 42px;  font-size: 14px; color: #787878;  margin-right: 6px;}
+.jiangjin .jine { float: left}
+.ui-slider .ui-slider-handle:before {position: absolute; content: ""; border-radius: 50%; width: 16px;height: 16px; background: #fff;border: 1px solid #cdcdcd;}
+.ui-widget-header{ background: #25779d;}
+.ui-slider-horizontal .ui-slider-range-min {left: 0;}
+.ui-slider-horizontal .ui-slider-range { top: 0;height: 100%;}
+.ui-slider .ui-slider-range { position: absolute; z-index: 1;font-size: .7em;display: block;border: 0;background-position: 0 0;}
+.jifenqi{overflow: hidden ; float: left; width:168px; padding:0 4px;  height: 31px; line-height: 31px; cursor: pointer;}
+.jifenqi .jifen { margin-top:15px; background: #d7d7d7; border-radius: 10px; }
+.jifenqi .jifenBg{ height: 5px; width: 145px; background:#d7d7d7; border-radius:10px;position: relative;margin:0 20px 0 0; }
+.ui-widget {font-size: 1.1em;}
+.ui-widget .ui-widget {font-size: 1em;}
+.ui-corner-all {border-radius: 10px;}
+.ui-widget-header {border: 1px solid #ddd; font-weight: bold;}
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {outline: none;margin-top: -6px;cursor: pointer; }
+.ui-state-default a,
+.ui-state-default a:link,
+.ui-state-default a:visited {color: #555555; text-decoration: none;}
+.ui-slider {position: relative;text-align: left;}
+.ui-slider .ui-slider-handle {position: absolute;z-index: 2;width:18px;height:18px;cursor: pointer;-ms-touch-action: none;touch-action: none;border-radius: 50%;}
+.ui-slider .ui-slider-handle:before{position: absolute; content:""; border-radius:50%; width:16px; height:16px; background:#fff; border:1px solid #cdcdcd;}
+.ui-slider .ui-slider-handle:after{position: absolute; content:""; top:4px; left:4px; border-radius:50%; width:8px; height:8px; background: #25779d;}
+.ui-slider .ui-slider-range { position: absolute;z-index: 1;font-size: .7em;display: block;border: 0;background-position: 0 0;}
+.jiangjin .zhu .addhm li span{cursor: pointer; display: inline-block; width:120px; height: 40px; line-height: 40px; margin-right: 10px; border-radius: 4px; text-align: center; color:#fff;      padding-left: 25px;}
+.jiangjin .zhu .addhm .tjhm span{background: url("game/tjhm.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/tjhm.png*/ #e44540 no-repeat 14px 8px;  }
+.jiangjin .zhu .addhm .yjtz span{background: url("game/yjtz.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/yjtz.png*/ #e44540 no-repeat 14px 8px; margin-right:0px;}
+
+/*涓嬪崟鍖�*/
+.xiadanqu {overflow: hidden;width: 100%;padding: 0 20px 8px;}
+.xiadanqu .xiad-one {overflow: hidden;    margin-top: 10px;}
+.xiadanqu .xiad-left {width: 916px;height: 176px;}
+.xiadanqu .xiad-righ { overflow: hidden;}
+.xiadanqu .xiad-left dl {display: block;font-size: 12px; overflow: hidden; overflow-y: auto; height: 140px;}
+.xiadanqu .xiad-left dl dd {overflow: hidden;margin: 0 10px;height: 32px;line-height: 32px; border-bottom: 1px dashed #EAEAEA;}
+.xiadanqu .xiad-left dl dd span {display: block;float: left;}
+.xiad-left span.xq {cursor: pointer;}
+.xiadanqu .xiad-left dl dd ul{ float:right; } 
+.xiadanqu .xiad-left dl dd ul li {display: block;float: left;padding: 0 0 0 15px;}
+.xiadanqu .xiad-left dl dd ul li input {width: 50px;padding: 0 4px;text-align: center;height: 18px;line-height: 18px;color: #999;font-size: 12px; border: 1px solid #ddd;}
+.xiadanqu .xiad-left dl dd ul li.sc { padding-left: 6px;}
+.xiadanqu .xiad-left dl dd ul li a {background: url("game/icon-r.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/icon-r.png*/ no-repeat 0 -130px;}
+.xiadanqu .xiad-left dl dd ul li a {display: block;margin-top: 11px;width: 13px;height: 13px; overflow: hidden; text-indent: 101%;}
+.xiadanqu .xiad-left dl dd a { color: #999999;}
+.xiad-righ ul{ padding:5px 0px; }
+.xiad-righ ul li span{ color:#fff; cursor: pointer; display:block; width:166px; height: 40px; line-height: 40px; border-radius: 4px;  text-align: center; padding-left:30px; }
+.xiad-righ ul li{ margin-bottom:8px; border-radius: 4px;}
+.xiad-righ ul .qrtz{ background: url("game/qrtz.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/qrtz.png*/ #77b5d2 no-repeat 35px 9px; }
+.xiad-righ ul .ddjl{ background: url("game/ddhm.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/ddhm.png*/ #77b5d2 no-repeat 35px 9px; }
+.xiad-righ ul .qkhm{ background: url("game/qkdh.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/qkdh.png*/ #77b5d2 no-repeat 35px 10px; }
+.xiadanqu .xiad-tow {height: 30px;line-height: 30px;padding: 0 15px; color: #999; text-align: center; margin:6px 0;}
+.xiadanqu .xiad-tow input{position: relative; top: 4px; }
+.xiadanqu .xiad-tow .sty-h{color:#ff5a00;}
+.xiad-one .xiadan-nr{border: 1px solid #77b5d2; padding-bottom: 8px;}
+.xiadanqu .xiad-tow p{margin-left: 15px; display:inline-block;  background:url("game/zh-bg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/zh-bg.png*/ no-repeat 0px 0px; color:#fff; width:150px; height:26px; line-height: 26px;}
+.xiad-tow input{  width:18px; height:18px; border:none;}
+
+/*蹇箰褰�*/
+.klc-gz{padding:0 20px; width:100%; height: 60px; line-height: 60px; color:#fff; background: #25779d; }
+.klc-gz a{ text-decoration: underline; }
+.klc-nav li {
+    position: relative;
+    height: 189px;
+    float: left;
+    width: 50%;
+    background: #247394;
+    border-right: 1px dashed #a0c2d0;
+    border-bottom: 1px dashed #a0c2d0;
+    color: #fff;
+    cursor: pointer;
+}
+ 
+.klc-nav .cur,
+.klc-nav li:hover{background: #77b5d2;}
+.klc-nav li span{ padding: 10px 45px 30px;
+    display: block;
+    text-align: center;
+    font-size: 16px;}
+.klc-nav li a{ position: absolute;
+    bottom: 8px;
+    left: 12px;
+    color: #fff;
+    width: 90px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    border-radius: 4px;
+    background: #4690b2;
+    margin: 0px auto;
+    display: block;}
+.klc-main{ background: url("game/klcbk.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/klcbk.png*/ no-repeat center;  height:568px; padding:35px 42px;}
+.jishi em {position: relative;  top: 4px; color: #f84854;font-size: 24px;}
+.k-play-lei{ position:relative; width: 333px; margin-top: 10px;}
+.k-play-lei .zs{ position: absolute; top: 14px; right: 0px;}
+.keno-fun-bar{ overflow: hidden;}
+.game-keno-box .k-mari{border-top: 1px solid #77b5d2;border-left: 1px solid #77b5d2;}
+.keno-fun-bar h1.ddkj{ height: 118px; line-height: 118px; text-align: center; font-size: 30px; color: #cb3130; font-weight: normal;}
+.keno-titile{ width: 140px; border-right:1px solid #ccc; text-indent: 8px; }
+.keno-titile h1{ font-size: 18px; line-height: 52px; color: #000; font-weight: normal;}
+.keno-qihao{ padding: 8px 0 4px; width: 195px; text-align: center; border-right:1px solid #ccc; }
+.keno-qihao span{ display: block; height: 20px; line-height: 20px; color: #555;}
+.keno-qihao span.jishi em{ color: #E93838;}
+.k-but a{ display: inline-block;text-align: center; margin: 10px 0 0 15px;}
+.k-but a.cy{ width: 46px; height: 29px; line-height: 29px; border:1px solid #ccc;  color: #333; border-radius: 5px;}
+.k-but a.jrrx{ width: 86px; height: 32px; line-height: 31px; color: #fff; background: #c6af63; border-radius: 3px;}
+.g-k-play{ height: 66px;}
+.k-play-qiu{ width: 480px; text-align: center; margin: 6px 0 6px 4px; }
+.k-play-qiu li{ float: left; width: 38px;  height: 38px; margin: 0px 10px 15px 0;line-height: 38px;  border-radius: 50%; color: #fff; font-size: 16px; }
+.open-small {background: #e93939;}
+.open-big{ background: #25779d;}
+.k-play-lei span{ display:inline-block; height: 40px; line-height: 40px; margin: 2px 6px 0 0;   color: #25779d; text-align: right;}
+.k-play-lei .txt-lan1{ font-size: 15px; }
+.k-play-lei .txt-lan1 em{ font-size: 18px; }
+.k-play-lei ul { overflow: hidden;margin-top: 8px;}
+.k-play-lei ul li{ display: block;color:#fff; float: left;height: 24px;margin-right: 6px;text-align: center;line-height: 24px;border-radius: 2px;width: 24px;}
+.keno-playing  .ym-grid{overflow: hidden; }
+.k-play-lei ul li.zs{ width: 44px; height:26px; line-height: 26px; background: #25779d; }
+.keno-playing  { position: relative; overflow: hidden; margin-top: 10px;}
+.game-keno-box div.ym-gbox{padding: 0 6px;height: 40px;overflow: hidden; cursor: pointer; border-right: 1px solid #77b5d2; border-bottom: 1px solid #77b5d2;}
+.game-keno-box div.ym-gbox:hover span{ color:#fff; }
+.game-keno-box div.ym-gbox:hover .text-big{ color:#fff; }
+.game-keno-box div.ym-gbox:hover{ background: #77b5d2; }
+.efb-g20 .cur:hover span{ color:#fff !important;}
+.game-keno-box div.ym-gbox.cur span{ color: #e44540;}
+.lottery-square-big span{ font: inherit; vertical-align: baseline;}
+.lottery-square-big .text-big{width: 70px; color: #333; font-size: 18px; line-height:40px; margin-left:5px; }
+.lottery-square-big .text-middle{ width: 45px; color: #555;  float: right;text-align: right;font-size: 9px; line-height:20px; margin-top: 5px;padding-right: 5px;}
+.lottery-square-big .text-small{ width: 71px; text-align: right; color: #999; font-size: 9px; line-height:20px; margin-top: 5px; padding-right: 5px;}   
+.k-mari .si{position: absolute; top: 0px;right: 165px;}
+.k-mari .wu{position: absolute; top: 0px;right: 0px;}
+.k-mari .jiu{position: absolute; top: 40px;right: 165px;}
+.k-mari .shi{position: absolute; top: 40px;right: 0px;}
+.k-mari .shisi{position: absolute; top: 80px;right: 165px;}
+.k-mari .shiwu{position: absolute; top: 80px;right: 0px;}
+/*蹇箰褰╄矾瀛�/鍦嗗舰*/
+.nav-tabs{ border:none; }
+.keno-path {width: 100%; overflow: hidden;position: relative;}
+.keno-path-teb{padding: 20px 0 15px;overflow: hidden;}
+.keno-play-but a{ display: block; width: 20px; height: 19px; margin:15px 0 0 4px; background: url("icon/xy28icon.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/icon/xy28icon.png*/ no-repeat; position: absolute;}
+.keno-play-but .hei-l{ background-position: 0px -25px;  right:30px;}
+.keno-play-but .hei-r{ background-position: -23px -25px; right:0px;}
+.keno-play-but .hei-l:hover{ background-position: 0px 0px;  right:30px;}
+.keno-play-but .hei-r:hover{ background-position: -23px 0px; right:0px;}
+.keno-play-but .hui-l{ background-position: 0px -51px;cursor: default; right:30px;}
+.keno-play-but .hui-r{ background-position: -23px -51px;cursor: default; right:0px;}
+.keno-path-teb li { display: block;float: left; margin-right: 5px;}
+.keno-path-teb li a {display: block;text-align: center;color: #fff;padding: 0px;width: 60px; height: 30px;line-height: 30px; border-radius: 5px; background: #77b5d2;}
+.Etab{width: 819px;overflow: hidden; margin-left: 5px;}
+.keno-path-teb .cur a {background: #25779d; }
+.row1 ,.row2 ,.row3 ,.row4 ,.row5 ,.row6{float:right; width: 100%;overflow: hidden; width: 100%;margin: 0px; -webkit-margin-before: 0em;-webkit-margin-after: 0em;
+    list-style-type: none;border-radius: 4px;height: 100%;display: -webkit-flex;display: -moz-flex;display: -ms-flex;display: flex;webkit-flex-flow: row nowrap;-moz-flex-flow: row nowrap;-ms-flex-flow: row nowrap;flex-flow: row nowrap;-webkit-align-items: center;-moz-align-items: center; -ms-align-items: center;align-items: center;position: absolute;height: 19px}
+.row1 { top:0}
+.row2 { top:19px}
+.row3 { top:38px}
+.row4 { top:57px}
+.row5 { top:76px}
+.row6 { top:95px}
+.lotBdItem{border: 1px solid #ccc; padding: 0 1px; overflow: hidden;position: relative;width: 818px;height: 117px;}
+.lotBdItem ul li{ display: block;margin: 0px;padding: 1px;width: 19px;height: 19px;border-right: 1px solid #e5e3da;border-bottom: 1px dashed #e5e3da;text-align: center;list-style: none;}
+.lotBdItem ul li span {display: block;width: 16px;height: 16px;border-radius: 50%;line-height: 16px;font-size: 12px;color: #fff;}
+.side-da,.circle-da span{ background:#e44540;}/*澶�*/
+.side-xiao,.circle-xiao span{background:#0e7fdd;}/*灏�*/
+.side-dan,.circle-dan span{ background:#a52727;} /*鍗�*/
+.side-shuang,.circle-shuang span{ background:#a46527;} /*鍙�*/
+.side-shang,.circle-shang span{ background:#bea31c;} /*涓�*/
+.side-xia,.circle-xia span{ background:#bd6692;} /*涓�*/
+.side-qi,.circle-qi span{ background:#e86a39;} /*濂�*/
+.side-ou,.circle-ou span{background:#BE1B68;} /*鍋�*/
+.side-jin,.circle-jin span{ background:#FFCB33;} /*閲�*/
+.side-mu,.circle-mu span{ background:#409D59;} /*鏈�*/
+.side-shui,.circle-shui span{ background:#6593FD;} /*姘�*/
+.side-huo,.circle-huo span{ background:#e44540;} /*鐏�*/
+.side-tu,.circle-tu span{ background:#CB8A29;} /*鍦�*/
+.k-play-lei ul li.side-tu{ background:#CB8A29;} /*鍦�*/
+.circle-zhong span,.circle-he  span{background:#88C811;} /*鍜屻�佷腑*/
+.k-play-lei ul li.side-zhong, .k-play-lei ul li.side-he{background:#4F6FD6;}/*涓璡鍜�*/
+
+/*鍘嗗彶寮�褰�*/
+.kb-lishi{ position:relative; }
+.kb-lishi .kb-ls-nav{padding: 20px 0 15px;overflow: hidden;}
+.kb-lishi .kb-ls-nav li {  display:block; float: left; margin-right:5px;}
+.kb-lishi .kb-ls-nav li a{ display: block; text-align: center; color: #fff;padding: 0px; width: 60px;height: 30px;line-height: 30px;border-radius: 5px;background: #77b5d2;}
+.kb-lishi .e-kz{ position:absolute; right:4px; top:23px;}
+.kb-lishi .e-kz i{ font-size:18px; line-height:34px;}
+.kb-lishi .e-kz  i{display:inline-block;width:23px;height: 23px; }
+.kb-lishi .e-kz .hui i{background: url("game/zuo1.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/zuo1.png*/no-repeat; }
+.kb-lishi .e-kz .red i{background: url("game/zuo2.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/zuo2.png*/no-repeat; }
+.kb-lishi .e-kz .hui1 i{background: url("game/you1.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/you1.png*/no-repeat; }
+.kb-lishi .e-kz .red1 i{background: url("game/you2.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/you2.png*/no-repeat; }
+.kb-lishi .kb-ls-nav li.cur a,.kb-lishi .kb-ls-nav li:hover a,
+.kb-lishi .kb-ls-nav li.active a {background: #25779d;}
+
+
+
+

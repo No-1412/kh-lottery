@@ -1,0 +1,58 @@
+spring:
+  http:
+    encoding:
+      enabled: true
+      charset: UTF-8
+    multipart:
+      enabled: true
+      file-size-threshold: 0
+      max-file-size: 30Mb
+      max-request-size: 30Mb
+server:
+  display-name: lottery
+  port: 8080
+logging:
+  config: classpath:config/logback.xml
+  dir:  /home/www/webapp/logs/front
+jdbc:
+  global:
+    user: ${jdbc_user}
+    password: ${jdbc_password}
+    poolsize: ${jdbc_poolsize}
+    driverClassName: ${jdbc_driverclassName}
+    minIdle: ${jdbc_minIdle}
+    maxActive: ${jdbc_maxActive}
+    maxWait: ${jdbc_maxWait}
+    minEictableIdleTimeMillis: ${jdbc_minEictableIdleTimeMillis}
+    defaultDatasource: front
+  jdbcConfigInfos:
+    - name: front
+      url: ${jdbc_url}
+      uniqueResourceName: mysql.front.write
+redis.pool:
+  minIdle: 10
+  maxIdle: 300
+  maxWait: 60000
+  testOnReturn: false
+  testOnBorrow: false
+  timeout: 100000
+  maxActive: 300
+  redisInfos:
+    - name:default
+      isdefault:true
+      host:${redis_host}
+      port:${redis_port}
+      authKey:${redis_authKey}
+      connectType:single
+platform:
+  pay.username: ${pay.username}
+  pay.password: ${pay.password}
+  pay.url: ${pay.url}
+  pay.externalkey: ${pay.externalkey}
+  pay.callback: ${pay.callback}
+  pay.subject: 博联充值
+  pay.frontUrl: ${pay.frontUrl}
+  base: 
+  cache: 
+  bet.externalkey: '{0}%{1}?{2}+{3}:{4}/{5}|{6}&{7}_{8}-{9}'
+  company.title: 博联娱乐 

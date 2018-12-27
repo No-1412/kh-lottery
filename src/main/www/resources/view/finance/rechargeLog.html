@@ -1,0 +1,105 @@
+<div class="main-box-info  tb-imte">
+	<table class="mem-biao" id="userRecharge">
+		<thead>
+			<tr>  
+				<th><span>充值时间：</span> <input placeholder="投注开始时间"
+					class="layriqi starTime" type="text"
+					onclick="laydate({format:'YYYY-MM-DD',isclear:false});"
+					readonly="true"> <span class="zhi">至</span> <input
+					placeholder="投注结束时间" class="layriqi endTime" type="text"
+					onclick="laydate({format:'YYYY-MM-DD',isclear:false});"
+					readonly="true"></th>
+				<th><a href="javascript:void(0);"  
+					class="butsty1">查询</a></th>
+			</tr>
+		</thead>
+	</table>
+	<table class="mem-biao" style="width: 100%">
+		<tbody>
+			<tr>
+				<th>序号</th>
+				<th>编号</th>
+				<th>充值订单号</th>
+				<th>充值金额</th>
+				<th>充值银行</th>
+				<th>充值日期</th>
+				<th>实际到账</th>
+				<th>状态</th>
+				<th>成功时间</th>
+				<th>备注</th>
+			</tr>
+		</tbody>
+		<tbody id="userRecharge_record">
+		</tbody>
+	</table>
+</div> 
+ 
+<script type="text/javascript"> 
+$(function(){ 
+	 $(".paging").css('display',"inline"); 
+	 $("#userRecharge .starTime").val(laydate.now(-7));
+	 $("#userRecharge .endTime").val(laydate.now(1)); 
+	 $("#userRecharge .butsty1").livequery("click",userRechargeList);
+ 
+	 $("#userRecharge .butsty1").trigger('click')
+ 
+	
+	//获取订单信息（不包括追号订单）
+	function userRechargeList() {
+		var starTime = $("#userRecharge .starTime").val();
+		var endTime = $("#userRecharge .endTime").val();
+	    if (dateDiff(starTime, endTime) < 0) {
+			popTips('查询结束日期要大于开始日期', 'error');
+			return false;
+		} 
+		var pagination = $.pagination({
+			render : '.paging',
+			pageSize : 10,
+			pageLength : 3,
+			ajaxType : 'get',
+			hideInfos : false,
+			hideGo : true,
+			ajaxUrl : '/user/pagingRechargeLog',
+			ajaxData : {
+				//"pageIndex": 1,
+				//"pageSize": 10,
+				"startDate" : starTime,
+				"endDate" : endTime, 
+			//是否是追号 0不是追号 1追号
+			},
+			success : function(data) {
+				$("#userRecharge_record").html(
+						_.template($('#userRecharge-template').html(), {
+							items : data
+						}));
+			}
+		});
+		pagination.init();
+	}
+	}); 
+	
+	
+</script>
+ 
+<script type="text/html" id="userRecharge-template">
+	<%_.each(items,function(item,index) {%>
+		<tr>
+			<td><%=index+1%></td>
+			<td><%=item.chargeNum %></td>
+			<td><%=item.chargeOrder %></td>
+			<td><%=item.account.toFixed(2)%></td>
+			<td><%=item.name%></td>
+			<td><%=item.chargeDate%></td> 
+            <td><%if(item.actualAccount){%><%=parseFloat(item.actualAccount).toFixed(2)%><%}%></td> 
+			<td> 
+				<%if(item.status==0||item.status==-1){%> 处理中 <%}%>
+				<%if(item.status==1){%> 自动到账<%}%>
+				<%if(item.status==2){%> 手动到账 <%}%>
+                <%if(item.status==3){%> 充值成功 <%}%>
+			</td>
+            <td><%=item.successDate%></td> 
+			<td><%=item.remark %></td> 
+			
+		</tr>
+	<%})%>
+</script>

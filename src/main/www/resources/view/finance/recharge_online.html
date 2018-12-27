@@ -1,0 +1,71 @@
+<form id="online_recharge_form" name="online_recharge_form" 
+action="<%=charge.url%>" 
+method="post" target="_blank">
+<input type="hidden" name="id" value="<%=charge.id%>">
+<input type="hidden" name="chargeDate" value="${chargeDate!}"/>
+<table width="100%" class="tab-accuont mt10" >
+	<tr>
+		<th colspan="4" class="tl fz14"><b>在线支付</b></th>
+	</tr>
+	<tbody>
+	      <tr>
+	         <td class="tips" style="color:#FF0000;text-align: left;padding: 10px;" colspan="4">
+	             <div style="display:inline">*注意：在线充值付款成功后，请等待30s后再关闭充值的窗口，以防资金不到账。若付款后未到账，请联系客服。</div>
+             </td>   
+	      </tr>
+	      <tr>
+	        <td width="72" height="40" valign="middle">
+	                               充值订单:
+	        </td> 
+	        <td width="72" height="40" valign="middle">
+	            ${charge.chargeOrder!}                    
+	        </td> 
+	      </tr>  
+          <tr>
+	        <td width="72" height="40" valign="middle">
+	                             充值金额:
+	        </td> 
+	        <td width="72" height="40" valign="middle">
+	           ${charge.amount!}                     
+	        </td> 
+	      </tr>  
+	      <tr>
+	        <td width="72" height="40" valign="middle">
+	                             充值日期:
+	        </td> 
+	        <td width="72" height="40" valign="middle">
+	           ${chargeDate!}                     
+	        </td> 
+	      </tr>  
+	      <tr>
+	        <td width="72" height="40" valign="middle">
+	                            币种:
+	        </td> 
+	        <td width="72" height="40" valign="middle">
+	          RMB               
+	        </td> 
+	      </tr>  
+	      <tr>
+          <td>支付方式</td>
+          <td>
+            <select name="Gateway_Type">
+              <option value="01" selected="selected">借记卡</option>
+              <option value="04">IPS账户支付</option>
+              <option value="08">IB支付</option>
+              <option value="16">电话支付</option>
+			  <option value="64">储值卡支付</option>
+            </select>
+          </td>
+        </tr>
+	      <tr>
+	          <td height="40" colspan="4" align="center">
+	            <div style="text-align: center;">
+	                 	<input type="submit" class="btn-b btn-lg" name="submit" value="确认" onclick="confirmCharge()"/>&nbsp;&nbsp;
+	                 	<input type="button" class="btn-b btn-lg" name="backBtn" value="返回" onclick="location.href='${frontPath}home#/bank/recharge';"/>&nbsp;&nbsp;
+	            </div>
+	        
+	          </td>
+          </tr>
+        </tbody>
+</table>
+</form>  

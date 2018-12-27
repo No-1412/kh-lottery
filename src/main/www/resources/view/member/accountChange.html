@@ -1,0 +1,123 @@
+<div class="main-box-info tb-imte">
+	<table class="mem-biao" id="accountChange">
+		<thead>
+			<tr>
+				<th colspan="7">
+				<span>账变类型：</span> 
+				<select id="sourceModule">
+				</select> 
+				<span>账变时间：</span> 
+				<input
+					class="layriqi starTime" type="text"
+					onclick="laydate({format:'YYYY-MM-DD',isclear:false});"
+					readonly="true"> 
+				<span class="zhi">至</span>
+				<input
+					class="layriqi endTime" type="text"
+					onclick="laydate({format:'YYYY-MM-DD',isclear:false});"
+					readonly="true"> <a href="javascript:void(0);"  class="butsty1">查询</a></th>
+			</tr>
+		</thead> 
+	</table> 
+	<table class="mem-biao" style="width: 100%">
+		<tbody>
+			<tr>
+				<th>帐变时间</th>
+				<th>用户名</th>
+				<th>帐变类型</th>
+				<th>单号</th>
+				<th>游戏</th>
+				<th>玩法</th>
+				<th>期号</th>
+				<th>模式</th>
+				<th>帐变资金</th>
+				<th>余额</th>
+			</tr>
+		</tbody>
+		<tbody id="userCoin-data">
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript">
+	$(function() {
+		$(".starTime").val(laydate.now(-3));
+		$(".endTime").val(laydate.now(1)); 
+		$("#accountChange .butsty1").livequery("click",accountChangeList);
+		$("#accountChange .butsty1").trigger('click');
+		 $.ajax({
+				url : "/common/loadDictByCatalog?CATALOG_NAME=RUN_ACCOUNT",
+				method : 'GET',
+				success : function(data) {
+					if (data.retcode == 0) {
+					   $("#sourceModule").append(new Option("全部",""));
+					   for(var i=0;i<data.data.length;i++){
+						   var account = data.data[i]; 
+						   var op = new Option(account.name,account.value);
+						   $("#sourceModule").append(op); 
+					   }  
+					} else {
+						popTips(data.message, "error");
+					}
+				}
+			});
+	});
+	
+	//获取订单信息（不包括追号订单）
+	function accountChangeList() {
+		var starTime = $(".starTime").val();
+		var endTime = $(".endTime").val();
+		if (!checkTowDate(starTime, endTime)
+				|| dateDiff(starTime, endTime) > 7) {
+			popTips('查询日期不能跨月，并且时间间隔不能超过7天', 'error');
+			return false;
+		} else if (dateDiff(starTime, endTime) < 0) {
+			popTips('查询结束日期要大于开始日期', 'error');
+			return false;
+		} 
+		var pagination = $.pagination({
+			render : '.paging',
+			pageSize : 10,
+			pageLength : 3,
+			ajaxType : 'get',
+			hideInfos : false,
+			hideGo : true,
+			ajaxUrl : '/user/pagingUserCoin',
+			ajaxData : { 
+				"startDate" : starTime,
+				"endDate" : endTime, 
+				"accountType" : $("#sourceModule").val()
+			//是否是追号 0不是追号 1追号
+			},
+			success : function(data) {
+				$("#userCoin-data").html(
+						_.template($('#userCoin_data_template').html(), {
+							items : data
+						}));
+			}
+		});
+		pagination.init();
+	}
+</script>
+
+<script type="text/html" id ="userCoin_data_template">
+ 	<%_.each(items,function(item,index) {%>
+		<tr>
+			<td><%=item.actionDate%></td>
+			<td><%=item.uname %></td>
+			<td><%=item.accountType %></td>
+			<td><%=item.coinOrder %></td>
+			<td><%=item.lotteryName %></td>
+			<td><%=item.playName %></td>
+	        <td><%=item.lotteryNo %></td>
+			<td>
+				<%if(item.betsMode==2.00){%> 元 <%}%>
+				<%if(item.betsMode==0.20){%> 角 <%}%>
+				<%if(item.betsMode==0.02){%> 分 <%}%>
+		        <%if(item.betsMode==0.002){%> 厘 <%}%>
+			</td>
+			<td><%=item.coin.toFixed(4)%></td>
+			<td><%=item.usercoin.toFixed(4) %></td> 
+			
+		</tr>
+	<%})%>
+</script>

@@ -1,0 +1,151 @@
+<div class="main-box-info password text-input" id = "coinPwdPanel"></div>
+<script type="text/javascript">
+    $(function(){
+   	$('#coinPwdPanel').delegate('[data-flag = "editPwd"]', 'click', editPwd); 
+   	$('#coinPwdPanel').delegate('[data-flag = "setPwd"]', 'click', setPwd); 
+	 $.ajax({
+			url : "/user/content/coinPasswd" ,
+			method : 'GET',
+			success : function(data) {
+				if (data.retcode == 0) { 
+					 // 修改
+					 if(data.data=="N"){$("#coinPwdPanel").html( _.template($('#edit_coinpwd_template').html(), {}));}
+					 else{$("#coinPwdPanel").html( _.template($('#set_coinpwd_template').html(), {}));}
+				} else {
+					popTips(data.message||data.retcode, "error");
+				}
+			}
+	 });
+   	
+   	function editPwd() {
+		var userPassword = $.trim($("#oldPwd").val());
+		var newUserPassword = $.trim($("#newPwd").val());
+		var confirmUserPassword = $.trim($("#rePwd").val());
+		var pwdRule = /^.{4,16}$/; 
+		if(userPassword == ''){
+			$("#oldPwd").select();
+			return popTips("原始密码不能为空","error");
+		}
+		if(newUserPassword == ''){
+			$("#newPwd").select();
+			return popTips("新密码不能为空","error");
+		}
+		if(!pwdRule.test(newUserPassword)){
+			$("#newPwd").select();
+			return popTips("密码长度应在6到16个字符之间'","error");
+		} 
+		if(confirmUserPassword == ''){
+			$("#rePwd").select();
+			return popTips("确认密码不能为空","error");
+		}
+		if(confirmUserPassword != newUserPassword){
+			$("#rePwd").select();
+			return popTips("两次输入密码不一致","error");
+		}
+		var dataStr = $.substitute(
+						'coinPassword={coinPassword}&newCoinPassword={newCoinPassword}&r={curTime}',
+						{
+							coinPassword : userPassword,
+							newCoinPassword : newUserPassword,
+							curTime : new Date().getTime()
+						});
+		$.ajax({
+			url : "/user/updateCoinPasswd",
+			method : 'POST',
+			data : dataStr,
+			success : function(result) {
+				//var result =eval("("+data+")");
+				if (result.retcode == '0') {
+					return popTips("修改成功！","succeed","",function(){$('#menuBar li:eq(0)').trigger('click');});
+				}
+				return popTips(result.retmsg,"error");
+			}
+		});
+	}
+   	
+   	
+	function setPwd() { 
+		var newUserPassword = $.trim($("#newPwd").val());
+		var confirmUserPassword = $.trim($("#rePwd").val());
+		var pwdRule = /^.{4,16}$/;  
+		if(newUserPassword == ''){
+			$("#newPwd").select();
+			return popTips("新密码不能为空","error");
+		}
+		if(!pwdRule.test(newUserPassword)){
+			$("#newPwd").select();
+			return popTips("密码长度应在6到16个字符之间'","error");
+		} 
+		if(confirmUserPassword == ''){
+			$("#rePwd").select();
+			return popTips("确认密码不能为空","error");
+		}
+		if(confirmUserPassword != newUserPassword){
+			$("#rePwd").select();
+			return popTips("两次输入密码不一致","error");
+		}
+		var dataStr = $.substitute(
+						'coinPassword={coinPassword}&r={curTime}',
+						{
+							coinPassword : newUserPassword, 
+							curTime : new Date().getTime()
+						});
+		$.ajax({
+			url : "/user/setCoinPasswd",
+			method : 'POST',
+			data : dataStr,
+			success : function(result) {
+				//var result =eval("("+data+")");
+				if (result.retcode == '0') {
+					return popTips("修改成功！","succeed","",function(){$('#menuBar li:eq(0)').trigger('click');});
+				}
+				return popTips(result.retmsg,"error");
+			}
+		});
+	}
+    });
+</script>
+
+<!-- 修改资金密码  -->
+<script type="text/html" id="edit_coinpwd_template"> 
+   	<dl>
+		<dt id="formPwd">
+			 <span class="tt">提示：</span> <span class="dred">密码由6至16个字符组成。</span>
+		</dt>
+		<dd>
+			<label for="oldPwd">旧密码：</label> <input type="password"
+				type="password" id="oldPwd" value="">
+		</dd>
+		<dd>
+			<label for="newPwd">新密码：</label> <input type="password"
+				type="password" id="newPwd" value=""> <span>（注意：不可与资金密码一致）</span>
+		</dd>
+		<dd>
+			<label for="rePwd">确认密码：</label> <input type="password"
+				type="password" id="rePwd" value="">
+		</dd>
+		<dd>
+			<button data-flag = "editPwd">修改</button>
+		</dd>
+	</dl>
+</script>
+
+<!-- 设置资金密码  -->
+<script type="text/html" id="set_coinpwd_template"> 
+   	<dl>
+		<dt id="formPwd"> 
+           <span class="tt">提示：</span> <span class="dred">密码由6至16个字符组成。</span>
+		</dt> 
+		<dd>
+			<label for="newPwd">密码：</label> <input type="password"
+				type="password" id="newPwd" value=""> <span>（注意：不可与登录密码一致）</span>
+		</dd>
+		<dd>
+			<label for="rePwd">确认密码：</label> <input type="password"
+				type="password" id="rePwd" value="">
+		</dd>
+		<dd>
+			<button   data-flag = "setPwd">设置</button>
+		</dd>
+	</dl>
+</script>

@@ -1,0 +1,73 @@
+/*侧栏*/
+.beijing1{ background: url("game/ssc-bg1-da.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/ssc-bg1-da.png*/#fffef3 center; background-size: cover;background-attachment: fixed;}
+.beijing2{ background: url("game/ssc-bg2-da.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/ssc-bg2-da.png*/#fffef3 center; background-size: cover;background-attachment: fixed;}
+.beijing3{ background: url("game/ssc-bg3-da.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/ssc-bg3-da.png*/#fffef3 center; background-size: cover;background-attachment: fixed;}
+
+.celan-same1{ width:40px; height: 134px; color:#fff; border-radius:4px; padding: 0 10px;text-align: center; margin-bottom: 14px;padding-top: 35px; cursor: pointer;}
+.celan-same1 a{color:#fff}
+.caiz-more{ background: url("game/gdcz.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/gdcz.png*/#77b5d2 no-repeat 8px 5px; }
+.zoushitu{background: url("game/zst.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/zst.png*/#77b5d2 no-repeat 7px 11px;padding-top: 45px;}
+.qiehuan{ background: url("game/bjqh.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/bjqh.png*/#77b5d2 no-repeat 7px 11px; }
+.qiehuan .more-bj{ position: relative; z-index: 100;top: -116px;left: 39px; }
+.qiehuan .more-bj ul{ padding: 8px;padding-bottom: 0px;background: #fff;border: 1px solid #77b5d2;width: 180px;border-radius: 4px; }
+.qiehuan .more-bj ul li { width: 160px; height: 96px; margin-bottom:8px;  position: relative;}
+.qiehuan .more-bj ul li p{ display: none;width:24px; height: 20px; position: absolute; top: 0px; left: 0px; background: url("game/xz.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/xz.png*/#77b5d2 no-repeat 3px 3px; border-radius: 1px;}
+.qiehuan .more-bj ul li:hover p,
+.qiehuan .more-bj ul .cur p{ display: block; }
+.lottery_guanfang{background: #77b5d2;}
+.move-cz{position: absolute; padding:5px;  z-index: 300; background: #7cadbf; border: 1px solid #2f7da1; border-radius: 8px;-webkit-box-shadow: 0 0 10px 6px rgba(214,226,213,.6); box-shadow: 0 0 10px 6px rgba(214,226,213,.6);top:0px; left: 50px; }
+.caiz-more-box{position: absolute; top: -148px;}
+.move-cz .czxz{/*position: absolute;  z-index: 22; height: 650px;min-height: 650px;overflow-y: scroll;*/  border-radius:8px;   color: #787878; }
+.move-cz .czxz dl{border-bottom: none;width: 690px; background: #fff; border-radius:8px;}
+.move-cz .czxz dl dd{ overflow: hidden; padding: 5px 0px; border-bottom: 1px solid #f0f0f0; }
+.move-cz .czxz dl  i{ display: inline-block; width:16px; height: 16px; border-radius:4px;text-align: center; line-height: 16px;color: #fff; }
+.move-cz .czxz dl .gfssc i,
+.move-cz .czxz dl .other i{ background: #6bc484; margin-left: 5px; }
+.move-cz .czxz dl .ssc i{ background: #fa5153; }
+.move-cz .czxz dl dd:hover{ background: #f9f9f9;border-radius:8px }
+.move-cz .czxz dl dd:hover h3{ color:#3480a4; }
+.move-cz .czxz dl ul{ display:block; overflow: hidden;margin-top:10px}
+.move-cz .czxz dl .qita,.move-cz .czxz dl .syx5 ul,.move-cz .czxz dl .k3 ul{ margin-top: 5px; } 
+.move-cz .czxz dl ul li{
+	cursor: pointer;
+    display: block;
+    float: left;
+    color: #787878;
+    width: 130px;
+    border: 1px solid #e8e8e8;
+    font-size: 13px;
+    border-radius: 3px;
+    margin-right: 5px;
+    height: 28px;
+    line-height: 28px;
+    margin: 0 8px 6px 0;
+    text-align: center;
+    padding: 0 4px;
+}
+.move-cz .czxz dl ul li:hover{ color:#3480a4;border:1px solid #25779d; }
+.move-cz .czxz .other { border: none;}
+.move-cz .czxz dl .qita{ width: 128px; height: 35px; line-height: 35px; }
+.move-cz .czxz dl .cz-logo {margin-right: 15px; background: url("game/czlg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/czlg.png*/ no-repeat center; display:block; width:78px; height:50px; float:left;  margin: 4px;}
+.move-cz .czxz dl .gfssc div{ background: url("game/czlg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/czlg.png*/ no-repeat 3px -42px; margin-top: 30px;}
+.move-cz .czxz .gfssc:hover div{ background: url("game/czlg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/czlg.png*/ no-repeat 3px 3px; }
+.move-cz .czxz dl .ssc div{ background: url("game/czlg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/czlg.png*/ no-repeat -71px -42px; }
+.move-cz .czxz .ssc:hover div{ background: url("game/czlg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/czlg.png*/ no-repeat -71px 3px; }
+.move-cz .czxz dl .syx5 div{ background: url("game/czlg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/czlg.png*/ no-repeat -135px -42px; }
+.move-cz .czxz .syx5:hover div{ background: url("game/czlg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/czlg.png*/ no-repeat -135px 3px; }
+.move-cz .czxz dl .kl10f div{ background: url("game/czlg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/czlg.png*/ no-repeat -200px -42px; }
+.move-cz .czxz .kl10f:hover div{ background: url("game/czlg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/czlg.png*/ no-repeat -200px 3px; }
+.move-cz .czxz dl .k3 div{ background: url("game/czlg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/czlg.png*/ no-repeat -279px -43px;width: 75px;  margin-left: 5px; height: 46px;  margin-top: 10px;}
+.move-cz .czxz .k3:hover div{ background: url("game/czlg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/czlg.png*/ no-repeat -279px 2px; }
+.move-cz .czxz dl .dpc div{ background: url("game/czlg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/czlg.png*/ no-repeat -345px -42px; }
+.move-cz .czxz .dpc:hover div{ background: url("game/czlg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/czlg.png*/ no-repeat -345px 3px; }
+.move-cz .czxz .ziyou div{ background: url("game/ziyou.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/ziyou.png*/ no-repeat 0px -42px; }
+.move-cz .czxz .ziyou:hover div{ background: url("game/ziyou.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/game/ziyou.png*/ no-repeat 0px 2px; }
+.move-cz .czxz dl .dpc{ margin-top: 0px;}
+
+.xy28-celan{ position: absolute;left: -50px; top:0px; }
+.klcrx-celan,
+.klc-celan{ position: absolute; left: -35px; top: 0px; }
+
+.xy28-celan .move-cz,
+.klcrx-celan .move-cz,
+.klc-celan .move-cz{ top:0; left: 45px; }

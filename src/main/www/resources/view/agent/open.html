@@ -1,0 +1,385 @@
+<div class="main-box-info history mar-lr20 tb-imte">
+	<div class="m-a-nav-min tab">
+		<div class="m-a-n-hd">
+			<ul class="tabHd" id = "openMenuBar">
+				<li class="cur" data-tabId = "addProxy" data-fn ="initUserRebate">普通开户</li>
+				<li data-tabId = "addPromLink" data-fn ="initUserRebate">链接开户</li>
+				<li data-tabId = "listPromLink" data-fn = "listPromLink" >链接管理</li>
+			</ul>
+		</div>
+		<div class="m-a-n-bd tabBd" id = "openAccountDiv" > 
+		</div>
+	</div>
+</div>
+
+<div id="delPromLinkConfrim" class="aar a-one" style="display: none;"> </div>
+
+<script type="text/javascript">
+$(function() {
+	$('#openMenuBar').delegate('li', 'click', function(e) {
+		$(".paging").html("");
+		$(e.delegateTarget).find('li').removeClass('cur');
+		$(this).addClass('cur'); 
+		// 玩法组点击事件触发的条件
+		$("#openAccountDiv").html(_.template($('#'+$(this).attr("data-tabId")+'_template').html(),{}));
+		$(this).attr("data-fn") && eval($(this).attr("data-fn")+"()");
+	}); 
+	$('#openMenuBar li:eq(0)').trigger('click'); 
+	
+	function initUserRebate()
+	{
+		$.ajax({ 
+		    url: "/content/proxy/addProxyInfo",  
+		    success: function (data){
+		    	if(0 === data.retcode){
+		    		var fandian = data.data.fanDian;
+		    		var minRebate = data.data.minRebate;
+		    		for(var i =fandian;i>minRebate;i-=0.001)
+		    		{ 
+		    		      var op = new Option((i*100).toFixed(1) + "%",(i*100).toFixed(3));	
+		    		      $("#fandian").append(op);
+		    		}
+		    		$("#fandian").append(new Option((minRebate*100).toFixed(1) + "%",minRebate.toFixed(3)));
+		    		$("#maxRebate").html(fandian*100 +"%");
+		    	}else{
+		    		popTips(data.retcode || data.retmsg , "error");
+		    	}
+		    }
+		});
+	}
+	
+	// 添加推广链接 
+	$('#openAccountDiv').delegate('[data-falg="addPromLink"]', 'click', function(e) {
+		if(prePromLink())
+		{
+			$.ajax({ 
+			    url: "/promotionLink/saveProLink", 
+			    type: 'POST', 
+			    dataType: 'json', 
+			    data 	: $('#addPromLinkForm').serialize(),
+			    contentType: 'application/x-www-form-urlencoded',
+			    success: function(data) {
+			    	if(0 === data.retcode){
+			    		popTips( '添加推广链接成功！' ,'succeed',"",function(){$('#openMenuBar li:eq(2)').trigger('click'); 	 });
+			    	}else{
+			    		popTips(data.retmsg,"error");
+			    	}
+			    }
+			});
+		}
+	});
+	
+	//开户操作
+	$('#openAccountDiv').delegate('[data-falg= "addProxy"]', 'click', function(e) {
+		if(preProxy())
+		{
+			$.ajax({ 
+			    url: "/proxy/saveProxy", 
+			    type: 'POST', 
+			    dataType: 'json', 
+			    /* data 	: {
+			    	"userPassword":$('[name="userPassword"]','#add-vip-form').val(),
+			        "loginName":$('[name="loginName"]','#add-vip-form').val(),
+			        "userName":$('[name="userName"]','#add-vip-form').val(),
+			        "userQq":$('[name="userQq"]','#add-vip-form').val(),
+			        "fandian":$('[name="fandian"]','#add-vip-form').val(),
+			        "userType":$('[name="userType"]','#add-vip-form').val(),
+			        "virtualAccount":$('[name="virtualAccount"]','#add-vip-form').val(),
+			        "userSex":$('[name="userSex"]','#add-vip-form').val(),
+			    },*/
+			    data 	: $('#add-vip-form').serialize(),
+			    contentType: 'application/x-www-form-urlencoded',
+			    //contentType: 'application/json',
+			    success: function(data) {
+			    	if(0 === data.retcode){
+			    		popTips( '增加成员成功！' ,'succeed',"",function(){	$('#menuBar li:eq(2)').trigger('click');});
+			    	}else{
+			    		popTips(data.retmsg,"error");
+			    	}
+			    }
+			});
+		}
+	});
+	
+	$('#openAccountDiv').delegate('[data-flag="delPromLink"]', 'click', function(e) {
+		$("#delPromLinkConfrim").html( _.template($('#delPromLink_template').html(), {}));
+		pop("delPromLinkConfrim");
+		var _self = this;
+		$('#delPromLinkConfrim').delegate('[data-flag="delPromLinkBtn"]', 'click', function(e) {
+			$.ajax({ 
+			    url: "/promotionLink/delProLink", 
+			    type: 'POST', 
+			    dataType: 'json', 
+			    data 	: {id:$(_self).parent().parent().attr("data-id")}, 
+			    success: function(data) {
+			    	if(0 === data.retcode){
+			    		popTips( '操作成功！' ,'succeed',"",function(){	closelayer();listPromLink();});
+			    	}else{
+			    		popTips(data.retmsg,"error");
+			    	}
+			    }
+			});
+		});
+	});
+	
+	
+	$('#openAccountDiv').delegate('[data-flag="scanPromLink"]', 'click', function(e) {
+		window.open('/view/registered.html?promotionlink=' + $(this).parent().parent().attr("data-link"));
+	});
+	
+	function prePromLink()
+	{
+		var promotionLinkName = $('[name="promotionLinkName"]','#addPromLinkForm');
+		if($.trim($(promotionLinkName).val())=='')
+		{
+			$(promotionLinkName).select();
+			return popTips("推广名称不能为空！","error");
+		}
+		var frequency = $('[name="frequency"]','#addPromLinkForm');
+		if($.trim($(frequency).val())=='')
+		{
+			$(frequency).select();
+			return popTips("使用次数不能为空！","error");
+		}
+		return true;
+	}
+	
+	//保存代理 
+	function preProxy()
+	{
+		var loginName = $('[name="loginName"]','#add-vip-form');
+		if($.trim($(loginName).val())=='')
+		{
+			$(loginName).select();
+			return popTips("平台登录名不能为空！","error");
+		}
+		var userName = $('[name="userName"]','#add-vip-form');
+		if($.trim($(userName).val())=='')
+		{
+			$(userName).select();
+			return popTips("会员昵称不能为空！","error");
+		}
+		return true;
+	}
+	
+	function listPromLink()
+	{
+		var pagination = $.pagination({
+			render : '.paging',
+			pageSize : 10,
+			pageLength : 3,
+			ajaxType : 'get',
+			hideInfos : false,
+			hideGo : true,
+			ajaxUrl : '/promotionLink/queryProLink',
+			ajaxData : {  
+			//是否是追号 0不是追号 1追号
+			},
+			success : function(data) {
+				$("#promLinkList-data").html(
+						_.template($('#promLinkList_data_template').html(), {
+							items : data
+						}));
+			}
+		});
+		pagination.init();
+	}
+});
+</script>
+<!-- 开户 -->
+<script type="text/html" id="addProxy_template"> 
+   		<div class="tb-imte">
+				<div class="m-warm-prompt">
+					<h5>温馨提示：</h5>
+					<p>1. 自动注册的会员初始密码为“a123456”。</p>
+					<p>2. 为提高服务器效率，系统将自动清理注册一个月没有充值，或两个月未登录，并且金额低于10元的账户。</p>
+				</div>
+				<div class="m-a-kaihu">
+                    <form id = "add-vip-form" method="post">
+                    <input type= "hidden" name="userPassword" value = "a123456"/>
+					<dl class="ty-biaodan"> 
+						<dd>
+							<span class="tt">登录名：</span> 
+							<span>&nbsp;&nbsp;
+							<input type="text" value=""  maxlength="10" name="loginName" maxlength ="10"></span> 
+                            <span class="tisp"  ><em style="color: red;">*&nbsp;</em>&nbsp;&nbsp;5-10位字母或数字,字母开头</span>
+						</dd>
+                        <dd>
+							<span class="tt">用户昵称：</span> 
+							<span>&nbsp;&nbsp;
+							<input type="text" value=""  maxlength="10" name="userName" maxlength ="10"></span> 
+                            <span class="tisp"  ><em style="color: red;">*&nbsp;</em>&nbsp;&nbsp;平台显示的昵称</span>
+						</dd>
+                        <dd>
+							<span class="tt">用户QQ：</span> 
+							<span>&nbsp;&nbsp;
+							<input type="text" value=""  maxlength="10" name="userQq" maxlength ="12"></span> 
+                            <span class="tisp"  >&nbsp;&nbsp;用户的QQ</span>
+						</dd>
+						<dd>
+							<span class="tt">彩票返点：</span> <span>&nbsp;&nbsp;
+                               <select name="fandian" id = "fandian" style="width:180px;"> </select>
+                               </span> 
+                               <span
+								class="tisp"  >（可分配范围 0~<em id="maxRebate">0</em>）
+							</span>
+						</dd>  
+						<dd>
+							<span class="tt">开户类别：</span> <span> 
+							<input type="radio" value="0" name="userType"
+								checked="checked"> 
+							<label for="addUserGeneralAgent">代理</label>
+							</span> <span> 
+							<input type="radio" 
+								value="1" name="userType"> <label
+								for="addUserGeneralPlayer">玩家</label>
+							</span>
+						</dd>
+                        <dd>
+							<span class="tt">账户类型：</span> <span> 
+							<input type="radio"  value="1" name="virtualAccount" > 
+							<label for="addUserGeneralAgent">虚拟账号</label>
+							</span> <span> 
+							<input type="radio" 
+								value="0" name="virtualAccount" checked="checked"> <label
+								for="addUserGeneralPlayer" >真实账号</label>
+							</span>
+						</dd>
+                        <dd>
+							<span class="tt">会员性别：</span> <span> 
+							<input type="radio"   value="1" name="userSex" checked="checked" > 
+							<label for="addUserGeneralAgent">男</label>
+							</span> <span> 
+							<input type="radio"  
+								value="0" name="userSex"> <label
+								for="addUserGeneralPlayer" >女</label>
+							</span>
+						</dd>
+					</dl>
+                    </form>
+					<div class="tianjzh">
+						<a class="butsty2" href="javascript:;"  data-falg= "addProxy">添加账户</a> 
+					</div>
+				</div>
+			</div>
+</script>
+
+<!-- 添加推广链接-->
+<script type="text/html" id="addPromLink_template"> 
+	<div class="tb-imte" >
+				<div class="m-warm-prompt">
+					<h5>温馨提示：</h5>
+					<p>1. 生成链接不会立即扣减配额，只有用户使用该链接注册成功的时候，才会扣减配额；请确保您的配额充足，配额不足将造成用户注册不成功！</p>
+				</div>
+				<div class="m-a-kaihu">
+                    <form id = "addPromLinkForm">
+					<dl class="ty-biaodan">
+                        <dd>
+							<span class="tt">推广名称：</span> <span>&nbsp;&nbsp;&nbsp;<input type="text" name="promotionLinkName"   
+								maxlength="10"></span> <span class="tisp">&nbsp;&nbsp;显示推广名称</span>
+						</dd>
+						<dd>
+							<span class="tt">使用次数：</span> <span>&nbsp;&nbsp;&nbsp;<input type="text" name="frequency"
+								maxlength="5"></span> <span class="tisp">&nbsp;&nbsp;大于0的整数</span>
+						</dd>
+						<dd>
+							<span class="tt">开户类别：</span> <span>
+                            <input type="radio"  value="1" name="userType"
+								checked="checked"> <label for="addSignuplinkAgent">代理</label>
+							</span> <span> <input type="radio"  
+								value="0" name="userType"> <label
+								for="addSignuplinkPlayer">玩家</label>
+							</span>
+						</dd>
+						<dd>
+							<span class="tt">链接有效期：</span> <span>&nbsp;&nbsp;
+                             <select
+								class="sele-sty" name="expire" style="width:180px;">
+									<option value="1天有效">1天有效</option>
+									<option value="3天有效">3天有效</option>
+									<option value="7天有效">7天有效</option>
+									<option value="15天有效">15天有效</option>
+									<option value="30天有效">30天有效</option>
+									<option value="90天有效">3个月有效</option>
+									<option value="180天有效">6个月有效</option>
+							</select>
+							</span>
+						</dd>
+						<dd>
+							<span class="tt">彩票返点：</span> <span>&nbsp;&nbsp;
+                            <select name="userRebate" class="sele-sty" id = "fandian" style="width:180px;"> </select></span> <span
+								class="tisp" id="addSignuplinkTipsRebate">（可分配范围 0~<em id ="maxRebate">0</em>）
+							</span>
+						</dd>
+					</dl>
+                    </form>
+					<a class="butsty2" href="javascript:;" data-falg="addPromLink">创建链接</a>
+				</div>
+			</div>
+</script>
+
+
+<!-- 推广链接列表-->
+<script type="text/html" id="listPromLink_template"> 
+      <div class="tb-imte" id="signuplinkList">
+				<table class="mem-biao" style="width: 100%">
+					<tbody>
+                        <tr>
+		                  <th>序号</th>
+		                  <th>推广名称</th>
+                          <th>链接有效期</th>
+                          <th>使用次数</th>
+		                  <th>类型</th>
+		                  <th>返点</th> 
+                          <th>创建时间</th> 
+		                  <th>操作</th> 
+	                    </tr> 
+                   </tbody>
+                   	<tbody id="promLinkList-data">
+		            </tbody>
+				</table> 
+			</div>
+</script> 
+
+
+<script type="text/html" id="promLinkList_data_template"> 
+    <%_.each(items,function(item,index) {%>
+		<tr data-id="<%=item.id%>" data-link="<%=item.promotionLink%>">
+            <td><%=index+1%></td>
+			<td><%=item.promotionLinkName%></td>
+            <td><%=item.expire%></td>
+            <td><%=item.frequency%></td>
+            <td><%if(item.userType==0){%>代理<%}else{%>会员<%}%></td>
+			<td><%=(item.userRebate*100).toFixed(2) %>%</td>
+            <td><%=item.create_date %></td>
+			<td>
+                &nbsp;
+                <a data-flag="scanPromLink">浏览</a>&nbsp;&nbsp; 
+                <a data-flag="delPromLink">删除</a> &nbsp; 
+           </td> 
+		</tr>
+	<%})%>
+</script> 
+
+
+<script type="text/html" id="delPromLink_template"> 
+	<div class="aar-center">
+		<div class="aar-title" way-data="tips.title">温馨提示</div>
+		<a class="aar-close" onclick="closelayer();"><i
+			class=" demo-icon "></i></a>
+		<div class="tishik">
+			<div class="bd">
+				<div class="bd text-center">
+					<div class="pop-title">
+						<i class="ico-waring"></i>
+						<h4 class="pop-text">您确定要退出系统？</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="aar-but">
+			<a class="confirm" href="javascript:;" data-flag="delPromLinkBtn">确认</a> 
+			<a class="confirm" href="javascript:;" style="background-color: red;" onclick="closelayer();">关闭</a>
+		</div>
+	</div>
+</script>

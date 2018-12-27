@@ -1,0 +1,114 @@
+<div class="main-box-info state">
+	<div class="user-info clearfix">
+		<div class="user-name pull-left">
+			<p class="pull-left">
+				<img src="/images/member/admin-img.png">
+			</p>
+			<div class="pull-left">
+				<p class="name" id ="loginname">
+				</p>
+				<p> 您上次登录时间：<span>
+				 <em id="lasttime">2018-06-24 21:14:34</em>
+				          登录IP：<em id="ipAttribution">柬埔寨 柬埔寨 </em>
+				 </span> 
+				   <a href="javascript:;">
+				   <span class="xiugainc"
+						onclick="javascript:;"
+						style="color: #F34F4E; display: none;">异地登录检查</span></a>
+				</p>
+				<p class="grade">
+					<span>安全等级：<em class="risk-color">低</em></span> <strong><em></em></strong>
+				</p>
+			</div>
+		</div>
+		<ul class="pull-right" style="display: none;">
+			<li class="done"><i class="icons-Real-name"></i><a href="javascript:;">实名认证</a></li>
+			<li><i class="icons-Phone"></i><a href="javascript:;">手机认证</a></li>
+			<li><i class="icons-mailbox"></i><a href="javascript:;">邮箱认证</a></li>
+		</ul>
+	</div>
+	<div class="amount clearfix">
+		<!--账号总额-->
+		<div class="total-amount pull-left">
+			<h3>账户总额</h3>
+			<dl> <dd style="font-size: 24px;"> ￥ <label id = "totalBalance" style="font-size: 24px;">0.00</label>
+				</dd>
+				<dd> <a href="javascript:;" onclick="javascript:location.href ='/view/memberFinance.html?tab=1';"><i class="icons-pay"></i>充值</a>
+				</dd>
+			</dl>
+		</div>
+		<!--提款金额-->
+		<div class="draw-amount pull-left">
+			<h3>可提金额</h3>
+			<dl>
+				<dd style="font-size: 24px;">￥ <label id ="withdraw" style="font-size: 24px;">0.00</label>
+				</dd>
+				<dd>
+					<a href="javascript:;" onclick="javascript:location.href ='/view/memberFinance.html?tab=2';"><i
+						class="icons-Withdrawal"></i>提现</a>
+				</dd>
+			</dl>
+		</div>
+		<!--返点-->
+		<div class="pull-left fdzh">
+			<h3>彩票返点</h3>
+			<dl>
+				<dd align="left" style="font-size: 30px; padding-top: 48px;">
+					返点： <label style="font-size:30px;" id="rabate">0.00</label> %
+				</dd>
+				<!--<dd>快乐彩返点：<way way-data="user.kenoRebate">0.00</way>%</dd>
+                                        <dd>私返返点：<way way-data="user.privateRebate">0.00</way>%</dd>
+                                        <dd>百家乐返点：<way way-data="user.baccaratRebate">0.00</way>%</dd>
+                                        <dd>真人返水：<way way-data="user.peopleBackWater">0.00</way>%</dd>
+                                        <dd>电子返水：<way way-data="user.slotBackWater">0.00</way>%</dd>
+                                        <dd>体育返水：<way way-data="user.sportBackWater">0.00</way>%</dd>-->
+			</dl>
+		</div>
+	</div>
+	<!--资金明细-->
+	<div class="particular">
+		<h3>资金明细</h3>
+		<ul class="clearfix">
+			<li><span>主账户：</span><a href="javascript:;"
+				onclick="javascript:;">转出</a></li>
+			<li><span>返点余额：</span><em>
+			<strong way-data="useraccount.commission">0.00</strong>元</em> <a href="javascript:;"
+				onclick="pop_byself('commissionTransferTips');">转入主账户</a></li>
+			<li id="AG"><span>AG：</span><a href="javascript:;">数据加载中...</a></li>
+			<!--  <li id="BBIN"><span>BBIN：</span><a href="javascript:;">数据加载中...</a></li> -->
+			<li id="OG"><span>OG：</span><a href="javascript:;">数据加载中...</a></li>
+			<li id="PT"><span>PT：</span><a href="javascript:;">开通</a></li>
+			<li id="MG"><span>MG：</span><a href="javascript:;">数据加载中...</a></li>
+			<!--<li id="KBET"><span>KBET：</span><a href="javascript:;">数据加载中...</a></li>-->
+			<!--<li id="XPJ"><span>XPJ：</span><a href="javascript:;">数据加载中...</a></li>-->
+			<!--<li id="CROWN"><span>CROWN：</span><a href="javascript:;">数据加载中...</a></li>-->
+			<!--<li id="UC8"><span>UC8：</span><a href="javascript:;">数据加载中...</a></li>-->
+			<!--<li id="CHESS"><span>CHESS：</span><a href="javascript:;">数据加载中...</a></li>-->
+			<!--<li id="188BET"><span>188BET：</span><a href="javascript:;">数据加载中...</a></li>-->
+			<li id="EBET"><span>EBET：</span><a href="javascript:;">数据加载中...</a></li>
+			<li id="JF"><span>JF：</span> <a href="javascript:;">数据加载中...</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(function(){ 
+	$.ajax({
+		url : "/user/userInfo",
+		method : 'GET',
+		success : function(data) {
+			if (data.retcode == 0) {
+				 $("#loginname").html(data.data.userName);
+				 $("#totalBalance").html(data.data.coin);
+				 $("#withdraw").html(data.data.coin);
+				 $("#rabate").html(parseFloat(data.data.fandian*100).toFixed(2));
+				 $("#lasttime").html(data.data.lastLogindate);
+				 $("#ipAttribution").html(data.data.lastLoginAddr);
+			} else {
+				popTips(data.message||"您尚未登录或登录时间过长,请重新登录!", "error","",function(){location.href  = "/";}); 
+			}
+		}
+	});
+});
+</script>

@@ -1,0 +1,155 @@
+<script src="/main/pub.js" type="text/javascript"></script>
+<header class="header-top top" id="J_m_nav">
+	<div class="center">
+		<div class=" ef-left">
+			<div class="nowtime">
+				北京时间 - <span id="nowtime"></span>
+			</div>
+		</div>
+		<div class=" ef-right">
+			<!-- 未登录 -->
+			{{if unLogin}}
+			<div class="box3">
+				<!--<div class="box loginbox">-->
+				<!--<input type="hidden" id="loginaddress" />-->
+				<div class="btnbox">
+					<a href="javascript:;" class="getlogin" id="login">立即登录</a> <a
+						href="/view/registered.html" class="reg">免费开户</a>
+				</div>
+
+				<img src="/jcaptcha" id="vimg" alt="点击切换验证码" title="点击切换验证码"
+					style="margin-top: 21px; float: right; cursor: pointer;" />
+				<div class="inputyzm">
+					<input placeholder="验证码" name="code" tabindex="3" id="code"
+						type="text" maxlength="5" autocomplete="off" maxlength="4" />
+				</div>
+
+				<div class="inputlist">
+					<input placeholder="密码" name="password" tabindex="1" id="password"
+						type="password" maxlength="24" autocomplete="off" />
+				</div>
+				<div class="inputlist">
+					<input placeholder="帐号" name="username" tabindex="2" id="username"
+						type="text" maxlength="9" autocomplete="off" />
+				</div>
+				<!--</div>-->
+			</div>
+		</div>
+		<!--  <ul>-->
+		<!--<li><a href="javascript:void(0);" class="denglu">登录</a></li>
+                  <li class="wjmm"><a href="javascript:void(0);">忘记密码？</a></li>-->
+		<!--</ul>-->
+		<!-- 已登录 -->
+		{{else}}
+		<ul class="login-yes" style="line-height: 60px;">
+			<li><a
+				href="javascript:location.href ='/view/memberFinance.html?tab=1';">充值</a>&nbsp;|
+				<a
+				href="javascript:location.href ='/view/memberFinance.html?tab=2';">提款&nbsp;</a>|
+				<a href="javascript:;">资金转换&nbsp;</a>| <a
+				href="javascript:popTips('加载中，请稍候', 'waring');" class="customer_url">在线客服&nbsp;</a>
+				<!--<a class="szsy ym-gr" onclick="pop('sytips')">&nbsp;&nbsp;设置声音</a>-->
+			</li>
+			<!--<li class="ye-sty"><span>余额：<span id="session_balance" way-data="useraccount.balance"></span><a href="javascript:void(0);"><i id="refresh" onclick="dsFlushBalance();"></i></a></span></li>-->
+			<li><span class="spa1">余额：<em id="session_balance">0.00</em><i
+					onclick="javascript:info();" class="fa fa-refresh" id="refresh"
+					aria-hidden="true" style="margin-left: 6px; cursor: pointer;"></i><span
+					style="color: rgba(0, 0, 0, 0); cursor: default;"></span></span></li>
+			<li><span class="sz"
+				onclick="openMenuUrl('/view/memberMessage.html',true);"><way
+						id="session_messageCount">0</way></span></li>
+			<li class="ye htlj" id="myAccount"><a
+				href="/view/memberAccount.html">我的账户&nbsp;<i>∨</i></a>
+				<ul class="wdzh">
+					<li><a href="/view/memberAccount.html">会员中心</a></li>
+					<li><a href="/view/memberFinance.html">资金管理</a></li>
+					<li><a href="/view/memberOrder.html">订单报表</a></li> 
+					{{if userType==0}}
+					<li><a href="/view/memberAgent.html">代理管理</a></li> {{/if}}
+					<li class="tc" id="logout"><a href="javascript:void(0)">退出</a></li>
+				</ul></li>
+			<li><span class="usname">你好！<em id="session_loginname"></em></span></li>
+		</ul>
+		{{/if}}
+	</div>
+</header>
+<nav class="nav">
+	<div class="center overhd">
+		<div class="logo ef-left">
+			<a href="/"><img src="/images/all/logo-nav.png" alt="#"></a>
+		</div>
+		<ul class="nav-main overhd ef-right">
+			<li><a href="/"><p>首页</p> <span class="zw">HOME</span></a></li>
+			<!--<li class="lott-game" id="lott-game"><a href="game.html"></a><p>彩票游戏</p><span class="zw">LOTTERY</span></a></li>-->
+			<li><a href="/view/game.html"><p>彩票游戏</p> <span class="zw">LOTTERY</span></a></li>
+			<!--<li class="lott-game" id="lott-game"><a href="javascript:void(0);" onclick="openMenuUrl('/view/game/waipan.html',true);"><p>彩票游戏</p><span class="zw">LOTTERY</span></a></li>-->
+			<!--              <li><a href="javascript:void(0);" onclick="transferGame('0000',true)"><p>JF彩票牛牛</p><span class="zw">JF LOTTERY</span></a></li>
+-->
+			<li><a href="/view/realplay.html"><p>真人娱乐</p> <span
+					class="zw">LIVECASINO</span></a></li>
+			<!--<li><a href="javascript:void(0);" onclick="popTips('暂未开放，敬请期待！', 'waring');"><p>体育博弈</p><span class="zw">SPORTS</span></a></li>-->
+			<!--              <li><a href="javascript:void(0);" onclick="openMenuUrl('view/slot/slot.html'/*tpa=http://www.yugj881.com/view/slot/slot.html*/,false);"><p>电子游艺</p><span class="zw">SLOT</span></a></li>
+-->
+			<!--  <li><a href="javascript:void(0);" onclick="openMenuUrl('/view/chess/chess.html',false);"><p>棋牌娱乐</p><span class="zw">CHESS</span></a></li> -->
+			<!--<li><a href="javascript:void(0);" onclick="popTips('暂未开放，敬请期待！', 'waring');"><p>金融理财</p><span class="zw">FINANCIAL</span></a></li>
+              -->
+			<li><a href="/view/promotions.html"><p>优惠活动</p> <span class="zw">PROMOTIONS</span></a></li>
+			<li><a href="/view/download.html"><p>下载中心</p> <span class="zw">DOWNLOAD</span></a></li>
+			<li><a href="javascript:bulletinList();"><p>最新公告</p> <span class="zw">NOTICE</span></a></li>
+			<li><a href="javascript:;" target="_blank"><p>线路检测</p> <span class="zw">LINE</span></a></li>
+		</ul>
+	</div>
+	<!-- 彩种下拉菜单 -->
+</nav>
+
+<div id="logoutConfrim" class="aar a-one" style="display: none;"> </div>
+
+<div id="newgg" class="ag-box a-one layui-layer-wrap" style="display: none;"></div>
+
+<script type="text/html" id="logout_template"> 
+	<div class="aar-center">
+		<div class="aar-title" way-data="tips.title">温馨提示</div>
+		<a class="aar-close" onclick="closelayer();"><i
+			class=" demo-icon "></i></a>
+		<div class="tishik">
+			<div class="bd">
+				<div class="bd text-center">
+					<div class="pop-title">
+						<i class="ico-waring"></i>
+						<h4 class="pop-text">您确定要退出系统？</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="aar-but">
+			<a class="confirm" href="javascript:;" id="logOutBtnOk">确认</a> 
+			<a class="confirm" href="javascript:;" style="background-color: red;" onclick="closelayer();">关闭</a>
+		</div>
+	</div>
+</script>
+
+
+<script type="text/html" id="newgg_template"> 
+ <div class="ag-center">
+		<div class="aar-title ag-title">最新公告</div>
+		<a class="aar-close ag-close" onclick="closelayer()"><i
+			class="demo-icon"></i></a>
+		<div class="bor"></div>
+		<div class="new-main">
+			<div class="tab">
+				<div class="new-m-l ef-left">
+					<ul class="tabHd">
+                        <%_.each(items,function(item,index) {%>
+						<li <%if(index==0){%>class="cur"<%}%>  data-Content="<%=item.content%>" ><%=item.pageTitle%></li> 
+                       <%})%>
+					</ul>
+				</div>
+				<div class="new-m-r tabBd ym-gr ef-right">
+					<div class="tb-imte mar-lr20 cur" id = "pageContent" style="color: #555;padding-left: 15px">
+						 
+					</div> 
+				</div>
+			</div>
+		</div>
+</div> 
+</script> 

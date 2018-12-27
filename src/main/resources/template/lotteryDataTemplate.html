@@ -1,0 +1,15 @@
+<#if lottery_type == '12'>
+<!-- 如果是北京PK10 -->
+ <ul class="lotter-bigsmll10 qiusty-2">
+<#list openData as data>
+ 	<li>${data}</li>
+</#list>
+</ul>
+<#else>
+<!-- 如果是其他彩种 -->
+<ul class="lotter-bigqiu5 qiusty-1 overhd "> 
+<#list openData as data>
+<li><span>${data}</span><div class="lotter-qiu5-tips"></div></li>
+</#list>
+</ul>
+</#if>

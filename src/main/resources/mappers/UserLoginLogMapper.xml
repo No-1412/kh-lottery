@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.front.dao.mapper.UserLoginLogMapper" >
+  <resultMap id="BaseResultMap" type="com.front.model.UserLoginLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="VARCHAR" />
+    <result column="uname" property="uname" jdbcType="VARCHAR" />
+    <result column="operation_system" property="operationSystem" jdbcType="VARCHAR" />
+    <result column="navigator" property="navigator" jdbcType="VARCHAR" />
+    <result column="login_address" property="loginAddress" jdbcType="VARCHAR" />
+    <result column="session_id" property="sessionId" jdbcType="VARCHAR" />
+    <result column="login_date" property="loginDate" jdbcType="TIMESTAMP" />
+    <result column="logout_date" property="logOutDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <insert id="recordLoginLog" parameterType="com.front.model.UserLoginLog" >
+    insert into tr_user_login_log (id, uid, uname, 
+      operation_system, navigator, login_address, 
+      login_date,session_id)
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR}, #{uname,jdbcType=VARCHAR}, 
+      #{operationSystem,jdbcType=VARCHAR}, #{navigator,jdbcType=VARCHAR}, #{loginAddress,jdbcType=VARCHAR}, 
+      #{loginDate,jdbcType=TIMESTAMP},
+      #{sessionId,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="recordLogOut" parameterType="com.front.model.UserLoginLog">
+        update tr_user_login_log set logout_date=now()
+              where session_id=  #{sessionId,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

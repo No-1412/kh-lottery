@@ -1,0 +1,46 @@
+<div id="reChargeDetail" style="margin-left: 3%; margin-right: 3%;">
+</div> 
+<script type="text/html" id="reChargeDetail-template"> 
+ <div class="tishik"> 
+                <table>
+                    <tr>
+                        <td><span class="tt">温馨提示：</span></td>
+                        <td><span style="color:#FF0000;">
+                               <p>1.每次"充值编号"均不相同,务必将"充值编号"正确复制填写到引号汇款页面的"附言"栏目中;</p>
+                               <p>2.帐号不固定，转帐前请仔细核对该帐号;</p>
+                               <p>3.充值金额与网友转账金额不符，充值将无法到账;</p>
+                               <p>4.转账后如10分钟未到账，请联系客服，告知您的充值编号和您的充值金额及你的银行用户姓名。</p>
+                        </span>
+                      </td>
+                    </tr> 
+                    <tr>
+                        <td><span class="tt">充值银行：</span></td>
+                        <td><span class="xzyh">
+                        <img id="bank-type-icon" class="bankimg" src="/images/bank/hezyh/<%=charge.logo%>" title="<%=charge.name%>">
+                             <a id="bank-link" target="_blank" href="<%=charge.home%>" class="spn11" style="margin-left:50px;">进入银行网站&gt;&gt;</a>
+                       </span></td>
+                    </tr> 
+                    <tr>
+                        <td><span class="tt">充值支行：</span></td>
+                        <td><span><input type="text" value="<%=charge.depositBank%>" class="inp-sty-1" readonly="readonly"/></span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tt">收款户名：</span></td>
+                        <td><span><input type="text" value="<%=charge.accountName%>" class="inp-sty-1" readonly="readonly"/></span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tt">收款账号：</span></td>
+                        <td><span><input class="inp-sty-1" readonly="readonly" value="<%=charge.account%>"  type="text"></span>
+                        <div class="spn12" style="display:inline;">*网银充值请务必将此编号填写到汇款“附言”里，每个充值编号仅用于一笔充值，重复使用将不能到账！</div></td>
+                    </tr> 
+                    <tr>
+                        <td><span class="tt">充值编号：</span></td>
+                        <td><span><input class="inp-sty-1" type="text"  readonly="readonly"  value="<%=charge.chargeNum%>" ></span></td>
+                    </tr>
+                    <tr> 
+                        <td colspan="2" align="center"><a href="javascript:;" class="but-recharge" style="color: #fff; ">继续充值</a></td> 
+                    </tr> 
+                </table>
+       </div> 
+</script>
+

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.front.dao.mapper.PromotionLinkMapper">
+	<resultMap id="BaseResultMap" type="com.front.model.PromotionLinkVo">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="uid" jdbcType="INTEGER" property="uid" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="user_Type" jdbcType="INTEGER" property="userType" />
+		<result column="user_Rebate" jdbcType="VARCHAR" property="userRebate" />
+		<result column="promotionLink_Name" jdbcType="VARCHAR" property="promotionLinkName" />
+		<result column="promotionLink" jdbcType="VARCHAR" property="promotionLink" />
+		<result column="create_Date"   property="createDate" />
+		<result column="create_User"  property="createUser" />
+		<result column="modify_Date"  property="modifyDate" />
+		<result column="modify_User"   property="modifyUser" /> 
+	</resultMap>
+	
+	<!-- 添加用户的推广链接 -->
+	<insert id="addPromotionLink" parameterType="com.front.model.PromotionLinkVo">
+		    insert into tr_promotion_link(
+		    uid,user_id,user_Type,user_Rebate,
+		    promotionLink_Name,promotionLink,expire,frequency, 
+		    create_Date,create_User,modify_Date,modify_User)
+		    values(#{link.uid},#{link.userId},#{link.userType},
+		           #{link.userRebate},#{link.promotionLinkName},
+		           sha(concat(#{link.uid},#{link.userType},#{link.userRebate})),
+		            #{link.expire},#{link.frequency},
+		           now(),#{link.createUser},now(),#{link.modifyUser})
+	</insert>
+	
+   <!-- 修改用户推广链接 -->
+   <update id="updatePromotionLink" parameterType="com.front.model.PromotionLinkVo">
+	       update tr_promotion_link
+	              set user_Rebate=#{link.userRebate},user_Type=#{link.userType},
+	              promotionLink_Name=#{link.promotionLinkName},modify_Date=now(),
+	              promotionLink= sha(concat(uid,#{link.userType},#{link.userRebate})),
+	              modify_User=#{link.modifyUser}
+	       where id=#{link.id}
+   </update>
+   
+   <!-- 删除用户推广链接 -->
+   <update id="delPromotionLink" parameterType="com.front.model.PromotionLinkVo">
+	      delete from tr_promotion_link where id=#{link.id}
+   </update>
+   
+   	<!-- 根据id获取投注记录  -->
+   <select id="queryPromotionLink" parameterType="int" resultMap="BaseResultMap">
+        select user_Type,user_Rebate,
+		promotionLink_Name,id
+		from tr_promotion_link
+		where  id=#{id}  
+   </select>
+</mapper>

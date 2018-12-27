@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<title>博联娱乐-博彩责任</title>
+<link href="/css/bootstrap.css" rel="stylesheet">
+<link href="/css/all.css" rel="stylesheet">
+<link href="/css/tips.css" rel="stylesheet">
+<link href="/css/about.css" rel="stylesheet">
+</head> 
+<body ng-app>
+
+	<!-- 头部 -->
+	<div class="top-bg"></div>
+
+	<main>
+	<div class="helpcenter">
+		<!-- <div class="pro-top">
+		<img src="../../resources/yuncai//resources/yiyou/images/promotions/helpcenter.png">
+	</div> -->
+		<div class="pro-ct">
+			<div>
+				<div class="promo-nav  ym-gl">
+					<ul class="p-nav-cen">
+						<li class=""><a href="/view/about.html"><i class="rm"></i>关于我们<img
+								src="/images/promotions/icon-cur.png"></a></li>
+						<li class=""><a href="/view/helpcenter.html"><i
+								class="cp"></i>常见问题<img src="/images/promotions/icon-cur.png"></a></li>
+						<li class=""><a href="/view/clause.html"><i class="zr"></i>条款与规则<img
+								src="/images/promotions/icon-cur.png"></a></li>
+						<li class="cur"><a href="/view/duty.html"><i class="dz"></i>博彩责任<img
+								src="/images/promotions/icon-cur.png"></a></li>
+						<li class=""><a href="/view/statement.html"><i class="wq"></i>免责声明<img
+								src="/images/promotions/icon-cur.png"></a></li>
+						<li class=""><a href="/view/czwf.html"><i class="wf"></i>彩种玩法<img
+								src="/images/promotions/icon-cur.png"></a></li>
+						<!-- 					<li class=""><a href="zhidu.html"><i class="zs"></i>招商制度<img src="/resources/yiyou/images/promotions/icon-cur.png"></a></li>
+ -->
+					</ul>
+				</div>
+				<div class="tabBd">
+					<div class="ab-m-cen">
+						<h1>博彩责任</h1>
+						<div class="ab-m-c-p bczr">
+							<h3>博彩责任</h3>
+							<p>亿游国际一直积极推行负责任博彩，并极力拒绝未成年玩家使用我们的软件进行网上娱乐。同时，我们更透过专业人员及各种有效方法，以防止问题博彩的发生。</p>
+
+							<h3>年龄限制</h3>
+							<p>18岁以下的未成年人是禁止参与网络博彩的，亿游国际将保有对顾客所提供年龄信息证明的查询，如有发现年龄证明与客户所提供的不符，我们将关闭客户的账号以及冻结所剩余的资金。由于各地的法令条款不同，因此我们建议客户在进行博彩游戏前，翻阅当地法律进行查询。
+								保持控制</p>
+							<h3>保持控制</h3>
+							<p>我们绝大部分的客户都在自己的财力之内进行博彩娱乐，但也有少数难以做到这一点。为维持对博彩习惯的自我控制，请注意以下几点：</p>
+							</br>
+							<p>1) 博彩是一种需要有节制的娱乐方式，而不是赚钱方法</p>
+							</br>
+							<p>2) 避免越输越想捞本的做法</p>
+							</br>
+							<p>3) 只有在能够承担损失的情况下才博彩</p>
+							</br>
+							<p>4) 游戏时间长短和资金投入数量的纪录</p>
+							</br>
+							<p>如果您需要和他人交流关于您博彩的顾虑，请联系我们列出的相关组织。</p>
+
+							<h3>有节制的博彩</h3>
+							<p>对于一些客户希望暂时远离博彩，我们将提供一个自我排除的功能，您可以申请六个月到五年的账户关闭。账户一旦关闭，客户无论任何原因都不能重开账户，直至所设定的期限到期。请点击网页中的“联系我们”，我们的客服人员会为您带来更多帮助。</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</main>
+
+	<!-- 底部 -->
+	<footer></footer>
+
+	<script src="/js/jquery-1.11.3.min.js"></script>
+	<script src="/lib/jquerySession.js" type="text/javascript"></script>
+	<script src="/js/require.js"></script>
+	<script src="/config/requireConfig.js"></script>
+	<script src="/lib/angular.min.js" type="text/javascript"></script>
+	<script>
+
+	require([
+		"view/header/Header",
+		"view/footer/footer",
+	],function(Header,footer){
+		new Header();
+		new footer();
+	}); 
+
+$(document).ready(function(){
+	adjust();
+})
+function adjust(){
+	var _bHeight = document.body.clientHeight;
+	if(_bHeight>870){
+		$(".footer").css({"position":"absolute","bottom":"0"});
+		var mgTop=(_bHeight+40);
+		$(".pro-ct").css({"height":mgTop+"px"});
+	}
+	else{
+		$(".footer").css({"position":"relative"});
+		$(".ty-main").css({"height":"auto"});
+	}
+}
+$(window).resize(function(){
+	adjust();
+});
+
+
+$(function(){
+	var searchStr = window.location.search;
+	var code = getQueryString(searchStr.substr(1), "code");
+	if(code == "deposit") {
+		$(".helpli li").eq(1).addClass("cur");
+	} else if(code == "withdrawals") {
+		$(".helpli li").eq(2).addClass("cur");
+	} else if(code == "account") {
+		$(".helpli li").eq(3).addClass("cur");
+	} else if(code == "safety") {
+		$(".helpli li").eq(4).addClass("cur");
+	} else if(code == "platform") {
+		$(".helpli li").eq(5).addClass("cur");
+	} else {
+		$(".helpli li").eq(0).addClass("cur");
+	}
+});
+
+$(".helpcenter .qusetion-title").click(function(){
+	var _that=$(this).parent("li");
+	if(_that.attr("class")=="cur"){
+		_that.removeClass("cur");
+		return false;
+	}	
+});
+$(".nav-zuo li").mouseenter(function(){
+	var _this = $(this).children("i").children("img");
+	_this.animate({left:"-38px"});
+});
+$(".nav-zuo li").mouseleave(function(){
+	if($(this).attr("class")=="cur")
+		return false;
+	var _this = $(this).children("i").children("img");
+	_this.animate({left:"0"});
+});
+
+$(function(){
+	var searchStr = window.location.search;
+	var code = getQueryString(searchStr.substr(1), "code");
+	if(code == "deposit") {
+		$(".helpli li").eq(1).addClass("cur");
+	} else if(code == "withdrawals") {
+		$(".helpli li").eq(2).addClass("cur");
+	} else if(code == "account") {
+		$(".helpli li").eq(3).addClass("cur");
+	} else if(code == "safety") {
+		$(".helpli li").eq(4).addClass("cur");
+	} else if(code == "platform") {
+		$(".helpli li").eq(5).addClass("cur");
+	} else {
+		$(".helpli li").eq(0).addClass("cur");
+	}
+});
+
+$(".helpcenter .qusetion-title").click(function(){
+	var _that=$(this).parent("li");
+	if(_that.attr("class")=="cur"){
+		_that.removeClass("cur");
+		return false;
+	}	
+})
+</script>
+</body>
+
+</html>

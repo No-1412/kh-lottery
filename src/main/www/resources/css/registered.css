@@ -1,0 +1,98 @@
+body{ 
+    background: url('about/xiazai-bg.png') no-repeat center top;
+    width: 100%;
+    padding: 1px;
+    background-size: cover; 
+} 
+a{text-decoration: none;} 
+.box{
+	width: 50%;
+	margin: 0 auto;
+	color: #fff;
+}
+.register-form {
+    padding: 43px 0;
+    position: relative;
+    /*margin: 30px 0;*/
+   /*margin: 0 auto;*/
+  padding-left: 160px;
+    min-height: 30px;
+         background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #fff;
+    border-radius: 10px;
+}
+
+.form-group {
+
+    /*width: 100%;*/
+    margin: 0;
+    margin-bottom: 1rem;
+    line-height: 56px;
+}
+
+.form-control-title {
+    width: 20%;
+    display: inline-block;
+    text-align: right;
+}
+
+input {
+    /*position: absolute;*/
+    /*top: 0;*/
+    left: 20.5%;
+}
+
+
+input{
+	    width: 40%;
+    display: inline-block;
+    border: 1px solid #d4d4d4;
+    padding: 0 .5em;
+    height: 46px;
+}
+
+.must {
+    color: red;
+    padding: 10px;
+}
+.btn-submit {
+    background: #a40707;
+    color: #fff;
+}
+.btn {
+    width: 109px;
+    height: 40px;
+    margin: 0 10px 0 0;
+    border: none;
+}
+.check-info-wrap {
+    width: 100%;
+    font-size: .9rem;
+    margin: 0 auto;
+}
+.btn-content {
+    margin-left: 27%;
+    margin-top: 50px;
+}
+
+
+.x-icon {
+    /*position: absolute;*/
+    /*left: 58.5%;*/
+    /*display: inline-block;*/
+   margin-left: 20%;
+   line-height: 20px;
+}
+.Validform_checktip {
+    /*margin-left: 40px;*/
+
+    line-height: 20px;
+    height: 20px;
+    overflow: hidden;
+    font-size: 12px;
+}
+h1{
+	text-align: center;
+}
+
+.error{ color:red; }

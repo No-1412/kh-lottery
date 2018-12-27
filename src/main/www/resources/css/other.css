@@ -1,0 +1,121 @@
+/*找回密码*/
+.new-bg{ background: #fffef3 }
+.logo{ width: 128px;height: 66px;margin: 0 auto; }
+.new-foot-bg{width: 100%;height: 424px;background: url("all/foot-bg-2.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/all/foot-bg-2.png*/#fffef3 center; padding-top: 277px; border-top: 1px solid #fff;}
+.logo img{ display: block; width:128px; height: 80px;}
+.main .regis-bj{ margin-top: 0px;}
+.regisimg{    padding-top:25px;}
+.register .tips { position: relative; padding: 10px;margin: 1em 0 3em;margin-left:6px; font-size: 12px; color: #a2a2a2;}
+.register{ width: 720px; margin: 50px auto; }
+.register h1{    color: #666; display: block; height: 35px; line-height: 35px;   font-size: 28px;  font-weight: normal; text-indent: 4em;}
+.register dl{ overflow: hidden; padding: 20px 0 0;}
+.register dl dd{height: 42px; line-height: 42px; padding: 8px 0;margin: 10px 0;}
+.register dl dd span.tt{color: #a2a2a2; display:inline-block; width: 110px; text-align: right; }
+.register dl dd span input{ padding: 0 10px; width: 280px; height: 39px; line-height: 39px; border: 1px solid #ececec; color: #787878;}
+.register dl dd span input::-webkit-input-placeholder { color:#ccc; font-size: 12px;}
+.register dl dd span input:-moz-placeholder { color:#ccc; font-size: 12px;}
+.register dl dd span input::-moz-placeholder { color:#ccc; font-size: 12px;}
+.register dl dd span input:-ms-input-placeholder { color: #ccc; font-size: 12px;}
+.register dl dd span.yzm{display: inline-block; padding: 0 10px; width: 280px; height: 39px; line-height: 39px; border: 1px solid #ececec; color: #787878; background: #fff;}
+.register dl dd span.yzm input{  width: 180px;padding: 0; border: none;}
+.register dl dd span.yzm img{ width: 100px; height: 30px;}
+.register .ezcdl{ overflow: hidden;}
+.register .ezcdl a{ float: left;
+display: block;height: 40px;line-height: 40px;background: #f34545;text-align: center;color: #fff;border-radius: 30px;width: 200px;margin:40px 0 30px 150px;font-size: 20px}
+.register .ezcdl a.yyzh{ float: left;  text-indent: 1em;}
+.regis-fot{ height: 92px;}
+
+/*邮箱绑定*/
+.ef-zhuce{ overflow-y:hidden;  }
+.email-box{ margin-top: 300px; }
+.email-box .ef-right{ padding-left: 20px; }
+.email-box a{ text-decoration: none; font-size:16px; }
+.email-box p{color:#3a3a3a;font-size: 30px;}
+.email-box span{line-height: 40px;} 
+.e-an-mm{display: block;width: 180px;height: 40px;line-height: 26px;text-align: center;margin-top: 70px;background: #25779d;color: #fff;border: 1px solid #e1e1e1;border-radius: 30px;}
+.e-an-mm:hover{ color:#fff; }
+
+/*IP 限制*/
+.errorip{ padding-top: 205px; background:#f1f1f1; }
+.errorip h3{color: #555555;font-size: 32px; font-weight: bold; text-align: right; padding-right: 5%;}
+.errorip-cont{width:650px; padding: 100px 258px; height: 350px;padding-top:190px; text-align: center; margin: 0px auto; position: relative;}
+.errorip-text img{ position: absolute;top: -23%;left: 17%;width: 350px;height: 420px;}
+.errorip-text p{color:#787878;}
+.errorip-text strong{color:#25779d;}
+.errorip-text .p2{ padding:0; }
+.errorip-text .p1{padding-right:8%; margin:15px 0 105px; text-align: right;}
+.errorip-text .p3{line-height: 22px;    text-align: left;}
+.errorip-text .p4{margin: 40px auto 0px;}
+.btn-lxkf {border-radius: 30px;background: #25779d;border: 1px solid #e1e1e1;width: 180px;height: 40px;text-align: center;line-height: 40px;font-size: 16px;color: #fff !important;font-weight: bold;margin: 0 150px;}
+
+/*注册*/
+.zhuce-bg{ background:#fffef3; }
+.zhuce-bg .center{ padding:0 185px; padding-top: 70px;}
+.zhuce-logo img{ width:106px;height: 108px; }
+.zhuce-box{ padding: 23px 40px 30px;background: url("all/zhuce-bg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/all/zhuce-bg.png*/no-repeat center;}
+.zhuce-box p{ color:#333; font-size: 22px;margin:25px 0 15px; }
+.zhuce-box  dl dd{margin-bottom: 18px;  }
+.zhuce-box  dl dd input{width:360px; height: 78px;line-height: 78px;border-radius:0 50px 50px 0; border:1px solid #64c0ec;  background: #fff;float: right;border-left: none;    padding: 0 6px;}
+.zhuce-box  dl dd span{ display: inline-block; }
+.zhuce-box  dl dd span .icon1{display: inline-block; width:76px; height: 78px; border-radius: 50px 0px 0px 50px; }
+.zhuce-box  dl dd span .zh{ background: url("icon/icon-zh.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/icon/icon-zh.png*/#b9e0f2 no-repeat 30px 22px; }
+.zhuce-box  dl dd span .mm{ background: url("icon/icon-mm.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/icon/icon-mm.png*/#b9e0f2 no-repeat 30px 22px; }
+.zhuce-box  dl dd span .yz{ background: url("icon/icon-yz.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/icon/icon-yz.png*/#b9e0f2 no-repeat 30px 22px; }
+.zhuce-box  dl dd .left{ position: relative;top: -33px;color: #999;margin-left: 12px; width: 260px; height: 40px;line-height: 40px; padding-left: 40px; background: url("icon/tips-mr.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/icon/tips-mr.png*/ no-repeat 0px 0px;}
+.zhuce-box  dl dd .cw{ background: url("icon/tips-cw.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/icon/tips-cw.png*/ no-repeat 0px 0px;}
+.zhuce-box  dl dd .zq{ background: url("icon/tips-zq.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/icon/tips-zq.png*/ no-repeat 0px 0px;}
+.zhuce-box  dl dd .yzm{ position: relative; }
+.zhuce-box  dl dd .yzm input{ float: none; position: relative;top: -34px;left: -6px;}
+.zhuce-box dl dd span.yzm img { width: 70px;height: 45px;position: absolute;right: 40px;top: 16px;}
+.zhuce-box a{ display: block;border-radius: 50px; width:465px; margin-top: -20px; height: 75px; line-height: 75px; text-align: center;color:#fff;background: #d6616d; font-size: 16px;}
+
+/*下载*/
+.xiazai-bg{color:#fff; background: url("about/xiazai-bg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/about/xiazai-bg.png*/ no-repeat center top; width:100%; height:1200px; padding:1px; background-size: cover;}
+.xiazai-title{ margin-top: 42px;padding-left: 15px; }
+.xiazai-title .yygj p{ line-height: 14px;}
+.xiazai-title .yygj .yy{font-family: Arial;font-size: 8px \9; -webkit-transform: scale(0.7);-moz-transform: scale(0.6);-o-transform: scale(1);}
+.xiazai-title .xzzx{ font-size: 16px; font-size: 20px;line-height: 20px; color:#fff;}
+.xiazai-title .xzzx a{ display: inline-block; width:91px; height: 40px;color:#fff; cursor: pointer; }
+.xiazai-logo{margin-top: 90px; margin-left: 236px;}
+.xiazai-logo p{ height: 128px; line-height: 128px;padding-left: 68px;font-size: 16px; }
+.xiazai-cont{margin-top: 70px; margin-left: 208px;}
+.xiazai-ewm{margin-top: 80px;margin-left: 240px;}
+.xiazai-ewm ul li{ float:left;width:305px; height: 148px;border-radius: 8px;margin-right: 28px; padding:10px 10px 10px 20px;}
+.xiazai-ewm ul .iph{ background: url("about/iph.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/about/iph.png*/#4d91b2 no-repeat 20px 18px; }
+.xiazai-ewm ul .and{ background: url("about/and.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/about/and.png*/#4d91b2 no-repeat 20px 18px; }
+.xiazai-ewm ul .mac{width:198px; background: url("about/mac.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/about/mac.png*/#4d91b2 no-repeat 20px 18px; }
+.xiazai-ewm ul .win{width:198px; background: url("about/win.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/about/win.png*/#4d91b2 no-repeat 20px 18px; }
+.xiazai-ewm ul .mac a,
+.xiazai-ewm ul .win a{ margin: 25px auto 0; }
+.xiazai-ewm ul img{ width:128px;height: 128px; }
+.xiazai-ewm ul a{display: block; color:#fff;width: 120px;height: 48px;line-height: 48px;border-radius: 6px;background: url("about/jiantou-xz.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/about/jiantou-xz.png*/#00a1ff no-repeat 18px 12px;margin-top: 25px;text-align: center;padding-left: 20px;}
+.xiazai-ewm ul p{margin-top: 18px;margin-left: 66px;font-size: 16px;}
+
+/*线路检测*/
+.test-bg{ background:url("about/test-bg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/about/test-bg.png*/ no-repeat center; width:100%; height:1200px; background-size:cover; padding-top: 60px;}
+.test-bg .test-logo{background: url("about/test-logo2.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/about/test-logo2.png*/ no-repeat center;
+    width: 425px;
+    height: 115px;
+    margin: 0 auto;
+    background-size: contain;}
+.test-bg .IP{font-size: 30px; color:#25779d; margin: 50px auto; text-align: center;}
+.test-bg .test-box{ width:1200px; height: 600px; border-radius: 15px; background: #fff; }
+.test-box .test-title{ height: 60px; line-height: 60px;  background: #25779d; border-radius: 15px 15px 0 0;}
+.test-box .test-title p {padding-left: 50px; font-size: 16px;
+ background: url("icon/icon-jc.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/icon/icon-jc.png*/no-repeat 14px 18px;}
+.test-box .test-title p em{color:#b7d7e5;   font-size: 14px;}
+.test-list .ms{ width:78px;  }
+.test-list input{ text-align:center; border:1px solid #ccc; height: 38px;line-height: 38px;}
+.test-list .dizhi{ width:400px; }
+.test-list li{ margin-top: 18px;padding-left: 20px; }
+.test-list li a{ display: inline-block;width:88px; height: 36px; border-radius: 30px; line-height: 36px; color:#fff; text-align: center; background: #25779d;}
+.test-body .cxjc { margin-top: 26px; width:100%; }
+.test-body .cxjc  a{ display: block;margin:0 auto;  width:258px; height: 40px; text-align: center; line-height: 40px; color:#fff; border-radius: 30px;background: #25779d; }
+.test-body .test-txt{ margin-top: 10px; }
+.test-body .test-txt .step2{    margin: 25px 0px;}
+.test-body h4{font-size: 16px; color:#25779d; line-height:30px;margin-top: 5px;}
+.test-body p{ line-height: 30px; }
+.test-body .llq-list{ margin-top: 10px; }
+.test-body .llq-list li{float:left;margin-right: 25px; }
+.test-body .llq-list li img{display: block; width:24px; height: 24px; margin:0 auto; }
+.test-body .llq-list li span{display: block; margin-top: 5px;}

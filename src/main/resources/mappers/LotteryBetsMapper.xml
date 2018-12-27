@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.front.dao.mapper.LotteryBetsMapper">
+	<resultMap id="BaseResultMap" type="com.front.model.LotteryBets">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="bets_order" jdbcType="VARCHAR" property="betsOrder" />
+		<result column="bets_no" jdbcType="VARCHAR" property="betsNo" />
+		<result column="uid" jdbcType="VARCHAR" property="uid" />
+		<result column="uname" jdbcType="VARCHAR" property="uname" />
+		<result column="lottery_id" jdbcType="INTEGER" property="lotteryId" />
+		<result column="lottery_type" jdbcType="VARCHAR" property="lotteryType" />
+		<result column="lottery_playgroupId" jdbcType="INTEGER" property="lotteryPlaygroupid" />
+		<result column="lottery_playId" jdbcType="INTEGER" property="lotteryPlayid" />
+		<result column="lottery_no" jdbcType="VARCHAR" property="lotteryNo" />
+		<result column="bets_num" jdbcType="INTEGER" property="betsNum" />
+		<result column="bets_data" jdbcType="VARCHAR" property="betsData" />
+		<result column="bets_weiShu" jdbcType="VARCHAR" property="betsWeishu" />
+		<result column="bets_fanDian" jdbcType="DOUBLE" property="betsFandian" />
+		<result column="bets_mode" jdbcType="DOUBLE" property="betsMode" />
+		<result column="bets_beiShu" jdbcType="INTEGER" property="betsBeishu" />
+		<result column="bets_amount" jdbcType="DOUBLE" property="betsAmount" />
+		<result column="bets_zhuiHao" jdbcType="INTEGER" property="betsZhuihao" />
+		<result column="bets_zhuiHaoMode" jdbcType="INTEGER" property="betsZhuihaomode" />
+		<result column="bets_bonusProp" jdbcType="DOUBLE" property="betsBonusprop" />
+		<result column="bets_lotteryNo" jdbcType="VARCHAR" property="betsLotteryno" />
+		<result column="bets_kjTime" jdbcType="TIME" property="betsKjtime" />
+		<result column="bets_isdelete" jdbcType="INTEGER" property="betsIsdelete" />
+		<result column="bets_zjCount" jdbcType="INTEGER" property="betsZjcount" />
+		<result column="bets_bonus" jdbcType="DOUBLE" property="betsBonus" />
+		<result column="bets_time" jdbcType="TIMESTAMP" property="betsTime" />
+		<result column="bets_addr" jdbcType="VARCHAR" property="betsAddr" />
+		<result column="bets_srcOrder" jdbcType="VARCHAR" property="betsSrcorder" />
+		<result column="bets_identification" jdbcType="VARCHAR" property="betsIdentification" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, bets_order, bets_no, uid, uname, lottery_id, lottery_type,
+		lottery_playgroupId,
+		lottery_playId, lottery_no, bets_num, bets_data, bets_weiShu, bets_fanDian,
+		bets_mode,
+		bets_beiShu, bets_amount, bets_zhuiHao, bets_zhuiHaoMode, bets_bonusProp,
+		bets_lotteryNo,
+		bets_kjTime, bets_isdelete, bets_zjCount, bets_bonus, bets_time, bets_addr
+	</sql>
+	<!-- 用户确认投注 -->
+	<insert id="insert" parameterType="com.front.model.LotteryBets">
+		insert into tr_lottery_bets (id, bets_order, bets_no,
+		uid, uname, lottery_id,
+		lottery_type, lottery_playgroupId, lottery_playId,
+		lottery_no, bets_num, bets_data,
+		bets_weiShu, bets_fanDian, bets_mode,
+		bets_beiShu, bets_amount, bets_zhuiHao,
+		bets_zhuiHaoMode, bets_bonusProp, bets_lotteryNo,
+		bets_kjTime, bets_isdelete, bets_zjCount,
+		bets_bonus, bets_time, bets_addr, bets_srcOrder,
+		bets_identification
+		)
+		values (#{id,jdbcType=INTEGER},
+		#{betsOrder,jdbcType=VARCHAR},
+		nextval('BET_NUMBER'),
+		#{uid,jdbcType=VARCHAR}, #{uname,jdbcType=VARCHAR}, #{lotteryId,jdbcType=INTEGER},
+		#{lotteryType,jdbcType=VARCHAR},
+		#{lotteryPlaygroupid,jdbcType=INTEGER},
+		#{lotteryPlayid,jdbcType=INTEGER},
+		#{lotteryNo,jdbcType=VARCHAR}, #{betsNum,jdbcType=INTEGER}, #{betsData,jdbcType=VARCHAR},
+		#{betsWeishu,jdbcType=VARCHAR}, #{betsFandian,jdbcType=DOUBLE},
+		#{betsMode,jdbcType=DOUBLE},
+		#{betsBeishu,jdbcType=INTEGER}, #{betsAmount,jdbcType=DOUBLE}, #{betsZhuihao,jdbcType=INTEGER},
+		#{betsZhuihaomode,jdbcType=INTEGER}, #{betsBonusprop,jdbcType=DOUBLE},
+		#{betsLotteryno,jdbcType=VARCHAR},
+		#{betsKjtime,jdbcType=TIME}, #{betsIsdelete,jdbcType=INTEGER}, #{betsZjcount,jdbcType=INTEGER},
+		#{betsBonus,jdbcType=DOUBLE}, #{betsTime,jdbcType=TIMESTAMP},
+		#{betsAddr,jdbcType=VARCHAR}, #{betsSrcorder,jdbcType=VARCHAR},
+		#{betsIdentification,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<!-- 用户批量投注 -->
+	<insert id="insertLotteryBets" parameterType="java.util.List">
+		insert into tr_lottery_bets (bets_order, bets_no,
+		uid, uname, lottery_id,
+		lottery_type, lottery_playgroupId, lottery_playId,
+		lottery_no, bets_num, bets_data,
+		bets_weiShu, bets_fanDian, bets_mode,
+		bets_beiShu, bets_amount, bets_zhuiHao,
+		bets_zhuiHaoMode, bets_bonusProp, bets_isdelete,
+		bets_time, bets_addr, bets_srcOrder,
+		bets_identification
+		)
+		values 
+		 <foreach collection="LotteryBets" item="bet" index="index"  
+        separator=",">  
+		(
+		#{bet.betsOrder,jdbcType=VARCHAR},
+		nextval('BET_NUMBER'),
+		#{bet.uid,jdbcType=VARCHAR}, #{bet.uname,jdbcType=VARCHAR}, #{bet.lotteryId,jdbcType=INTEGER},
+		#{bet.lotteryType,jdbcType=VARCHAR},
+		#{bet.lotteryPlaygroupid,jdbcType=INTEGER},
+		#{bet.lotteryPlayid,jdbcType=INTEGER},
+		#{bet.lotteryNo,jdbcType=VARCHAR}, #{bet.betsNum,jdbcType=INTEGER}, #{bet.betsData,jdbcType=VARCHAR},
+		#{bet.betsWeishu,jdbcType=INTEGER}, #{bet.betsFandian,jdbcType=DOUBLE},
+		#{bet.betsMode,jdbcType=DOUBLE},
+		#{bet.betsBeishu,jdbcType=INTEGER}, #{bet.betsAmount,jdbcType=DOUBLE}, #{bet.betsZhuihao,jdbcType=INTEGER},
+		#{bet.betsZhuihaomode,jdbcType=INTEGER}, #{bet.betsBonusprop,jdbcType=DOUBLE},
+	    #{bet.betsIsdelete,jdbcType=INTEGER}, 
+	    #{bet.betsTime,jdbcType=TIMESTAMP},
+		#{bet.betsAddr,jdbcType=VARCHAR}, 
+		#{bet.betsSrcorder,jdbcType=VARCHAR},
+		#{bet.betsIdentification,jdbcType=VARCHAR}
+		)
+		</foreach>
+	</insert>
+	
+	<!-- 根据id获取投注记录  -->
+   <select id="queryLotteryBetsById" parameterType="int" resultMap="BaseResultMap">
+        select 
+        id, bets_order, bets_no,
+		uid, uname, lottery_id,
+		lottery_type, lottery_playgroupId, lottery_playId,
+		lottery_no, bets_num, bets_data,
+		bets_weiShu, bets_fanDian, bets_mode,
+		bets_beiShu, bets_amount, bets_zhuiHao,
+		bets_zhuiHaoMode, bets_bonusProp, bets_lotteryNo,
+		bets_kjTime, bets_isdelete, bets_zjCount,
+		bets_bonus, bets_time, bets_addr
+		from tr_lottery_bets
+		where  id=#{lotteryBetId} and  bets_isdelete=0
+   </select>
+   <!-- 撤单 -->
+   <update id="cancelLotteryBet" parameterType="com.front.model.LotteryBets">
+	    update tr_lottery_bets set bets_isdelete=1,bets_deletetime=now(),bets_deleteaddr=#{bets.betsDeleteAddr} where id=#{bets.id}
+	</update>
+</mapper>

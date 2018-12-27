@@ -1,0 +1,113 @@
+
+<div class="mem-fina-cen-top mem-main-item">
+	<div class="">
+		<div class="m-zh-yue">
+			<div class="m-zh-edu">
+				<div class="ze ym-g50 ym-gl">
+					<h3>账户总额</h3>
+					<div class="ck">
+						<h1> ￥ <em id = "totalBalance">0.00</em> </h1>
+					</div>
+				</div>
+				<div class="je ym-g50 ym-gl">
+					<h3>可提金额</h3>
+					<div class="tk">
+						<h1>
+							￥ <em id = "withdraw">0.00</em>  
+						</h1>
+					</div>
+				</div>
+			</div>
+			<div class="me-fi-zz pos-r" style="visibility: hidden;">
+				<h3>转账</h3>
+				<span id="switchbtn" class="zh-icon"></span>
+				<dl class="me-zhuangz">
+					<dd id="Eslct0">
+						<select onchange="transfePlatformOutChange();"></select>
+					</dd>
+					<dd id="Eslct1">
+						<select onchange="transfePlatformInChange();">
+						</select>
+					</dd>
+					<dd>
+						<input type="text" value="" placeholder="转账金额"
+							onkeyup="replaceAndSetPos(this,event,/[^\d]/g,'');"
+							id="transfersMoney">
+					</dd>
+					<dd>
+						<a class="btn-qrzz" href="javascript:;"
+							onclick="transfersMoney();">确认转账</a>
+					</dd>
+				</dl>
+			</div>
+			<div class="m-zh-gl">
+				<h3>账户管理</h3>
+				<ul>
+					<li><span>主账户：</span> <a href="javascript:;"
+						onclick="transferFinance('', 'cpzh');">转出</a></li>
+					<li><span>返点余额：</span> <em><strong
+							way-data="useraccount.commission"></strong>元</em> <a
+						href="javascript:;"
+						onclick="pop_byself('commissionTransferTips');">转入主账户</a></li>
+					<li id="AG"><span>AG：</span> <a href="javascript:;">数据加载中...</a>
+					</li>
+					<!-- <li id="BBIN">
+                                            <span>BBIN：</span>
+                                            <a href="javascript:;">数据加载中...</a>
+                                        </li> -->
+					<li id="OG"><span>OG：</span> <a href="javascript:;">数据加载中...</a>
+					</li>
+					<li id="PT"><span>PT：</span> <a href="javascript:;">数据加载中...</a>
+					</li>
+					<li id="MG"><span>MG：</span> <a href="javascript:;">数据加载中...</a>
+					</li>
+					<!--<li id="KBET">-->
+					<!--<span>KBET：</span>-->
+					<!--<a href="javascript:;">数据加载中...</a>-->
+					<!--</li>-->
+					<!--<li id="XPJ">-->
+					<!--<span>XPJ：</span>-->
+					<!--<a href="javascript:;">数据加载中...</a>-->
+					<!--</li>-->
+					<!--<li id="CROWN">-->
+					<!--<span>CROWN：</span>-->
+					<!--<a href="javascript:;">数据加载中...</a>-->
+					<!--</li>-->
+					<!--<li id="UC8">-->
+					<!--<span>UC8：</span>-->
+					<!--<a href="javascript:;">数据加载中...</a>-->
+					<!--</li>-->
+					<!--<li id="CHESS">-->
+					<!--<span>CHESS：</span>-->
+					<!--<a href="javascript:;">数据加载中...</a>-->
+					<!--</li>-->
+					<!--<li id="188BET">-->
+					<!--<span>188BET：</span>-->
+					<!--<a href="javascript:;">数据加载中...</a>-->
+					<!--</li>-->
+					<li id="EBET"><span>EBET：</span> <a href="javascript:;">数据加载中...</a>
+					</li>
+					<li id="JF"><span>JF：</span> <a href="javascript:;">数据加载中...</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){ 
+	$(".paging").css('display',"none");
+	$.ajax({
+		url : "/user/userInfo",
+		method : 'GET',
+		success : function(data) {
+			if (data.retcode == 0) { 
+				 $("#totalBalance").html(data.data.coin); 
+				 $("#withdraw").html(data.data.coin); 
+			} else {
+				popTips(data.message||"您尚未登录或登录时间过长,请重新登录!", "error","",function(){location.href  = "/";}); 
+			}
+		}
+	});
+});
+</script>

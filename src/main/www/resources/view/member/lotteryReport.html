@@ -1,0 +1,93 @@
+<div class="main-box-info tb-imte">
+	<table class="mem-biao" id="lotteryReport">
+		<thead>
+			<tr>
+				<th colspan="8"><span>时间：</span> <input
+					class="layriqi starTime" type="text"
+					onclick="laydate({format:'YYYY-MM-DD',isclear:false});"
+					readonly="true"> <span class="zhi">至</span> <input
+					class="layriqi endTime" type="text"
+					onclick="laydate({format:'YYYY-MM-DD',isclear:false});"
+					readonly="true"> 
+				<span><a href="javascript:;" class="butsty1">查询</a></span>  </th>
+			</tr>
+		</thead>
+	</table>
+	<table class="mem-biao" style="width: 100%">
+		<tbody>
+			<tr>
+				<th>序号</th>
+				<th>日期</th> 
+				<th>充值总额</th>
+				<th>提现总额</th>
+				<th>投注总额</th>
+				<th>中奖总额</th>
+				<th>总返点</th>
+				<th>佣金</th>
+				<th>活动</th>
+				<th>总盈亏</th>
+			</tr>
+		</tbody>
+		<tbody id="lotteryReport-data">
+		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		$("#lotteryReport .starTime").val(laydate.now(-3));
+		$("#lotteryReport .endTime").val(laydate.now(1)); 
+		$("#lotteryReport .butsty1").livequery("click",lotteryReport);
+		$("#lotteryReport .butsty1").trigger('click'); 
+	});
+	
+	//获取订单信息（不包括追号订单）
+	function lotteryReport() {
+		var starTime = $("#lotteryReport .starTime").val();
+		var endTime = $("#lotteryReport .endTime").val();
+		if (dateDiff(starTime, endTime) < 0) {
+			popTips('查询结束日期要大于开始日期', 'error');
+			return false;
+		}  
+		var pagination = $.pagination({
+			render : '.paging',
+			pageSize : 10,
+			pageLength : 3,
+			ajaxType : 'get',
+			hideInfos : false,
+			hideGo : true,
+			ajaxUrl : '/bet/paginglotteryReport',
+			ajaxData : { 
+				"startDate" : starTime,
+				"endDate" : endTime 
+			//是否是追号 0不是追号 1追号
+			},
+			success : function(data) {
+				$("#lotteryReport-data").html(
+						_.template($('#lotteryReport_template').html(), {
+							items : data
+						}));
+			}
+		});
+		pagination.init();
+	}
+</script>
+
+
+
+<script type="text/html" id="lotteryReport_template"> 
+<%_.each(items,function(item,index) {%>
+       <tr style="border-right: 1px solid #ccc; border-left: 1px solid #ccc; cursor: pointer">
+		 <td><%=index+1 %></td>
+         <td><%=item.actionDate%></td>
+		 <td data-chargeAmount><%=item.chargeAmount.toFixed(4) %></td>
+		 <td data-cashAmount><%=item.cashAmount.toFixed(4) %></td>
+		 <td data-betsAmount><%=item.betsAmount.toFixed(4) %></td>
+		 <td data-betsBonus><%=item.betsBonus.toFixed(4) %></td>
+	     <td data-fanDianAmount><%=item.fanDianAmount.toFixed(4)%>
+		 <td data-commission><%=item.commission.toFixed(4)%></td>
+         <td data-award><%=item.award.toFixed(4)%></td>
+         <td data-totalYk><%=(item.betsBonus+item.fanDianAmount+item.commission-item.betsAmount).toFixed(4)%></td>
+	</tr>    
+<%})%>
+</script>

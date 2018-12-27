@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en"> 
+<head> 
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<title>博联娱乐-代理管理</title>
+<link href="/css/bootstrap.css" rel="stylesheet">
+<link href="/css/all.css" rel="stylesheet">
+<link href="/css/member.css" rel="stylesheet"> 
+<link href="/css/tips.css" rel="stylesheet">
+</head> 
+<body class="mem-same main-bg" ng-app>
+    <!-- 头部 -->
+<div class="top-bg"></div>
+    <div class="main Agent">
+        <div class="center member-common clearfix">
+            <div class="member-nav pull-left">
+                <i class="icons-left-top"></i>
+                <ul class="clearfix"> 
+                     <li ><a href="/view/memberAccount.html"  ><i class="icons-account"></i>我的账户</a><em></em></li>
+                    <li><a href="/view/memberFinance.html"  ><i class="icons-Finance"></i>财务中心</a><em></em></li>                    
+                    <li><a href="/view/memberOrder.html" ><i class="icons-Order"></i>订单报表</a><em></em></li>
+                    <li class="cur" id = "agentInfo"><a href="javascript:;"><i class="icons-agency"></i>代理管理</a><em></em></li>
+                    <li><a href="/view/memberMessage.html"><i class="icons-Message"></i>最新公告</a><em></em></li>
+                </ul>
+            </div>
+            <div class="mem-main pull-right">
+                <div class="ym-grid m-a-one">
+                    <ul class="nav-link clearfix" id ="menuBar">
+                        <li data-tabId="agent.html" class="cur"><a href="javascript:;">代理首页</a><i></i></li>
+                        <li data-tabId="open.html"><a href="javascript:;">开户中心</a><i></i></li>
+                        <li data-tabId="member.html"><a href="javascript:;">会员管理</a><i></i></li>
+                        <li data-tabId="userBetsList.html"><a href="javascript:;">游戏记录</a><i></i></li>
+                        <li data-tabId="accountChange.html"><a href="javascript:;">账变记录</a><i></i></li>
+                        <li data-tabId="teamRecharge.html"><a href="javascript:;">团队充值</a><i></i></li>
+                        <li data-tabId="teamCash.html"><a href="javascript:;">团队提现</a><i></i></li> 
+                        <li data-tabId="teamReport.html"><a href="javascript:;">盈亏报表</a><i></i></li>
+                        <li data-tabId="teamlotteryReport.html"><a href="javascript:;">团队彩种报表</a><i></i></li>
+                        <!-- <li ><a href="javascript:;">百家乐</a><i></i></li>   -->
+                    </ul>
+                    <div class="mem-main-item m-a-nav-min">
+                        <!--代理首页--> 
+                        <!--开户中心--> 
+                        <!--会员管理--> 
+                        <!--在线会员--> 
+                        <!--游戏记录-->
+                        <!-- 账变记录 -->
+                        <!--团队存提款--> 
+                        <!--团队报表--> 
+                        <!-- 团队彩票报表  --> 
+                        <!-- 百家乐 --> 
+                        <!--牛牛eg--> 
+                        <!-- 外盘 --> 
+                        <!-- 代理分红 --> 
+                    </div>
+                    <div class="member-pag paging"></div>
+                </div>
+                <div class="mem-agent m-a-tow tab pos-r" style="display: none;padding:0 30px;position: relative">
+                    <input type="hidden" id="downUserId" value="">
+                    <ul class="m-f-c-nav tabHd clearfix">
+                        <li class="cur"><a href="javascript:;">升点</a><i></i></li>
+                        <li><a href="javascript:;">开户额</a><i></i></li>
+                        <li><a href="javascript:;">百家乐信息</a><i></i></li>
+                        <li><a href="javascript:;">快乐彩升点</a><i></i></li>
+                    </ul>
+                    <a class="fanhui butsty1" href="javascript:;">返回</a>
+                    <div class="m-a-sd m-f-cuk m-f-quk tabBd">
+                        <div class="mar-lr20 tb-imte">
+                            <div class="mar-lr20 shengdian">
+                                <div class="sd-one">
+                                    <span>账号名：<em class="sty-h" way-data="downUser.loginname"></em></span>
+                                    <span>返点数：<em class="sty-h" way-data="downUser.rebate"></em></span>
+                                    <span>余额：<em class="sty-h" way-data="downUser.totalFree"></em></span>
+                                </div>
+                                <div class="sd-one" id="backpointQuotaList"></div>
+                                <div id="backpointStandard">
+                                    <h6>升点标准：</h6>
+                                </div>
+                                <h6>配额升点处理：</h6>
+                                <p>从上一个返点级别区间升到下一个返点级别区间，代理在上个返点级别区间增加一个配额，下一个需要开户配额的 返点级别区间扣减一个对应的配额. 比如：从4.5升点到4.9，此时总代在[4.6-5.0]区间扣减一个配额，[4.0-4.5]区间增加一个配额.</p>
+                            </div>
+                        </div>
+                        <div class="mar-lr20 tb-imte" style="display: none">
+                            <div class="mar-lr20 shengdian">
+                                <div class="sd-one">
+                                    <span>账号名：<em class="sty-h" way-data="downUser.loginname"></em></span>
+                                    <span>返点数：<em class="sty-h" way-data="downUser.rebate"></em></span>
+                                    <span>余额：<em class="sty-h" way-data="downUser.totalFree"></em></span>
+                                </div>
+                                <table class="mem-biao">
+                                    <tbody id="downUserQuotaList"></tbody>
+                                </table>
+                                <a class="quer butsty3" href="javascript:;" onclick="saveQuota();">确认</a>
+                            </div>
+                        </div>
+                        <div class="mar-lr20 tb-imte" style="display: none">
+                            <div class="m-a-kaihu">
+                                <div class="ty-biaodan">
+                                    <div class="bjl-user overhd">
+                                        <span class="yl-gl">用户名：</span>
+                                        <span class="ylgr dred" way-data="downUser.loginname"></span>
+                                    </div>
+                                    <div id="type_bjl_form"></div>
+                                </div>
+                                <a class="butsty2" href="javascript:;" onclick="saveBaccarat();">确认</a>
+                            </div>
+                        </div>
+                        <div class="mar-lr20 tb-imte" style="display: none">
+                            <div class="mar-lr20 shengdian">
+                                <div class="sd-one">
+                                    <span>账号名：<em class="sty-h" way-data="downUser.loginname"></em></span>
+                                    <span>返点数：<em class="sty-h" way-data="downUser.rebateKlc"></em></span>
+                                    <span>余额：<em class="sty-h" way-data="downUser.totalFree"></em></span>
+                                </div>
+                                <div class="sd-one" id="backpointKlcQuotaList"></div>
+                                <h6>配额升点处理：</h6>
+                                <p>从上一个返点级别区间升到下一个返点级别区间，代理在上个返点级别区间增加一个配额，下一个需要开户配额的 返点级别区间扣减一个对应的配额. 比如：从4.5升点到4.9，此时总代在[4.6-5.0]区间扣减一个配额，[4.0-4.5]区间增加一个配额.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 删除提示框 --> 
+    <!-- 下级充值 --> 
+    <!-- 订单详情提示框 --> 
+    <!-- 订单详情提示框 --> 
+    <!-- 追号详情弹出框 --> 
+    <!-- 剩余配额 -->
+ 
+    
+    <script src="/js/jquery-1.11.3.min.js"></script>
+	<script src="/lib/jquerySession.js" type="text/javascript"></script>
+	<script src="/lib/jquery-dateFormat.min.js" type="text/javascript"></script>
+	<script src="/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="/js/jquery.easypiechart.min.js" type="text/javascript"></script>
+	<script src="/lib/way.min.js" type="text/javascript"></script>
+	<script src="/lib/handlebars-v2.0.0custom.js" type="text/javascript"></script>
+	<script src="/js/layer/layer.js" type="text/javascript"></script>
+	<script src="/lib/angular.min.js" type="text/javascript"></script>
+	<script src="/js/common.js" type="text/javascript"></script> 
+	<script src="/js/require.js"></script>
+	<script src="/config/requireConfig.js"></script> 
+    <script src="/lib/template.js" type="text/javascript"></script>
+	<script src="/js/laydate/laydate.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/main/member.page.js"></script>
+    <script type="text/javascript" src="/main/agent.js"></script>
+ 
+</body>
+
+</html>

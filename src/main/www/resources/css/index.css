@@ -1,0 +1,120 @@
+.foot-bg{width: 100%; height: 630px; background: url("all/foot-bg.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/all/foot-bg.png*/#fffef3 no-repeat center; padding-top: 370px;border-top: 1px solid #fff;background-size: cover;}
+.aboutwe{padding:0 270px; margin-top: 65px;  }
+
+.main-bg{ background: url("index/sy-bg.jpg")/*tpa=http://www.yugj881.com/resources/yiyou/css/index/sy-bg.jpg*/#fffef3 no-repeat center top; }
+.main-bg ul li{ float:left; }
+.main-bg .title{ width: 230px;height: 65px; margin: 35px auto 65px;text-align: right;padding-top: 5px; }
+.main-bg .body{ padding:0 30px; overflow: hidden;}
+.main-bg .title h3 {padding-right: 5px; color:#143058;}
+.main-bg .title p{margin-top: 10px;color: #7186a3;font-size: 19px;font-family: Arial;font-size: 8px \9;-webkit-transform: scale(0.8);-moz-transform: scale(0.6); -o-transform: scale(1); }
+.game .title h3{ padding-right: 10px; }
+.game ul .lhj{ margin:0 58px; }
+.game .hong, .huang, .lan{display:block; width:150px; height: 55px; text-align: center; color:#fff; border-radius: 4px;    line-height: 55px; font-size: 16px;margin: 28px auto 20px;}
+.game ul li a:hover{ color:#fff; }
+.game .game-into{ padding:0 50px 0 80px; }
+.game .game-into li{ float:left; margin-right: 70px; position: relative; overflow: hidden;}
+/*.game .game-into li p{ display: none; }
+*/
+.game .game-into li:hover a{ display: block; }
+.game .game-into li a{display: none;width: 128px;height: 44px;background: #fff;color: #25779d;line-height: 44px;text-align: center;margin: 0 auto; position: absolute;top: 190px;left: 27px;}
+.game .game-into li .lott-logo{width: 182px;height: 90px;position: absolute; top:0px; background-size: 180px 90px !important;}
+.game .game-into li .ssc{background: url("index/ho-ssc.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/index/ho-ssc.png*/ no-repeat 0px 0px;}
+.game .game-into li .klc{background: url("index/ho-klc.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/index/ho-klc.png*/ no-repeat 0px 0px;}
+.game .game-into li .xy28{background: url("index/ho-xy28.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/index/ho-xy28.png*/ no-repeat 0px 0px;}
+.game .game-into li .real{background: url("index/ho-real.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/index/ho-real.png*/ no-repeat 0px 0px;}
+.game .game-into li .slot{background: url("index/ho-slot.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/index/ho-slot.png*/ no-repeat 0px 0px;}
+.game .game-into li a:hover{ color:#25779d; }
+.game .game-into img{ width:180px; height: 400px;
+-webkit-transform: scale(1, 1);
+-webkit-transition-timing-function: ease-out;
+-webkit-transition-duration: 250ms;
+
+-moz-transform: scale(1, 1);
+-moz-transition-timing-function: ease-out;
+-moz-transition-duration: 250ms; }
+
+.game .game-into li img:hover{ 
+-webkit-transform: scale(1.1);
+-webkit-transition-timing-function: ease-out;
+-webkit-transition-duration: 750ms;
+
+-moz-transform: scale(1.1);
+-moz-transition-timing-function: ease-out;
+-moz-transition-duration: 750ms;
+overflow: hidden;
+
+}
+
+.game .title{ background: url("index/qiao.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/index/qiao.png*/no-repeat 16px 0px; } 
+.game .title p{margin-left: 15px;width: 100%;}
+.download .title,
+.servise .title{ background: url("index/dht.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/index/dht.png*/no-repeat 0px 5px; }
+.download .title{ width:200px; } 
+.download .title h3{ padding-right: 32px; } 
+.servise{ position:relative; }
+.servise .title p{ padding-left: 112px;font-size: 16px;}
+.servise h3{letter-spacing: 4px;}
+.servise .body{padding:0;}
+.servise ul li{ width:225px; text-align: center;}
+.servise ul li div{ width:162px; height: 162px; padding-top: 50px; color:#fff; margin: 0 auto;}
+.servise ul li div span{ display:block; margin-top: 18px;} 
+.servise ul li .txt { color:#a5abae; margin-top: 25px; line-height: 24px;}
+.servise ul li div span strong{ font-size: 24px; }
+.servise ul li h5{color:#143058; margin-top: 42px;}
+.servise .ctsd div,
+.servise .yhfw div{ background: url("index/lan.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/index/lan.png*/ no-repeat -10px -9px; }
+.servise .fhzq div{ background: url("index/hong.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/index/hong.png*/ no-repeat -16px -9px; }
+
+.download ul li{ width:218px;height: 302px;background: #fff;border:1px solid #ccc; }
+.download ul li i{ display: block;width:128px;height: 128px; border-radius: 50%;margin: 30px auto 0;}
+.download ul li p{ font-size: 24px;color:#333;width:100%; text-align: center;margin:20px 0; }
+.download ul li a{ display: block;width:130px;height: 46px;line-height: 46px; margin: 0 auto;
+ text-align:center;color: #333;border-radius: 30px;border:1px solid #ccc; background: #fff;}
+.download ul .win i{background: url("index/win-ho.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/index/win-ho.png*/#f8f8f8 no-repeat 28px 30px;}
+
+.download ul .mac i{background: url("index/mac-ho.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/index/mac-ho.png*/#f8f8f8 no-repeat 36px 30px;}
+
+.download ul .iph i{background: url("index/iph-ho.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/index/iph-ho.png*/#f8f8f8 no-repeat 43px 30px;}
+
+.download ul .and i{background: url("index/and-ho.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/index/and-ho.png*/#f8f8f8 no-repeat 41px 30px;}
+
+.download ul .wap i{background: url("index/wap-ho.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/index/wap-ho.png*/#f8f8f8 no-repeat 41px 30px;}
+.download ul li:hover{ border:1px solid #25779d; }
+.download ul li:hover p{color:#25779d;}
+.download ul li:hover a{ color:#fff;background: #25779d; border:none;}
+
+.promotion { margin-top: 75px; }
+.promotion .title{ background: url("index/bus.png")/*tpa=http://www.yugj881.com/resources/yiyou/css/index/bus.png*/no-repeat 0px 11px; } 
+.promotion .title h3{ padding-right: 15px;}
+.promotion .title p{font-size: 21px;margin-left: 6px;}
+.promo-banner{ margin-top: 25px;height:380px; }
+.promo-banner .ef-left{  text-align: center; padding: 110px 35px 0px;}
+.promo-banner .ef-left h5{ color:#333; font-size: 16px;}
+.promo-banner .ef-left p{ color:#666; margin-top: 10px; line-height: 24px; }
+.promo-banner .ef-right .promo-bg{ width:800px; height: 300px;background: #e44540; position: relative; }
+.promo-banner .ef-right img{ position:absolute; top:20px; right:20px; } 
+
+
+/*圆形进度条动画样式*/
+.plan{
+   
+    position: absolute;
+    margin: 0 25px;
+}
+
+.plan canvas {width: 170px !important;
+    height: 170px !important;
+    margin-top: 5px;
+    margin-left: -1px;
+}
+
+.plan1 {
+    top: 120px;
+}
+.plan2 {
+    top: 120px; left: 460px
+}
+.plan3 {
+    top: 120px; left:918px;
+}
+

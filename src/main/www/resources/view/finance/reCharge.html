@@ -1,0 +1,164 @@
+<div class="m-cun-tab c-tab-one tab mar-lr20" id="cunkPage" style="padding-left: 3%;padding-right: 3%;">
+	<div class="m-c-hd  recharge-type">
+		<h6>充值类型：</h6>
+		<ul class="tabHd"> 
+		    <li class="cur" type="0"><i></i>支付宝/微信充值</li>
+			<li type="1"><i></i>网银充值</li>
+			<li type="2"><i></i>快捷支付</li>
+		</ul>
+	</div> 
+	<!--  第三方充值渠道 --> 
+	<div class="m-c-bd tabBd">
+		<!-- 在线充值 -->
+		<div class="tb-imte" >
+			<div class="c-buzou tab"> 
+				<!-- 第一步 -->
+				<div class="c-bz-c-one">
+					<div class="c-t-hzyh">
+						<h6>支付方式：</h6>
+						<ul id= "rechargeBankList"> 
+						</ul>
+					</div>
+					<div class="c-t-czje" style="clear: both;">
+						<h6>充值金额：</h6>
+						<div>
+							&nbsp;<input  placeholder="请输入充值金额"  type="text" id= "amount">
+							<span>&nbsp;元&nbsp;&nbsp;（充值金额必须在 <span id="depositLimit">50~50000</span>元之间）
+							</span>
+						</div>
+					</div> 
+					<a class="but-xyb" href="javascript:;" style="color: #fff; ">下一步</a>
+				</div>
+				<!-- 在线充值 第二步 --> 
+				<!-- 网银充值 第二步 --> 
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript"> 
+	$(function() {
+		$(".paging").css('display',"none");
+		var rechargeLower = 50;
+		var rechargeUpper = 50000;
+		var bankList = [];
+		$.ajax({
+			url : "/content/toRecharge",
+			method : 'GET',
+			success : function(data) {
+				if (data.retcode == 0) {
+					bankList = data.data.bankList ; 
+					rechargeLower = data.data.rechargeLower;
+					rechargeUpper = data.data.rechargeUpper;
+					$("#depositLimit").html(rechargeLower + "~" + rechargeUpper);
+					changeBankList(); 
+				}  else {
+					popTips(data.message || "您尚未登录或登录时间过长,请重新登录!", "error", "温馨提示", function() { location.href = "/"; });
+				}
+			}
+		});
+		
+		
+		function changeBankList()
+		{
+		  var bankType=$('.tabHd li.cur').attr("type"); 
+			         $("#rechargeBankList").html(
+					    _.template($('#banklist-template').html(), {
+						items : bankList,
+						bankType:bankType
+					}));
+			        $('#rechargeBankList li:eq(0)').trigger('click');
+		}
+		
+	
+		$('.tabHd').delegate('li', 'click', function(e) {
+			$(e.delegateTarget).find('li').removeClass('cur'); 
+			$(this).addClass('cur');  
+			changeBankList();
+		}); 
+ 
+		$('#rechargeBankList').delegate('li', 'click', function(e) {
+			$(e.delegateTarget).find('li').removeClass('cur');
+			$(e.delegateTarget).find('li i').css('display',"none");
+			$(this).addClass('cur');
+			$(this).find("i").css('display',"inline");
+			// 玩法组点击事件触发的条件 
+		}); 
+		
+		$('.but-recharge').livequery('click',function(){	$('#menuBar li:eq(1)').trigger('click');});
+		
+		$('.but-xyb').livequery('click', function(e) {
+			var amount = $('#amount');
+			if(amount.val() == ""){
+				popTips('请输入充值金额!','error');
+				return;
+			}
+			if(!$.check.isMoney(amount.val()))
+			{
+				popTips( '请输入正确的充值金额!','error');
+				return;
+			}
+			var aval = parseInt(amount.val());
+			if(aval < rechargeLower || aval >rechargeUpper){
+				//alert('单笔充值限额 最低： 1 元，最高： 100000 元 !');
+				popTips( $.substitute('单笔充值限额 最低:{min}元,最高:{max}元 !',{min:rechargeLower,max: rechargeUpper}) ,"error" );
+				return;
+			}
+			var onlinePayment=$('#rechargeBankList li.cur').attr("onlinePayment");
+			var bank_id=$('#rechargeBankList li.cur').attr("id");
+			var payType=$('#rechargeBankList li.cur').attr("payType");
+			$.ajax({
+				url 	: "/bank/recharge_submit",
+				method 	: 'POST',
+				data    : {
+					bank_id: bank_id,
+					amount: aval,
+					onlinePayment:onlinePayment
+				},
+				success : function(data){
+					var retcode =data.retcode;
+					if(retcode==-1)
+					{
+						popTips( $.substitute('单笔充值限额 最低:{min}元,最高:{max}元 !',{min:rechargeLower,max: rechargeUpper}) ,"error" );
+						return ;
+					}
+					if(onlinePayment == "Y"){ 
+						 if(payType=="fastPay")
+					     {
+							 location.href = "/content/charge/fastPay?id=" +data.data.id;
+							 return;
+						 }
+						 location.href = "/content/charge/onlineCharge?id=" +data.data.id;
+					}else{
+						$(".mem-main-item").load('/view/finance/recharge_submit.html',function(){
+							$.ajax({
+								url : "/content/recharge_submit/" +data.data.id,
+								method : 'GET',
+								success : function(data) {
+									if (data.retcode == 0) { 
+										$("#reChargeDetail").html( _.template($('#reChargeDetail-template').html(), {
+													charge : data.data
+												}));
+									}  else {
+										popTips(data.message || "您尚未登录或登录时间过长,请重新登录!", "error", "温馨提示", function() { location.href = "/"; });
+									}
+								}
+							});
+						});
+					}
+				}
+			});
+		});
+	});
+</script>
+
+
+<script type="text/html" id="banklist-template">
+	<%_.each(items,function(item,index) {%>
+	         <%if(item.type == bankType){%>
+		  	 <li id="<%=item.id%>" payType="<%=item.payType%>" 
+                 onlinePayment="<%=item.onlinePayment%>"  >
+             <img min="50" feescale="1" minfee="1" max="1000"  src="/images/bank/hezyh/<%=item.logo%>" alt="银联" width="128" height="24"><i class="xz"></i></li>
+			  <%}%>
+	<%})%>
+</script>

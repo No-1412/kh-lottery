@@ -1,0 +1,208 @@
+<div class="main-box-info bank m-bdyhk">
+	<dl class="mar-lr16">
+		<div id="userBankList" />
+		<dd class="addyhk" >
+			<span>添加银行卡</span>
+		</dd>
+	</dl>
+</div>
+
+<!-- 添加银行弹框 -->
+<div id="opBankDiv" class="aar" style="display: none;"></div>
+
+<script type="text/javascript">
+$(function(){   
+	 loadUserBankList();     
+	 $('#userBankList').delegate('dd', 'click', function(e) {
+		 $.ajax({
+				url : "/user/bankInfo/" + $(this).attr("data-value"),
+				method : 'GET',
+				success : function(data) {
+					if (data.retcode == 0) { 
+						$("#opBankDiv").html( _.template($('#op_bank_template').html(), data.data));
+						pop("opBankDiv"); 
+						loadBankList(data.data.bankname);
+					} else {
+						popTips(data.message, "error");
+					}
+				}
+		 });
+	 });
+	 
+	 $(".addyhk").livequery("click",function(){
+		 $("#opBankDiv").html( _.template($('#op_bank_template').html(), {username:"",openingname:"",account:"",id:"",status:"",isDefault:""}));
+		 pop("opBankDiv"); 
+		 loadBankList();
+	 });
+	
+	$('#opUserBank').livequery("click",function (){ 
+		  if(checkBank())
+		  {
+				$.ajax({ 
+				    url: "/user/content/opUserBank", 
+				    type: 'POST', 
+				    dataType: 'json', 
+				    data: 
+				    {
+				     id:$("#userBankId").val(),
+				     bankid:$("#sysBankCard").val(),
+				     bankname:$("#sysBankCard option:selected").text(),
+				     username:$.trim($("#username").val()),
+				     openingname: $.trim($("#openingname").val()),
+				     account: $.trim($("#bankCardNum").val()),
+				     status:$("input[name='status']:checked").val(),
+				     isDefault:$("input[name='isDefault']:checked").val()},
+				     contentType: 'application/x-www-form-urlencoded',
+				     success: function(result) {
+				    	if (result.retcode == '0') {
+				    		closelayer();
+				    		return popTips("操作成功！","succeed","",function(){closelayer();loadUserBankList();});
+						}
+						return popTips(result.retmsg,"error");
+				    }
+				});
+	      } 
+		});
+	
+	function loadUserBankList()
+	{
+		$.ajax({
+			url : "/user/content/banklist",
+			method : 'GET',
+			success : function(data) {
+				if (data.retcode == 0) {  
+				   $("#userBankList").html(_.template($('#userBank_list_template').html(),{items:data.data}))
+				}else if(data.retcode==-2) {
+					popTips(data.retmsg||"您尚未登录或登录时间过长,请重新登录!", "error","",function(){$('#menuBar li:eq(3)').trigger('click');}); 
+				} 
+				else {
+					popTips(data.retmsg||"您尚未登录或登录时间过长,请重新登录!", "error","",function(){location.href  = "/";}); 
+				}
+			}
+		});
+	}
+	
+	function checkBank()
+	{
+		var userName = $.trim($("#username").val());
+		var openingname = $.trim($("#openingname").val());
+		var bankCardNum = $.trim($("#bankCardNum").val()); 
+		if(userName=='')
+		{
+			$("#username").select();
+			popTips("持卡人姓名不能为空","error");
+			return false;
+		}
+		if(openingname=='')
+		{
+			$("#openingname").select();
+			popTips("开户行网点不能为空","error");
+			return false;
+		}
+		if(bankCardNum=='')
+		{
+			$("#bankCardNum").select();
+			popTips("银行卡号不能为空","error");
+			return false;
+		} 
+		return true;
+	}
+	
+	function loadBankList(bankname)
+	{
+		 $.ajax({
+				url : "/common/loadDictByCatalog?CATALOG_NAME=USER_BANK",
+				method : 'GET',
+				success : function(data) {
+					if (data.retcode == 0) { 
+					   for(var i=0;i<data.data.length;i++){
+						   var bank = data.data[i]; 
+						   var op = new Option(bank.name,bank.value);
+						   if(bankname==bank.name){$(op).attr("selected", true);}
+						   $("#sysBankCard").append(op); 
+					   }  
+					} else {
+						popTips(data.message, "error");
+					}
+				}
+		 });
+	}
+	
+	 loadUserBankList();
+});
+
+ 
+</script>
+
+<script type="text/html" id="userBank_list_template"> 
+<%_.each(items,function(item,index) {%>
+       	<dd data-value= "<%=item.id%>">
+			<div class="yhk" >
+				<div class="img ym-gl">
+					<img src="/images/bank/<%=item.icon%>" onerror = "this.src = '/images/bank/bank-gh.jpg'"
+						height="35" width="35" alt="">
+				</div>
+				<div class="xx ym-gl">
+					<span><%=item.bankname%></span><span><%=item.username%>&nbsp;&nbsp;&nbsp;&nbsp;<%=item.account%></span>
+				</div>
+			</div>
+			<div class="moren">
+                <label for="<%=item.id%>"><span> 状态 </span></label>  <input name="status" type="checkbox" value="<%=item.status%>" <% if(item.status=="Y"){%>checked<%}%>/>
+                <br/>
+				<label for="<%=item.id%>"><span> 默认 </span></label>  <input name="isDefault" type="checkbox" value="<%=item.isDefault%>" <% if(item.isDefault=="Y"){%>checked<%}%>/>
+			</div>
+		</dd>
+<%})%>
+</script>
+
+
+<script type="text/html" id="op_bank_template"> 
+  <div class="aar-center">
+		<div class="aar-title">
+			<span><%if(id){%>编辑银行<%}else{%>添加银行<%}%></span><a class="aar-close _close" href="javascript:;" onclick="closelayer()"> <i class="demo-icon"></i></a>
+		</div>
+		<div class="tishik">
+			<div class="wenxints">
+				<p>温馨提示：为了您的资金安全，您所绑定的所有银行卡都必须在一个持卡人名下。</p>
+                <input type= "hidden" id="userBankId" value ="<%=id%>"/>
+			</div>
+			<dl class="validate-form">
+				<dd>
+					<span class="tt">选择银行：</span> <span class="xzyh"> 
+                       <select id="sysBankCard">
+					   </select>
+					</span>
+				</dd>
+				<dd>
+					<span class="tt">持卡人姓名：</span> <span id="userBankName">
+                    <input id="username" class="inp-sty-1" type="text" value="<%=username%>"></span>
+				</dd>
+				<dd>
+					<span class="tt">开户行网点：</span> <span>
+                    <input id="openingname" class="inp-sty-1" type="text" value="<%=openingname%>"></span>
+				</dd>
+				<dd>
+					<span class="tt">银行卡号：</span> <span>
+                    <input class="inp-sty-1" type="text" id="bankCardNum" value="<%=account%>"></span>
+				</dd>
+                <dd>
+					<span class="tt">启用状态：</span> <span> 
+                    <input type="radio" name="status" value="Y"  <%if(!status||status=="Y"){%>checked<%}%>>是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="status" value="N" <%if(status=="N"){%>checked<%}%>>否
+					</span>
+				</dd>
+				<dd>
+					<span class="tt">是否默认：</span> <span> <input type="radio"
+						name="isDefault" value="Y" <%if(!isDefault||isDefault=="Y"){%>checked<%}%>>是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="isDefault" value="N" <%if(isDefault=="N"){%>checked<%}%>>否
+					</span>
+				</dd>
+			</dl>
+		</div>
+		<div class="aar-but qr">
+			<a href="javascript:;" id="opUserBank">确认</a> <a
+				href="javascript:closelayer();" style="background-color: red;"
+				id="cancelBtn">取消</a>
+		</div>
+	</div>
+</script>

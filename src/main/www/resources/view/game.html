@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<title>博联娱乐-投注</title>
+<link href="/css/bootstrap.css" rel="stylesheet">
+<link href="/css/all.css" rel="stylesheet">
+<link href="/css/game.css" rel="stylesheet">
+<link href="/css/celan.css" rel="stylesheet">
+<link href="/css/tips.css" rel="stylesheet">
+</head>
+<body class="min-w" ng-app>
+	<div id="scriptDiv"></div>
+	<div id="layerDiv" style="display: none;" class="aar a-one"></div>
+	<div id="extraNums" style="display: none;" class="zhuihao aar"></div>
+	<div id="qrtouzhu" class="aar a-one" style="display: none;"></div>
+	<input type="hidden" id="lottery-id">
+	<input type="hidden" id="lottery-num">
+	<input type="hidden" id="user_fandian">
+	<input type="hidden" id="lottery_type">
+	<input type="hidden" id="singleContinueBetting">
+	<input type="hidden" id="lottery-data">
+	<!-- 头部 -->
+	<div class="top-bg"></div>
+	<main>
+	<div class="game-bg beijing1">
+		<div class="center2">
+			<div class="game-kaicai overhd">
+				<div class="lot-logo ef-left">
+					<img src="/images/game/lottery/ssc.png" alt="#" id="logo">
+					<p way-data="lottery_cn_name"></p>
+				</div>
+				<div class="kjq-kaijqiu lot-time ef-left">
+					<div class="qihao ">
+						<p class="corfff lott-c-tips  ef-left" style="display: block;">
+							当前期号: &nbsp;<span id="no"></span>&nbsp; 总共 &nbsp;<span
+								id="lottery_num"></span>&nbsp; 期
+						</p>
+						<p class="corfff text-left ef-left">
+							第&nbsp;<strong way-data="showExpect.lastExpect"></strong>&nbsp;期开奖结果：
+							<strong id="diff"></strong>
+						</p>
+					</div>
+					<div class="shij-box overhd">
+						<div class="shangqi">
+							<p class="corfff   text-left">
+								第&nbsp;<strong way-data="showExpect.currExpect"> </strong>&nbsp;期购彩截止：
+							</p>
+						</div>
+						<div class="shij overhd ef-left" id="countdown_dashboard">
+							<!--  
+							<div class="hh bj">
+								<span way-data="gametimes.h">00</span>
+							</div>
+							<div class="ss bj">
+								<span way-data="gametimes.m">00</span>
+							</div>
+							<div class="mm bj">
+								<span way-data="gametimes.s">00</span>
+							</div>
+							-->
+							<div class="hh bj dash hours_dash">
+								<div class="digit">0</div>
+								<div class="digit">0</div>
+							</div>
+
+							<div class="ss bj dash minutes_dash">
+								<div class="digit">0</div>
+								<div class="digit">0</div>
+							</div>
+
+							<div class="mm bj dash seconds_dash">
+								<div class="digit">0</div>
+								<div class="digit">0</div>
+							</div>
+						</div>
+						<div class="kaijq ef-right kj-hao">
+							<!-- 5个球开奖 --> 
+							<div id="opening"></div>
+						</div>
+					</div>
+				</div>
+				<!-- 历史记录 -->
+				<div class="ef-kj-lishi  ef-left">
+					<div class="kaijhma">
+						<span>期号</span><span>开奖号码</span>
+					</div>
+					<dl class="ym-hr">
+					</dl>
+				</div>
+			</div>
+			<div class="game-main">
+				<div class="ef-left caiz-more-box">
+					<div class="caiz-more celan-same1">
+						<p>更多彩种</p>
+						<div class="move-cz" style="display: none;">
+							<div class="czxz ef-left" id="gameMenus">
+								<dl id="ssc-list">
+
+								</dl>
+							</div>
+						</div>
+					</div>
+					<div class="zoushitu celan-same1">
+						<a href="javascript:;" target="_blank" id="btnTrend">走势图</a>
+					</div>
+					<div class="qiehuan celan-same1">
+						<p>切换背景</p>
+						<div class="more-bj" style="display: none;">
+							<ul>
+								<li class="cur pic-same qh1"><img
+									src="/images/game/ssc-bg1.png">
+									<p></p></li>
+								<li class="pic-same qh2"><img
+									src="/images/game/ssc-bg2.png">
+									<p></p></li>
+								<li class="pic-same qh3"><img
+									src="/images/game/ssc-bg3.png">
+									<p></p></li>
+							</ul>
+						</div>
+					</div>
+					<div class="lottery_guanfang celan-same1" style="display: none">
+						<a href="javascript:;" target="_blank">开奖官网</a>
+					</div>
+				</div>
+				<div class="ef-right">
+					<div class="lott-Control" style="width: 1146px;">
+						<div class="efnav-game">
+							<ul class="l-c-one overhd" id="play-group-menus">
+							</ul>
+						</div>
+						<div class="efmenu-game">
+							<ul class="l-c-item" id="play-menus">
+							</ul>
+						</div>
+						<div class="ef-touzhu">
+							<div class="ef-tzqpl">
+								<div class="touzhu-one" id="game-panel"></div>
+							</div>
+							<div class="jiangjin">
+								<div class="zhu">
+									<ul class="ef-left">
+										<li><span>倍数：</span></li>
+										<li class="efiaform"><span class="efmin"><i></i></span> <input
+											class="eftext_box" type="text" name="goodnum"
+											id="lotteryTimes" way-data="Lottery.times" maxlength="3">
+											<span class="efadd"><i></i></span></li>
+										<li><span>模式：</span></li>
+										<li><span> <select class="ym-fbox-select"
+												way-data="Lottery.yjf" onchange="Play.getNumAndDetail()">
+													<option value="2.00" selected="selected">元</option>
+													<option value="0.20">角</option>
+													<option value="0.02">分</option>
+											</select>
+										</span></li>
+										<li class="jjtj"><span class="jine">&nbsp;奖金：<i></i></span>
+											<div class="jifenqi">
+												<div class="jifen">
+													<div id="slider-range"
+														class="jifenBg ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+														<!--<div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min" style="width: 0%;"></div>
+														<span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 0%;"></span>-->
+													</div>
+												</div>
+											</div> <span> <way way-data="Lottery.bonus">0</way>/ <way
+													way-data="Lottery.fandian">0</way>% &nbsp;&nbsp;
+										</span></li>
+										<li><span>已选：<strong class="sty" id="itemcount">0</strong>&nbsp;
+												注
+										</span></li>
+										<li><span>金额：<strong class="sty" id="total">0.000</strong>&nbsp;元&nbsp;
+										</span></li>
+									</ul>
+									<ul class="ef-right addhm" id="delegate-content">
+										<li class="tjhm"><span id="add-touzhu">添加号码</span></li>
+										<li class="yjtz"><span id="fast-bet">一键投注</span></li>
+									</ul>
+								</div>
+							</div>
+							<div class="xiadanqu">
+								<div class="xiad-one">
+									<div class="xiad-left ef-left">
+										<div class="xiadan-nr">
+											<dl id="cart-list">
+											</dl>
+											<div class="xiad-tow overhd">
+												<div class="ef-left">
+													<span>订单总计: <strong class="sty-h"
+														id="orderlistSumCount">0</strong>个订单, 总注数 <strong
+														class="sty-h" id="orderlistItemcount">0</strong> 注， 共需支付金额
+														<strong class="sty-h">¥ <span id="orderlistTotal">0.000</span>元
+													</strong>&nbsp;&nbsp;&nbsp;
+													</span>
+												</div>
+												<div class="jj dqjj ef-right ">
+													当前奖金&nbsp;<i class="sty-h">￥</i>&nbsp; <span class="sty-h"
+														id="Lottery.prize">0.000</span>&nbsp;元
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="xiad-righ ef-right" id="touzhu-content">
+										<ul>
+											<li class="qrtz" id="btn-touzhu"><span><i></i>确认投注</span></li>
+											<li class="qrtz" id="btn-zhuihao"><span><i></i>我要追号</span></li>
+											<li class="ddjl"
+												onclick="location.href='/view/memberOrder.html'"><span><i></i>订单记录</span></li>
+											<li class="qkhm"><span onclick="Play.clear();"><i></i>
+													清空号码</span></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	</main>
+
+	<script type="text/html" id="ssclist-template">
+   	<%_.each(sscLists,function(ssc,index) {%>
+		  <dd class="<%=ssc.lotteryList[0].css%>">
+			 <div class="cz-logo"></div>
+				 <ul style="margin-top:<%= 5 + index * 10%>px;">
+                      <%_.each(ssc.lotteryList,function(lottery,index) {%>
+				         <li showname="<%=lottery.hash%>" onclick="javascript:initLottery('<%=lottery.hash%>','<%=lottery.lotteryName%>') "><%=lottery.lotteryName%><i>H</i></li>
+	                 <%})%>
+				</ul>
+		 </dd>
+	<%})%>
+</script>
+
+	<script type="text/html" id="playGrouplist-template">
+   	<%_.each(playGroupList,function(playGroup,index) {%>
+		  <li <%if(index==0){%>class="cur"<%} %> data-value="<%=playGroup.playGroupId%>" ><%=playGroup.group_name%><div><%=playGroup.group_name%></div></li>
+	<%})%>
+</script>
+
+	<script type="text/html" id="playlist-template">
+   	<%_.each(playList,function(play,index) {%>
+		  <li <%if(index==0){%>class="cur"<%} %> data-value="<%=play.id%>" ><%=play.name%></li>
+	<%})%>
+</script>
+
+	<!-- 加载玩法列表模板 -->
+	<script type="text/html" id="paly-template">
+	<%_.each(items,function(item,index) {%>
+		<li <%if(index==0){%> class="current" <%}%> data-value="<%=item.id %>"   
+             percent_pattern="<%=item.percentPattern %>"><a href="javascript:;"><%=item.name %></a></li>
+	<%})%>
+</script>
+
+	<!-- 数字选择型的模板 -->
+	<script type="text/html" id="digital-template"> 
+<dl class="danqiu" > 						
+ <%if(!isPosition && isRbtn){%> 
+  <%_.each(items,function(item,index) {%>
+   <dd>
+		 <h5><%=item[0] %></h5>
+			 <ul class="sz-qiu" >
+	             <%_.each(item[1].split('|'),function(digital,index) {%> 
+                       <li id="wxzhixfs_w_<%=index%>"><%=digital %></li>
+	              <%})%> 
+			 </ul>
+			 <ul class="gongn">
+	<%if(isQing==true){%> 
+        <li datascope="wxzhixfs_w_cle_0-9" data-flag="qing">清</li>
+	<%}%>
+	<%if(isShuang==true){%> 
+         <li datascope="wxzhixfs_w_dou_0-9" data-flag="shuang" >双</li>
+	<%}%>
+	<%if(isDan==true){%>
+        <li datascope="wxzhixfs_w_dou_0-9" data-flag="dan" >单</li> 
+	<%}%>
+	<%if(isXiao==true){%> 
+        <li datascope="wxzhixfs_w_dou_0-9" data-flag="xiao" >小</li> 
+	<%}%>
+	<%if(isDa==true){%> 
+         <li datascope="wxzhixfs_w_dou_0-9" data-flag="da" >大</li> 
+	<%}%>
+	<%if(isQuan==true){%>
+         <li datascope="wxzhixfs_w_dou_0-9" data-flag="quan" >全</li> 
+	<%}%> 							 
+			 </ul>
+		 </dd> 
+ <%});}%>  
+</dl>
+</script>
+
+	<!-- 加载玩法列表模板 -->
+	<script type="text/html" id="kj-lishi-template">
+	<%_.each(items,function(item,index) {%>
+		 <dd class="kjq-noqiu-tips"><p><%=item.lotteryMatches%></p>
+          <div class="kjqiu-sty1">
+                <%_.each(item.lotteryData.split(','),function(digital,index) {%>  
+                       <span><%=digital %></span> 
+	              <%})%> 
+          </div>
+         </dd>
+	<%})%>
+</script>
+
+	<script type="text/html" id="input-template"> 
+<div class="danshi" id="textarea_Lottery">
+<span id ="simpleInfo"></span>
+<%if(isPosition){%> 
+<span data-flag="position_area" style="margin-top: -10px; margin-bottom: 10px;">
+      <ul class="xwInput">
+		 <li><input id="Lottery_places_0" name="position" type="checkbox" value="0"> <label><span>万位</span></label></li>
+		 <li><input id="Lottery_places_1" name="position" type="checkbox" value="1"> <label><span>千位</span></label></li>
+		 <li><input id="Lottery_places_2" name="position" type="checkbox" value="2"> <label><span>百位</span></label></li>
+		 <li><input id="Lottery_places_3" name="position" type="checkbox" value="3"> <label><span>十位</span></label></li>
+		 <li><input id="Lottery_places_4" name="position"  type="checkbox" value="4"> <label><span>个位</span></label></li>
+         <li><em>温馨提示：</em>你选择了 
+		     <em id="positioncount" style="color: red;">2</em> 个位置，系统自动根据位置组合成
+ 		     <em id="positioninfo" style="color: red;">1</em>  个方案。 
+         </li>
+	 </ul> 
+</span>
+<%}%> 	
+<textarea class="form-control" way-data="Lottery.context" id="game-input"></textarea> 
+</div>
+</script>
+
+	<script type="text/html" id="cart-template">
+	 <dd data-value="<%=orderNo%>" data-fangAn="" bets_zhuiHao="" bets_zhuiHaoMode="">
+         <input type="hidden" id ="zhu" value="<%=zhu_original%>">
+         <input type="hidden" id ="playName" value="<%=playName%>">
+         <input type="hidden" id ="model_c" value="<%=model_c%>"> 
+         <input type="hidden" id ="playgroupid" value="<%=playgroupid%>"> 
+         <input type="hidden" id ="playid" value="<%=playid%>"> 
+         <input type="hidden" id ="lotteryId" value="<%=lotteryId%>">
+         <input type="hidden" id ="lotteryType" value="<%=lotteryType%>">
+         <input type="hidden" id ="bonus_c" value="<%=bonus_c%>">
+         <input type="hidden" id ="fandian" value="<%=fandian%>">
+		<span class="xq">
+           <a href="javascript:void(0)" data-value="<%=orderNo%>" title="查看详细">[<%=playName%>]<%=zhu%> </a></span>
+		<ul>
+            <li data-flag="lotteryName" data-value="<%=lotteryName%>"><%=lotteryName%></li>
+            <li data-flag="lotteryNo" data-value="<%=lotteryNo%>"><%=lotteryNo%></li>
+			<li><%=bonus%></li>
+			<li data-flag="total" data-value="<%=total%>"><%=total%>注</li>
+			<li data-flag="times" data-value="<%=times%>"><%=times%>倍</li>
+			<li data-flag="model" data-value="<%=model%>"><%=model%></li>
+			<li data-flag="money" data-value="<%=money%>">￥<%=money%>元</li>
+			<li class="sc"><a href="javascript:void(0)" title="删除投注数据" >删除</a></li>
+		</ul> 
+	</dd>
+</script>
+
+	<script type="text/html" id="order-detail-template">
+ <!-- 订单详情提示框 --> 
+	<div class="aar-center">
+		<div class="aar-title game-title">投注详情</div>
+		<a class="aar-close" onclick="closelayer()"><i class="demo-icon"></i></a>
+		<div class="tishik" >
+			<div class="dd-xiangq">
+				<table >
+					<tbody>
+					<tr>
+						<td colspan="2">彩种：<strong><%=lotteryName%></strong></td>
+					</tr>
+                    <tr>
+						<td colspan="2">玩法：<strong><%=playName%></strong></td>
+					</tr>
+					<tr>
+						<td>模式：<%=model%></td>
+						<td>倍数：<%=times%></td>
+					</tr>
+					<tr>
+						<td>注数：<%=total%></td>
+						<td>投注金额：￥ <%=money%> 元</td>
+					</tr>
+					</tbody>
+				</table>
+				<span>投注内容：</span>
+				<textarea ><%=zhu%></textarea>
+			</div>
+		</div>
+		<div class="aar-but"><a href="javascript:closelayer();">确认</a></div>
+	</div> 
+</script>
+
+
+	<script type="text/html" id="appendbet-template"> 
+<div class="zh-center">
+	<div class="aar-title zh-title" style="color:#fff;border-bottom: 1px solid #efefef;padding-left: 12px;">
+     <span style=" display: block; float: left; text-indent: 4em; margin-left:-60px; color:#fff; ">投注追号</span></div>
+	<a class="aar-close zh-close" onclick="closelayer();"><i class="demo-icon"></i></a>
+	<div class="tishik">
+		<div class="tab" style="padding: 6px 10px 0; position: relative;">
+			<div class="zh-t-nei tabBd">
+				<div class="zh-t-item cur" > 
+					<div class="detail" style="margin-top:1px;">
+						<table style="width:600px">
+							<thead class="appendbethead">
+                            <tr>
+								<th width="8%"><input type="checkbox" id="appendbet_lottery_no" name="appendbet_lottery_no" value="1"></th>
+								<th width="18%">期号</th>
+								<th width="15%">倍数</th>
+                                <th width="10%">模式</th>
+								<th width="10%">金额</th>
+								<th width="30%">截止时间</th>
+							</tr>
+							</thead>
+                            <tbody class="appendbetbody" id="appendbetbody">
+                                  <%_.each(items,function(item,index) {%>
+		                             <tr data-value = "<%=total%>" data-model ="<%=model_c%>">
+								         <th><input type="checkbox" name="sppendbet" value="<%=item.id%>"></th>
+								         <th data-flag="sppend-lotteryNo"><%=item.lotteryMatches%></th>
+								         <th><input class="bs" name="times" value="1" maxlength="3" data-flag="times"></th>
+                                         <th><%=model%></th>
+								         <th><%=total*model_c%></th>
+								         <th><%=item.lotteryTime%></th>
+							         </tr>
+	                              <%})%>
+                           </tbody>
+                        </table> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="zh-but aar-but" >
+     <input type="checkbox" checked id="stop-append" /> 中奖后停止追号 
+     <label for="zhuihao" >追号期数:<em id="append_total">0</em></label>
+     <label for="zhuihao" >追号金额:<em id="append_total_money">0.00</em></label>
+     <a href="javascript:void(0);" style="width: 90px" id="zhuihaoBtn">确认</a> 
+     <a href="javascript:closelayer();" style="width: 90px;background-color: red;">取消</a>
+</div> 
+</div> 
+</script>
+	<script type="text/html" id="bets-signature-template">
+<%=data.betsIdentification%>%<%=data.betsData%>?<%=data.betsAmount.toFixed(4)%>+<%=data.betsMode.toFixed(4)%>:<%=data.betsBonusprop.toFixed(4)%>/<%=data.betsFandian.toFixed(4)%>|<%=data.lotteryPlayid%>&<%=data.lotteryNo%>_<%=data.betsWeishu%>-<%=data.lotteryId%>
+</script>
+	<script type="text/html" id="kaijiang-template">   
+                            <ul class="lotter-bigqiu5 qiusty-1 overhd ">
+								<li><span>--</span><div class="lotter-qiu5-tips"></div> </li>
+								<li><span>--</span><div class="lotter-qiu5-tips"></div> </li>
+								<li><span>--</span><div class="lotter-qiu5-tips"></div> </li>
+								<li><span>--</span><div class="lotter-qiu5-tips"></div> </li>
+								<li><span>--</span><div class="lotter-qiu5-tips"></div> </li>
+							</ul> 
+</script>
+<script type="text/html" id="pk10-kaijiang-template"> 
+        <ul class="lotter-bigsmll10 qiusty-2">
+								<li>--</li>
+								<li>--</li>
+								<li>--</li>
+								<li>--</li>
+								<li>--</li>
+								<li>--</li>
+								<li>--</li>
+								<li>--</li>
+								<li>--</li>
+								<li>--</li>
+		 </ul>
+</script>
+<script type="text/html" id="qrtouzhu-template">
+<div class="aar-center">
+	<div class="aar-title"><span>温馨提示</span><a class="aar-close" href="javascript:;" onclick="closelayer()"><i class=" demo-icon"></i></a></div>
+	<div class="tishik">
+		<div class="qr-touzhu">
+			<p style=" text-align:center;font-size:16px; ">您确认加入第 <strong class="sty-h" ><%=lotteryNo%></strong> 期？</p>
+			<p style=" margin-left: 20%; ">总&nbsp;注&nbsp;数：<strong><%=itemcount%></strong></p>
+			<p style=" margin-left: 20%; ">订单笔数：<strong><%=ordercount%></strong></p>
+			<p style=" margin-left: 20%; ">投注总额：<strong ><%=total%></strong>元</p>
+		</div>
+	</div>
+	<div class="aar-but">
+          <a href="javascript:;" data-flag = "btnOk">确认</a>
+          <a href="javascript:closelayer();" style="background-color: red;">取消</a> 
+   </div>
+</div> 
+</script>
+
+	<footer> </footer>
+	<script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="/lib/lwtCountdown.js"></script>
+	<script type="text/javascript" src="/lib/jquerySession.js"></script>
+	<script type="text/javascript" src="/lib/jquery-dateFormat.min.js"></script>
+	<script type="text/javascript" src="/js/jquery.ui.slider.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/unslider.js"></script>
+	<script type="text/javascript" src="/js/jquery.easypiechart.min.js"></script>
+	<script type="text/javascript" src="/lib/way.min.js"></script>
+	<script type="text/javascript" src="/lib/handlebars-v2.0.0custom.js"></script>
+	<script type="text/javascript" src="/js/layer/layer.js"></script>
+	<script src="/lib/angular.min.js" type="text/javascript"></script>
+	<script src="/lib/math.js" type="text/javascript"></script>
+	<script src="/js/common.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/js/crypto-js.min.js"></script>
+	<script src="/lib/template.js" type="text/javascript"></script>
+	<script src="/main/initGame.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/js/require.js"></script>
+	<script src="/config/requireConfig.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/main/common-lottery.js"></script>
+</body>
+</html>

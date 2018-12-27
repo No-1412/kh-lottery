@@ -1,0 +1,350 @@
+<div class="main-box-info history  mar-lr20 tb-imte" id="allUserList">
+	<table class="mem-biao" id="allUserList">
+		<thead>
+			<tr>
+				<th><span>用户类型：</span> <select id="userRelation" class="state">
+						<option value="1">所有人</option>
+						<option value="2">我自己</option>
+						<option value="3">直属下线</option>
+						<option value="4">所有下线</option>
+				</select>
+				<th><span>用户名/用户ID：</span> <input class="in-tx-1" type="text"
+					value="" id="userName"> <a href="javascript:;"
+					class="butsty1">查询</a></th>
+			</tr>
+		</thead>
+	</table>
+	<table class="mem-biao" style="width: 100%">
+		<tbody>
+			<tr>
+				<th>用户ID</th>
+				<th>登录名</th>
+				<th>用户类型</th>
+				<th>返点</th>
+				<th>余额</th>
+				<th>账号类型</th>
+				<th>状态</th>
+				<th>在线</th>
+				<th>QQ</th>
+				<th>注册时间</th>
+				<th>操作</th>
+			</tr>
+		</tbody>
+		<tbody id="proxy_record">
+		</tbody>
+	</table>
+</div>
+
+<div id="update-user" class="aar aar-center" style="display: none;"></div>
+
+<div id="charge-table" class="aar aar-center" style="display: none;"></div>
+
+<script type="text/javascript">
+	$(function() { 
+	$("#allUserList .butsty1").livequery("click",proxyList);
+	$("#allUserList .butsty1").trigger('click');
+
+		//查询代理下级  
+	$('#proxy_record').delegate('[data-flag="next-level"]' , 'click' , function (){
+		var _uid = $(this).parents('tr').attr('data-uid'); 
+		$.pagination({
+			render : '.paging',
+			pageSize : 10,
+			pageLength : 3,
+			ajaxType : 'get',
+			hideInfos : false,
+			hideGo : true,
+			ajaxUrl : '/proxy/pagingSubagent',
+			ajaxData : {  
+				"userName" : '',
+				"userRelation":4,
+				"uid":_uid 
+			//是否是追号 0不是追号 1追号
+			},
+			success : function(data) {
+				$("#proxy_record").html(
+						_.template($('#proxy-template').html(), {
+							items : data
+						}));
+			}
+		}).init(); 
+	});
+	
+	
+	/**
+	 * 获取当前会员信息
+	 * @param  {[type]} _successCallBack [description]
+	 * @return {[type]}                  [description]
+	 */
+	var queryProxyInfo = function (uid,_successCallBack){
+		$.ajax({ 
+		    url: "/proxy/curProxyInfo", 
+		    data 	: 'uid='+uid,
+		    success: function (data){
+		    	if(0 === data.retcode){
+		    		_successCallBack && _successCallBack(data);
+		    	}else{
+		    		popTips(data.retcode || data.retmsg , "error");
+		    	}
+		    }
+		});
+	};
+	
+	
+	//修改
+	$('#proxy_record').delegate('[data-modify-user]','click',function (){
+		var uid = $(this).parents('tr').attr('data-uid');
+		queryProxyInfo(uid,function (data){
+    		  $("#update-user").html(_.template($('#update-user-template').html() , data.data));
+    		  pop("update-user");
+    		  for(var i =data.data.fanDian;i<data.data.maxFandian;i+=0.001)
+	    	  { 
+	    		    var op = new Option((i*100).toFixed(1) + "%",(i*100).toFixed(2));	
+	    		    $("#fandian").append(op);
+	    	  }
+    		  $("#fandian").append(new Option((data.data.maxFandian*100).toFixed(1) + "%",(data.data.maxFandian*100).toFixed(2)));
+    		  $('#update-user').delegate('[data-flag = "btnOk"]','click',function (){
+                   var _dataTemplate = 'id={id}&userType={userType}&fandian={fandian}';
+                   var _data = $.substitute(_dataTemplate , {
+                    	   id : $('#update_user_table [name="id"]').val(),
+                    	   //userType : $('#update_user_table [name="userType"]:checked').val()//,
+                    	   fandian	: ((+$('#update_user_table [name="fandian"]').val()))
+                       });
+                       $.ajax({
+                    	   url : "/proxy/updateSubProxy",
+                    	   data : _data,
+                    	   success : function (data){
+                    		   if(0 === data.retcode){
+                    				popTips( '操作成功！' ,'succeed','',function(){
+    					    			closelayer();
+    					    			$("#allUserList .butsty1").trigger('click');
+    					    			});
+                    		   }else{ 
+                    			    return popTips(data.retmsg,"error");
+                    		   }
+                    	   }
+                       });  
+    			  }); 
+    	     }); 
+		}); 
+	
+	
+	//充值
+	$('#proxy_record').delegate('[data-charge-user]','click',function (){
+		var uid = $(this).parents('tr').attr('data-uid');
+		queryProxyInfo(uid,function (data){
+			$("#charge-table").html(_.template($('#charge-table-template').html() , data.data));
+    		pop("charge-table");
+     		$('#charge-table').delegate('[data-flag = "btnOk"]','click',function (){
+			        var password =$("#proxy-coin-password").val();
+					if($.trim(password)=="")
+					{
+						popTips('请输入的资金密码。',"error");
+						return;
+					}
+					var _proxy_charge_val = $('#proxy-charge-inp').val();
+					if(!$.check.isMoney(_proxy_charge_val)){
+						popTips('您输入的金额格式不对。',"error");
+						return;
+					} 
+					var _dataTemplate = 'id={id}&userType={userType}&fandian={fandian}&coin={coin}&password={password}';
+					var _data = $.substitute(_dataTemplate , {
+                    	   id : data.data.id,
+                    	   userName : data.data.username,
+                    	   userType : data.data.userType,
+                    	   fandian	: data.data.fanDian,
+                    	   coin : _proxy_charge_val,
+                    	   password:password
+                    });
+					 
+					//给下级会员充值
+					$.ajax({ 
+					    url: "/proxy/chargeSubProxy", 
+					    data 	: _data,
+					    success: function (data){
+					    	if(0 === data.retcode){
+					    		popTips( '充值成功！' ,'succeed','',function(){
+					    			info();
+					    			closelayer();
+					    			$("#allUserList .butsty1").trigger('click');
+					    			});
+					    	}else{
+					    		 return popTips(data.retmsg,"error");
+					    	}
+					    }
+					});
+     		});
+	      });  
+	 }); 
+	
+	//获取订单信息（不包括追号订单）
+	function proxyList() { 
+		var pagination = $.pagination({
+			render : '.paging',
+			pageSize : 10,
+			pageLength : 3,
+			ajaxType : 'get',
+			hideInfos : false,
+			hideGo : true,
+			ajaxUrl : '/proxy/pagingProxy',
+			ajaxData : {  
+				"userName" : $("#userName").val(),
+				"userRelation":$("#userRelation").val()
+			//是否是追号 0不是追号 1追号
+			},
+			success : function(data) {
+				$("#proxy_record").html(
+						_.template($('#proxy-template').html(), {
+							items : data
+						}));
+			}
+		});
+		pagination.init();
+	}
+	});
+</script>
+
+<script type="text/html" id="proxy-template">
+ <%_.each(items,function(item,index) {%>
+		<tr data-uid="<%=item.id%>">
+            <td><%=item.uid%></td>
+			<td><%=item.userName%></td>
+			<td style="text-align:center">
+				<%if(item.userType==0){%>代理<%}%>
+				<%if(item.userType==1){%>会员<%}%> 
+			</td>
+			<td><%=(item.fanDian*100).toFixed(2) %>%</td>
+            <td><%=item.coin.toFixed(2) %></td>
+			<td style="text-align:center"> 
+                <%if(item.virtualAccount==0){%>----<%}else{%>虚拟账户<% }%> 
+            </td>
+            <td> 
+                <%if(item.status==0){%>正常<%}else{%>停用<% }%> 
+            </td>
+			<td>
+                <%if(item.isOnline==0){%>在线<%}else{%>离线<% }%> 
+            </td>
+			<td><%=item.userQq %></td> 
+			<td><%=item.registerDate%></td>
+			<td>
+				<%if(item.isSelf=='N'){%><a data-modify-user >修改</a>&nbsp;<%}%>
+                <%if(item.isSelf=='N'&&item.isCharge=='Y'){%><a data-charge-user >充值</a>&nbsp;<%}%>
+				<a data-flag="next-level">查看下级</a>
+			</td>
+		</tr>
+	<%})%>
+</script>
+
+
+<script type="text/html" id="update-user-template">
+   <div class="aar-title">修改</div>
+    <a class="aar-close" onclick="closelayer()"><i class="demo-icon"></i></a>
+    <div class="tishik">
+        <div class="dd-xiangq"> 
+        <table width="100%" id="update_user_table"  >
+        <input type="hidden" name="id" value="<%=id%>">
+		<tr>
+			<td style="text-align:right">上级关系:</td>
+			<td style="text-align:left"><%=relation%></td> 
+		</tr>
+		<tr>
+			<td style="text-align:right">用户名:</td>
+			<td style="text-align:left"><%=username%></td>
+		</tr>
+        <tr>
+			<td style="text-align:right">用户ID:</td>
+			<td style="text-align:left"><%=uid%></td>
+		</tr>
+		<tr>
+			<td style="text-align:right">会员类型:</td>
+			<td style="text-align:left"> 
+                 <%if(userType==0){%>代理 <%}else{%>会员<%}%>
+            </td>
+		</tr> 
+	    <tr>
+			<td style="text-align:right">账号类型:</td>
+			<td style="text-align:left"> 
+                    <%if(virtualAccount==0){%>真实用户 <%}else{%>虚拟用户<%}%>
+            </td>
+		</tr>
+       <tr>
+			<td style="text-align:right">用户余额:</td>
+			<td style="text-align:left"><%=coin.toFixed(2)%></td>
+		</tr>  
+	    <tr>
+			<td style="text-align:right">点位:</td>
+			<td style="text-align:left"> 
+                  <select name="fandian" id ="fandian"></select>
+            </td>
+		</tr> 
+		<tr>
+			<td style="text-align:right">注册时间:</td>
+			<td style="text-align:left"><%=registerDate%></td>
+		</tr>
+        <tr>
+             <td colspan ="2">
+                   	<div class="aar-but">
+                       <a href="javascript:;" data-flag = "btnOk">确认</a>
+                       <a href="javascript:closelayer();" style="background-color: red;">取消</a> 
+                    </div>
+             </td>
+        </tr>
+        </table>
+        </div>
+    </div>
+</div>  
+</script>
+
+
+<script type="text/html" id="charge-table-template">
+  <div class="aar-title">充值</div>
+    <a class="aar-close" onclick="closelayer()"><i class="demo-icon"></i></a>
+    <div class="tishik">
+        <div class="dd-xiangq"> 
+          <table width="100%" id="vip_charge_table" class="tab-list stripe mt10">
+		<tr>
+			<td  style="text-align: right">上级关系：</td>
+			<td style="text-align: left"><%=relation%></td>
+		</tr>
+		<tr>
+			<td  style="text-align: right">用户名：</td>
+			<td style="text-align: left"><%=username%></td>
+		</tr>
+		<tr>
+			<td  style="text-align: right">用户余额：</td>
+			<td style="text-align: left"><%=coin%></td>
+		</tr>
+		<tr>
+			<td  style="text-align: right">余额：</td>
+			<td style="text-align: left"> <span style="color:red;"><%=userCoin%></span></td>
+		</tr>
+        <tr>
+			<td  style="text-align: right">资金密码：</td>
+			<td style="text-align: left">
+                <input id="proxy-coin-password" type="password" maxlength="10"/>
+			</td>
+		</tr>
+		<tr>
+			<td  style="text-align: right">充值金额：</td>
+			<td style="text-align: left">
+                     <div style="margin-top:10px;margin-bottom:0px;" >
+                     <input id="proxy-charge-inp" maxlength=5 />
+			</div></td>
+		</tr>
+       <tr>
+			<td  style="text-align: center" colspan="2"><p><em style="color: red;">*&nbsp;</em>请认真核对充值金额，只能充值1-10000元</p></td>
+			 
+		</tr>
+        <tr>
+             <td colspan ="2">
+                   	<div class="aar-but">
+                       <a href="javascript:;" data-flag = "btnOk">确认</a>
+                       <a href="javascript:closelayer();" style="background-color: red;">取消</a> 
+                    </div>
+             </td>
+        </tr>
+         </table>
+        </div>
+    </div>
+</div>  
+</script>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.front.dao.mapper.UserBankMapper" >
+  <resultMap id="BaseResultMap" type="com.front.model.UserBank" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="VARCHAR" />
+    <result column="uname" property="uname" jdbcType="VARCHAR" />
+    <result column="bankId" property="bankid" jdbcType="VARCHAR" />
+    <result column="bankName" property="bankname" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="openingName" property="openingname" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="giftMoney" property="giftMoney" jdbcType="VARCHAR" />
+     <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="is_default" property="isDefault" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="INTEGER" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="modify_user" property="modifyUser" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, uid, uname, bankId, bankName, username, openingName, account, status, is_default, 
+    create_date, create_user, modify_date, modify_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tr_user_bank
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByKeyAndUid" resultMap="BaseResultMap" parameterType="com.front.model.UserBank" >
+    select 
+    <include refid="Base_Column_List" />
+    from tr_user_bank
+    where id = #{id,jdbcType=INTEGER} and  uid = #{uid,jdbcType=VARCHAR}
+  </select>
+  
+    <select id="selectUserBankByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tr_user_bank
+    where uid = #{uid,jdbcType=VARCHAR} limit 5 
+  </select>
+  
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select  b.id,b.bankId,
+     if(length(b.username)=0,'*****',concat(SUBSTR(b.username,1,1),'****'))as username , b.bankName, b.openingName,
+    if(length(b.account)=0,'*****',concat(SUBSTR(b.account,1,1),'****',SUBSTR(b.account,LENGTH(b.account)-2,2))) as account,
+    b.status, b.is_default,
+    ifnull(cf.field_value,'N')as giftMoney,
+    cf1.field_value as icon
+    from tr_user_bank b 
+    inner join tr_dict d on b.bankId= d.dict_value
+    left join tr_customer_field cf on cf.field_handler=concat('DictContentBo:',d.id) and cf.field_name='giftMoney'
+    left join tr_customer_field cf1 on cf1.field_handler=concat('DictContentBo:',d.id) and cf1.field_name='icon' 
+    where b.uid = #{uid,jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="insert" parameterType="com.front.model.UserBank" >
+    replace into tr_user_bank (id, uid, uname, 
+      bankId, bankName, username, 
+      openingName, account, status, 
+      is_default, create_date, create_user, 
+      modify_date, modify_user)
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR}, #{uname,jdbcType=VARCHAR}, 
+      #{bankid,jdbcType=VARCHAR}, #{bankname,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{openingname,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{isDefault,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{modifyDate,jdbcType=TIMESTAMP}, #{modifyUser,jdbcType=INTEGER})
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.front.model.UserBank" >
+    update tr_user_bank
+    set uid = #{uid,jdbcType=VARCHAR},
+      uname = #{uname,jdbcType=VARCHAR},
+      bankId = #{bankid,jdbcType=VARCHAR},
+      bankName = #{bankname,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      openingName = #{openingname,jdbcType=VARCHAR},
+      account = #{account,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      is_default = #{isDefault,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      modify_user = #{modifyUser,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<title>博联娱乐-关于我们</title>
+<link href="/css/bootstrap.css" rel="stylesheet">
+<link href="/css/all.css" rel="stylesheet">
+<link href="/css/tips.css" rel="stylesheet">
+<link href="/css/about.css" rel="stylesheet">
+</head>
+<script type="text/javascript"> 
+	var searchStr = window.location.search;
+	var code = getQueryString(searchStr.substr(1), "code");
+	if(code == "deposit") {
+		$(".helpli li").eq(1).addClass("cur");
+	} else if(code == "withdrawals") {
+		$(".helpli li").eq(2).addClass("cur");
+	} else if(code == "account") {
+		$(".helpli li").eq(3).addClass("cur");
+	} else if(code == "safety") {
+		$(".helpli li").eq(4).addClass("cur");
+	} else if(code == "platform") {
+		$(".helpli li").eq(5).addClass("cur");
+	} else {
+		$(".helpli li").eq(0).addClass("cur");
+	}
+});
+
+$(".helpcenter .qusetion-title").click(function(){
+	var _that=$(this).parent("li");
+	if(_that.attr("class")=="cur"){
+		_that.removeClass("cur");
+		return false;
+	}	
+})
+</script>
+</head>
+<body ng-app>
+
+<!-- 头部 -->
+<div class="top-bg"></div>
+
+<main>
+<div class="helpcenter">
+	<!-- <div class="pro-top">
+		<img src="/resources/yuncai//resources/yiyou/images/promotions/helpcenter.png">
+	</div> -->
+	<div class="pro-ct">
+		<div>
+			<div class="promo-nav  ym-gl">
+				<ul class="p-nav-cen">
+					<li class="cur"><a href="/view/about.html"  ><i class="rm"></i>关于我们<img src="/images/promotions/icon-cur.png"  ></a></li>
+					<li class=""><a href="/view/helpcenter.html" ><i class="cp"></i>常见问题<img src="/images/promotions/icon-cur.png"  ></a></li>
+					<li class=""><a href="/view/clause.html" ><i class="zr"></i>条款与规则<img src="/images/promotions/icon-cur.png"  ></a></li>
+					<li class=""><a href="/view/duty.html" ><i class="dz"></i>博彩责任<img src="/images/promotions/icon-cur.png"  ></a></li>
+					<li class=""><a href="/view/statement.html"><i class="wq"></i>免责声明<img src="/images/promotions/icon-cur.png"  ></a></li>
+					<li class=""><a href="/view/czwf.html"><i class="wf"></i>彩种玩法<img src="/images/promotions/icon-cur.png"  ></a></li>
+<!-- 					<li class=""><a href="zhidu.html"><i class="zs"></i>招商制度<img src="/resources/yiyou/images/promotions/icon-cur.png"></a></li>
+ -->				</ul>
+			</div>
+			<div class="tabBd">
+				<div class="ab-m-cen">
+					<h1>博联国际  &nbsp;&nbsp;  畅游世界</h1>
+					<div class="ab-m-c-p abouts">
+						<p> 博联国际集团简介：博联国际 平台是由华夏集团倾力推出的一家多元化的线上娱乐购彩平台。
+							公司总部成立于2011年1月，设立于马尼拉。公司以完备的制度和体系维系发展，并持有菲律宾博彩执照，
+							受CEZA和北卡格杨地区（NORTH CAGAYAN）的法律管辖，在提供给诸位玩家一个完美的娱乐体验平台的同时百分百确保营业项目的公平性以及用户资金的安全性！
+							集团在全球各地取得政府合法授权经营开发包含有实地赌场，菲律宾马尼拉云顶赌场，马来西亚云顶赌场蒙特卡罗赌场，均参与在内的全球战略合作伙伴。
+							最好的产品，最好的服务，最好的信誉，菲律宾华夏集团互联科技有限公司已经在各个领域取得辉煌业绩！这次携手实力参股公司，隆重推出线上娱乐游戏平台（亿游国际娱乐城）作为2016年公司重点推出的拳头产品。势必会引流博彩新的一轮重组。成为您最可信赖的长期合作伙伴！</p>
+					</div>
+				</div>
+			</div>		
+		</div>
+	</div>
+</div>
+</main>
+
+<!-- 底部 -->
+<footer></footer>
+    <script src="/js/jquery-1.11.3.min.js"></script> 
+    <script src="/lib/jquerySession.js" type="text/javascript"></script>
+	<script src="/js/require.js"></script>
+	<script src="/config/requireConfig.js"></script>
+	<script src="/lib/angular.min.js" type="text/javascript"></script>
+	<script>
+
+	require([
+		"view/header/Header",
+		"view/footer/footer",
+	],function(Header,footer){
+		new Header();
+		new footer();
+	});
+
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        adjust();
+    });
+    function adjust() {
+        var _bHeight = document.body.clientHeight;
+        if (_bHeight > 670) {
+            $(".footer").css({"position": "absolute", "bottom": "0"});
+            var mgTop = (_bHeight - 230);
+            $(".pro-ct").css({"height": mgTop + "px"});
+        }
+        else {
+            $(".footer").css({"position": "relative"});
+            $(".ty-main").css({"height": "auto"});
+        }
+    }
+    $(window).resize(function () {
+        adjust();
+    });
+    $(".nav-zuo li").mouseenter(function () {
+        var _this = $(this).children("i").children("img");
+        _this.animate({left: "-38px"});
+    });
+    $(".nav-zuo li").mouseleave(function () {
+        if ($(this).attr("class") == "cur")
+            return false;
+        var _this = $(this).children("i").children("img");
+        _this.animate({left: "0"});
+    });
+</script>
+</body>
+</html>

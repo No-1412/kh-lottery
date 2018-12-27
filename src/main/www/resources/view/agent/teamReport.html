@@ -1,0 +1,243 @@
+<div class="main-box-info history  mar-lr20 tb-imte" id="accountChange">
+	<table class="mem-biao" id="teamReport">
+		<thead>
+			<tr>
+				<th colspan="8"><span>开始时间：</span> <input
+					class="layriqi starTime" id="startDate" type="text"
+					onclick="laydate({format:'YYYY-MM-DD',isclear:false});"
+					readonly="true"> <span class="zhi">结束时间：</span> <input
+					class="layriqi endTime" id="endDate" type="text"
+					onclick="laydate({format:'YYYY-MM-DD',isclear:false});"
+					readonly="true"></th>
+				<th><span>用户类型：</span> <select id="orderRule">
+						<option value="betAmout">投注量从大到小</option>
+						<option value="rebate">返点从大到小</option>
+						<option value="bouns">中奖从大到小</option>
+						<option value="comm">佣金从大到小</option>
+						<option value="charge">充值从大到小</option>
+						<option value="cash">提现从大到小</option>
+						<option value="award">日量奖励从大到小</option>
+				</select></th>
+				<th><a href="javascript:;" class="butsty1">查询</a></th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+	<div style="height: 542px; overflow: auto;">
+		<table class="mem-biao" style="width: 100%;">
+			<tbody>
+				<tr>
+					<th>用户ID</th>
+					<th>用户名</th>
+					<th>充值总额</th>
+					<th>提现总额</th>
+					<th>投注总额</th>
+					<th>中奖总额</th>
+					<th>总返点</th>
+					<th>佣金</th>
+					<th>活动</th>
+					<th>总盈亏</th>
+				</tr>
+			</tbody>
+			<tbody id="teamReport-data">
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		$(".starTime").val(laydate.now(-7));
+		$(".endTime").val(laydate.now(1));
+		$("#teamReport .butsty1").livequery("click", teamReportList);
+		$("#teamReport .butsty1").trigger('click');
+
+		$('#teamReport-data')
+				.delegate(
+						'[data-flag="data-super-proxy"]',
+						'click',
+						function() {
+							var _uid = $(this).parents('tr').attr('data-pid');
+							var starTime = $(".starTime").val();
+							var endTime = $(".endTime").val();
+							$
+									.pagination(
+											{
+												render : '.paging',
+												pageSize : 10,
+												pageLength : 3,
+												ajaxType : 'get',
+												hideInfos : false,
+												hideGo : true,
+												ajaxUrl : '/team/pagingSubTeamReport',
+												ajaxData : {
+													"startDate" : starTime,
+													"endDate" : endTime,
+													"uid" : _uid
+												//是否是追号 0不是追号 1追号
+												},
+												success : function(data) {
+													$("#teamReport-data")
+															.html(
+																	_
+																			.template(
+																					$(
+																							'#teamReport-list-template')
+																							.html(),
+																					{
+																						items : data
+																					}));
+													initSummary(data);
+												}
+											}).init();
+						});
+
+		$('#teamReport-data')
+				.delegate(
+						'[data-flag="data-sub-proxy"]',
+						'click',
+						function() {
+							var _uid = $(this).parents('tr').attr('data-uid');
+							var starTime = $(".starTime").val();
+							var endTime = $(".endTime").val();
+							$
+									.pagination(
+											{
+												render : '.paging',
+												pageSize : 10,
+												pageLength : 3,
+												ajaxType : 'get',
+												hideInfos : false,
+												hideGo : true,
+												ajaxUrl : '/team/pagingSubTeamReport',
+												ajaxData : {
+													"startDate" : starTime,
+													"endDate" : endTime,
+													"uid" : _uid
+												//是否是追号 0不是追号 1追号
+												},
+												success : function(data) {
+													$("#teamReport-data")
+															.html(
+																	_
+																			.template(
+																					$(
+																							'#teamReport-list-template')
+																							.html(),
+																					{
+																						items : data
+																					}));
+													initSummary(data);
+												}
+											}).init();
+						});
+
+		function initSummary(reportData) {
+			//充值总额
+			var chargeAmountTotal = 0;
+			//提现金额
+			var cashAmountTotal = 0;
+			//投注金额
+			var betsAmountTotal = 0;
+			//中奖金额
+			var betsBonusTotal = 0;
+			//总返点
+			var fanDianAmountTotal = 0;
+			//佣金
+			var commissionTotal = 0;
+
+			var awardTotal = 0;
+			//总盈亏
+			var totalYkTotal = 0;
+
+			//var reportData = data.data.list;
+			for (var i = 0; i < reportData.length; i++) {
+				chargeAmountTotal += reportData[i]['chargeAmount'];
+				cashAmountTotal += reportData[i]['cashAmount'];
+				betsAmountTotal += reportData[i]['betsAmount'];
+				betsBonusTotal += reportData[i]['betsBonus'];
+				fanDianAmountTotal += reportData[i]['fanDianAmount'];
+				commissionTotal += reportData[i]['commission'];
+				awardTotal += reportData[i]['award'];
+				//totalYkTotal += ( (+reportData[i]['betsBonus']) - (+reportData[i]['betsAmount']) - (+reportData[i]['commission']) );
+			}
+			;
+			totalYkTotal = betsBonusTotal + commissionTotal
+					+ fanDianAmountTotal - betsAmountTotal;
+			//本页总结
+			$('#teamReport-data')
+					.append(
+							$
+									.substitute(
+											'<tr style="background-color:#DFFDFD;"><td colspan="2" style="text-align:right;">本页总结：</td><td>{chargeAmountTotal}</td><td>{cashAmountTotal}</td><td>{betsAmountTotal}</td><td>{betsBonusTotal}</td><td>{fanDianAmountTotal}</td><td>{commissionTotal}</td><td>{awardTotal}</td><td>{totalYkTotal}</td></tr>',
+											{
+												chargeAmountTotal : chargeAmountTotal
+														.toFixed(4),
+												cashAmountTotal : cashAmountTotal
+														.toFixed(4),
+												betsAmountTotal : betsAmountTotal
+														.toFixed(4),
+												betsBonusTotal : betsBonusTotal
+														.toFixed(4),
+												fanDianAmountTotal : fanDianAmountTotal
+														.toFixed(4),
+												commissionTotal : commissionTotal
+														.toFixed(4),
+												awardTotal : awardTotal
+														.toFixed(4),
+												totalYkTotal : totalYkTotal
+														.toFixed(4)
+											}));
+		}
+
+		//获取订单信息（不包括追号订单）
+		function teamReportList() {
+			var starTime = $(".starTime").val();
+			var endTime = $(".endTime").val();
+			if (dateDiff(starTime, endTime) < 0) {
+				popTips('查询结束日期要大于开始日期', 'error');
+				return false;
+			}
+			var pagination = $.pagination({
+				render : '.paging',
+				pageSize : 10,
+				pageLength : 3,
+				ajaxType : 'get',
+				hideInfos : false,
+				hideGo : true,
+				ajaxUrl : '/team/pagingTeamReport',
+				ajaxData : {
+					"startDate" : starTime,
+					"endDate" : endTime,
+					"orderRule" : $("#orderRule").val()
+				//是否是追号 0不是追号 1追号
+				},
+				success : function(data) {
+					$("#teamReport-data").html(
+							_.template($('#teamReport-list-template').html(), {
+								items : data
+							}));
+					initSummary(data);
+				}
+			});
+			pagination.init();
+		}
+	});
+</script>
+
+<script type="text/html" id="teamReport-list-template">
+	<%_.each(items,function(item,index) {%>
+		<tr data-uid="<%=item.id%>" data-pid="<%=item.parentId%>">
+			<td><a data-flag='data-sub-proxy'><%=item.uid%></a></td>
+            <td><a data-flag='data-sub-proxy'><%=item.loginName%></a></td>
+			<td data-chargeAmount ><%=item.chargeAmount.toFixed(4) %></td>
+			<td data-cashAmount ><%=item.cashAmount.toFixed(4) %></td>
+			<td data-betsAmount ><%=item.betsAmount.toFixed(4) %></td>
+			<td data-betsBonus ><%=item.betsBonus.toFixed(4) %></td>
+	        <td data-fanDianAmount ><%=item.fanDianAmount.toFixed(4)%>
+			<td data-commission ><%=item.commission.toFixed(4)%></td>
+            <td data-award ><%=item.award.toFixed(4)%></td>
+            <td data-totalYk ><%=(item.betsBonus+item.fanDianAmount+item.commission-item.betsAmount).toFixed(4)%></td>
+		</tr>
+	<%})%>
+</script>

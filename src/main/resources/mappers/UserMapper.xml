@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.front.dao.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.front.model.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="VARCHAR"/>
+    <result column="login_name" property="loginName" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_sex" property="userSex" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="coin_password" property="coinPassword" jdbcType="VARCHAR" />
+    <result column="user_type" property="userType" jdbcType="INTEGER" />
+    <result column="coin" property="coin" jdbcType="DOUBLE" />
+    <result column="fcoin" property="fcoin" jdbcType="DOUBLE" />
+    <result column="fanDian" property="fandian" jdbcType="DOUBLE" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="is_online" property="isOnline" jdbcType="INTEGER" />
+    <result column="last_loginDate" property="lastLogindate" jdbcType="TIMESTAMP" />
+    <result column="last_loginaddr" property="lastLoginAddr" jdbcType="VARCHAR" />
+    <result column="user_qq" property="userQq" jdbcType="VARCHAR" />
+    <result column="virtual_account" property="virtualAccount" jdbcType="INTEGER" />
+    <result column="register_addr" property="registerAddr" jdbcType="VARCHAR" />
+    <result column="register_date" property="registerDate" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="INTEGER" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="modify_user" property="modifyUser" jdbcType="INTEGER" />
+    <result column="betLimit" property="betLimit"/>
+    <result column="blockRebate" property="blockRebate"/>
+    <result column="session_id" property="sessionId"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, uid,login_name, user_name,
+    user_password, coin_password, user_type, 
+    ifnull(coin,0) as coin, 
+    ifnull(fcoin,0) as fcoin , 
+    ifnull(virtual_account,0) as virtual_account,
+    fanDian, status, is_online,session_id,last_loginDate,last_loginaddr
+  </sql>
+  
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tr_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="findByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tr_user
+    where login_name = #{userName,jdbcType=VARCHAR} and status=0
+  </select>
+  
+  <insert id="createUser" parameterType="com.front.model.User" useGeneratedKeys="true" keyProperty="id">
+    insert into tr_user (id,uid, login_name, user_name, 
+      user_sex, user_password, coin_password, 
+      user_type, coin, fcoin, 
+      fanDian, status, is_online, 
+      last_loginDate, user_qq,user_phone,user_email, 
+      virtual_account, 
+      register_addr, register_date, create_user, 
+      modify_date, modify_user)
+    values (#{id,jdbcType=INTEGER},
+      #{uid,jdbcType=VARCHAR},
+      #{loginName,jdbcType=VARCHAR},
+      #{userName,jdbcType=VARCHAR}, 
+      #{userSex,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, #{coinPassword,jdbcType=VARCHAR}, 
+      #{userType,jdbcType=INTEGER}, #{coin,jdbcType=DOUBLE}, #{fcoin,jdbcType=DOUBLE}, 
+      #{fandian,jdbcType=DOUBLE}, #{status,jdbcType=INTEGER}, #{isOnline,jdbcType=INTEGER}, 
+      #{lastLogindate,jdbcType=TIMESTAMP}, #{userQq,jdbcType=VARCHAR}, 
+      #{userPhone,jdbcType=VARCHAR},#{userEmail,jdbcType=VARCHAR},#{virtualAccount,jdbcType=INTEGER}, 
+      #{registerAddr,jdbcType=VARCHAR}, #{registerDate,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{modifyDate,jdbcType=TIMESTAMP}, #{modifyUser,jdbcType=INTEGER})
+  </insert>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.front.model.User" >
+    update tr_user
+    <set >
+      <if test="loginName != null" >
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        user_sex = #{userSex,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="coinPassword != null" >
+        coin_password = #{coinPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        user_type = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="coin != null" >
+        coin = #{coin,jdbcType=DOUBLE},
+      </if>
+      <if test="fcoin != null" >
+        fcoin = #{fcoin,jdbcType=DOUBLE},
+      </if>
+      <if test="fandian != null" >
+        fanDian = #{fandian,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isOnline != null" >
+        is_online = #{isOnline,jdbcType=INTEGER},
+      </if>
+      <if test="lastLogindate != null" >
+        last_loginDate = #{lastLogindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userQq != null" >
+        user_qq = #{userQq,jdbcType=VARCHAR},
+      </if>
+      <if test="virtualAccount != null" >
+        virtual_account = #{virtualAccount,jdbcType=INTEGER},
+      </if>
+      <if test="registerAddr != null" >
+        register_addr = #{registerAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="registerDate != null" >
+        register_date = #{registerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUser != null" >
+        modify_user = #{modifyUser,jdbcType=INTEGER},
+      </if>
+      <if test="sessionId != null" >
+        session_id = #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginAddr != null" >
+        last_loginaddr = #{lastLoginAddr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}  
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.front.model.User" >
+    update tr_user
+    set login_name = #{loginName,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_sex = #{userSex,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      coin_password = #{coinPassword,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=INTEGER},
+      coin = #{coin,jdbcType=DOUBLE},
+      fcoin = #{fcoin,jdbcType=DOUBLE},
+      fanDian = #{fandian,jdbcType=DOUBLE},
+      status = #{status,jdbcType=INTEGER},
+      is_online = #{isOnline,jdbcType=INTEGER},
+      last_loginDate = #{lastLogindate,jdbcType=TIMESTAMP},
+      user_qq = #{userQq,jdbcType=VARCHAR},
+      virtual_account = #{virtualAccount,jdbcType=INTEGER},
+      register_addr = #{registerAddr,jdbcType=VARCHAR},
+      register_date = #{registerDate,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      modify_user = #{modifyUser,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateUserOffline" parameterType="com.front.model.User" >
+    update tr_user
+    set is_online = 1
+    where session_id = #{sessionId,jdbcType=VARCHAR}
+  </update>
+ 
+   <select id="queryUserBetInfo" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+       select  
+        IFNULL(cf.field_value,'N')as betLimit,
+        ifnull(cb.field_value,'0.5')as blockRebate, 
+        u.id, uid,login_name, user_name, user_password, coin_password, user_type, 
+        ifnull(coin,0) as coin, 
+        ifnull(fcoin,0) as fcoin , 
+        ifnull(virtual_account,0) as virtual_account,
+        fanDian, status, is_online
+       from tr_user u 
+       left join tr_customer_field cf on cf.field_handler=CONCAT('UserBo:',u.id) and cf.field_name='BetLimit'
+       left join tr_customer_field cb on cb.field_handler=CONCAT('UserBo:',u.id) and cb.field_name='BlockRebate'
+       where u.id = #{id} and status=0
+  </select>
+ 
+</mapper>

@@ -1,0 +1,193 @@
+<div id="qukPage" class="m-f-cuk m-f-quk" style="margin-left: 18px;">
+	<div class="mar-lr20">
+		<h4>
+			<i>1</i>选择银行卡
+		</h4>
+		<div class="m-bdyhk">
+			<dl id="userBankList" style="cursor: pointer;"></dl>
+		</div>
+	</div>
+	<div class="m-f-qk-tow mar-lr20">
+		<h4>
+			<i>2</i>请输入提款金额
+		</h4>
+		<div class="m-bdyhk ym-gl ym-g33">
+			<ul>
+				<li><span>提款金额：</span><input id="quk_withdraw_money"
+					placeholder="请输入提款金额" maxlength="6" type="text"> <em>元</em></li>
+				<li><span>手续费：</span><input id="quk_fee" value="0.0000"
+					readonly="true" type="text"></li>
+				<li><span>实际到账：</span><input id="quk_ramount" value="0.0000"
+					readonly="true" type="text"></li>
+				<li><p>
+						温馨提示：您今天还有<label id="quk_explain_freetimes">0</label>次提款免手续费特权
+			        </p>
+			    </li>
+			</ul>
+		</div>
+		<div class=" m-bdyhk ym-gl ym-g66">
+			<table>
+				<tbody>
+					<tr>
+						<th>可提金额</th>
+						<td><span id="quk_explain_balance">0.00</span>元</td>
+						<th>今日投注</th>
+						<td><span id="quk_explain_lottery" class="primary_account">0.00</span>
+							元</td>
+					</tr>
+					<tr>
+						<th>今日充值</th>
+						<td><span id="quk_explain_klc" class="primary_account">0.00</span> 元</td>
+						<th>消费比例</th>
+						<td><span id="quk_explain_bjl" class="primary_account">100</span>%</td>
+					</tr>
+					<tr>
+						<th>提款时间(24小时制)</th>
+						<td><span id="quk_explain_time">10:00:00 - 02:00:00</span></td>
+						<th>单笔限额</th>
+						<td><span id="quk_explain_minMoney">0.0</span> - <span
+							id="quk_explain_maxMoney">0.0</span>元</td>
+					</tr>
+					<tr>
+						<th>每日限额</th>
+						<td colspan="3">提款总额：<span id="quk_explain_daymaxMoney">1000000.0</span>元
+						</td>
+					</tr>
+					<tr>
+						<th>手续费说明</th>
+						<td colspan="3">提款金额*<span id="quk_explain_feescale">1</span>%,最小手续费
+							<span id="quk_explain_minfee">1</span>,最高手续费<span
+							id="quk_explain_maxfee">25</span></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="m-f-qk-tow mar-lr20" style="margin-top: -38px;">
+		<h4>
+			<i>3</i>输入资金密码
+		</h4>
+		<div class="m-cun-tab c-tab-one tab"> 
+			<div class="m-c-bd tabBd">
+				<div class="srmm tb-imte" style="display: block;">
+					<div id="enterQukPasswordDiv">
+						<span>资金密码：</span> <input value="" id="quk_withdraw_pwd"
+							type="password">
+					</div>
+				</div>
+			</div>
+		</div>
+		<a class="but-xyb" href="javascript:;" data-flag="btn-tocash" style="background: red;width: 98px;">提现</a>
+	</div>
+	
+	
+</div>
+<script type="text/javascript">
+	$(function() {
+		$(".paging").css('display',"none");
+		var min = 100;
+		var max = 50000;
+		$.ajax({
+			url : "/content/bank/tocash",
+			method : 'GET',
+			success : function(data) {
+				if (data.retcode == 0) {
+					$("#userBankList").html(
+							_.template($('#banklist-template').html(), {
+								items : data.data.bankList
+							}));
+					min = data.data.cashLower;
+					max = data.data.cashUpper;
+					//console.log(data.data);
+					$("#quk_explain_minMoney").html(data.data.cashLower);
+					$("#quk_explain_maxMoney").html(data.data.cashUpper);
+					$("#quk_explain_freetimes").html(data.data.cashTime);
+					$("#quk_explain_balance").html(data.data.user.coin);
+					$("#quk_explain_lottery").html(data.data.bets_amount); 
+					$("#quk_explain_klc").html(data.data.charge_amount);
+					$("#quk_explain_bjl").html((data.data.charge_amount!=0)?(data.data.bets_amount*100/data.data.charge_amount):100); 
+				} else if(data.retcode==-2) {
+					popTips(data.retmsg||"您尚未登录或登录时间过长,请重新登录!", "error","温馨提示",function(){location.href = "/view/memberAccount.html#1";}); 
+				} else {
+					popTips(data.message || "您尚未登录或登录时间过长,请重新登录!", "error", "温馨提示", function() { location.href = "/"; });
+				}
+			}
+		});
+
+		$('#userBankList').delegate('dd', 'click', function(e) {
+			$(e.delegateTarget).find('dd').removeClass('cur');
+			$(this).addClass('cur');
+			// 玩法组点击事件触发的条件 
+		});
+
+		$('#qukPage').delegate('dd', 'click', function(e) {
+			$(e.delegateTarget).find('dd').removeClass('cur');
+			$(this).addClass('cur');
+			// 玩法组点击事件触发的条件 
+		});
+
+		$('#qukPage').delegate(
+				'[data-flag = "btn-tocash"]',
+				'click',
+				function() {
+					var identification = createCustomOrderNo();
+					var amount = $('#quk_withdraw_money');
+					if (amount.val() == "") {
+						//alert('请输入充值金额!');
+						return popTips("请输入提现金额!", 'error');
+					}
+					if (!$.check.isMoney(amount.val())) {
+						return popTips("请输入正确的提现金额!", 'error');
+					}
+					var aval = parseInt(amount.val());
+					if(aval < parseInt(min) || aval > parseInt(max)){
+						//alert('单笔提现限额 最低： 100 元，最高： 100000 元 !'); 
+						return popTips( $.substitute('单笔提现最低： {min} 元，最高： {max} 元 !',{min:min,max:max}), 'error');
+					}
+					var password = $('#quk_withdraw_pwd').val();
+					if (password == "") {
+						return popTips("请输入资金密码!", 'error');
+					}
+					$.ajax({
+						url : "/bank/tocash_submit",
+						method : 'POST',
+						data : {
+							bankName : $('#qukPage .cur').attr("bankName"),
+							amount : $("#quk_withdraw_money").val(),
+							password : $("#quk_withdraw_pwd").val(),
+							openingName : $('#qukPage .cur')
+									.attr("openingName"),
+							uname : $('#qukPage .cur').attr("uname"),
+							account : $('#qukPage .cur').attr("account"),
+							identification : identification
+						},
+						success : function(data) {
+							if (!data.success) {
+								//alert(data.message);
+								popTips(data.message, "error");
+							} else {
+								info();
+								popTips("提现申请提交成功!", "succeed","",function(){$('#menuBar li:eq(4)').trigger('click')});
+							}
+						}
+					});
+				});
+	});
+</script>
+
+
+<script type="text/html" id="banklist-template">
+	<%_.each(items,function(item,index) {%>
+		 <dd uname="<%=item.uname%>"  account="<%=item.account%>" bankName="<%=item.bankName%>"  openingName="<%=item.openingName%>" <%if(index==0){%>class="cur"<%}%>>
+					<div class="img ym-gl">
+						<img src="/images/bank/<%=item.logo%>"
+							alt="<%=item.bankName%>" width="35" height="35">
+					</div> 
+	                <div class="xx ym-gl">
+						<span><%=item.actualusername%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=item.account%></span>
+                        <span><%=item.openingName%></span> 
+					</div>
+					<div class="moren"></div>
+		 </dd> 
+	<%})%>
+</script>

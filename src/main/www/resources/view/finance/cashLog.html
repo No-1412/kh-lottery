@@ -1,0 +1,101 @@
+<div class="main-box-info  tb-imte">
+	<table class="mem-biao" id="userCash">
+		<thead>
+			<tr>
+				<th><span>提现时间：</span> <input placeholder="提现开始时间"
+					class="layriqi starTime" type="text"
+					onclick="laydate({format:'YYYY-MM-DD',isclear:false});"
+					readonly="true"> <span class="zhi">至</span> <input
+					placeholder="提现结束时间" class="layriqi endTime" type="text"
+					onclick="laydate({format:'YYYY-MM-DD',isclear:false});"
+					readonly="true"></th>
+				<th><a href="javascript:void(0);" class="butsty1">查询</a></th>
+			</tr>
+		</thead>
+	</table>
+	<table class="mem-biao" style="width: 100%">
+		<tbody>
+			<tr>
+				<th>序号</th>
+				<th>提现单号</th>
+				<th>申请时间</th>
+				<th>提现银行</th>
+				<th>持卡人</th>
+				<th>提现金额</th>
+				<th>处理时间</th>
+				<th>备注</th>
+				<th>状态</th>
+			</tr>
+		</tbody>
+		<tbody id="userCash_record">
+		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript"> 
+$(function(){
+	 $(".paging").css('display',"inline");
+	
+	 $("#userCash .starTime").val(laydate.now(-7));
+	 $("#userCash .endTime").val(laydate.now(1)); 
+	 $("#userCash .butsty1").livequery("click",userCashList);
+ 
+	 $("#userCash .butsty1").trigger('click')
+ 
+	
+	//获取订单信息（不包括追号订单）
+	function userCashList() {
+		var starTime = $("#userCash .starTime").val();
+		var endTime = $("#userCash .endTime").val();
+		if (dateDiff(starTime, endTime) < 0) {
+			popTips('查询结束日期要大于开始日期', 'error');
+			return false;
+		} 
+		var pagination = $.pagination({
+			render : '.paging',
+			pageSize : 10,
+			pageLength : 3,
+			ajaxType : 'get',
+			hideInfos : false,
+			hideGo : true,
+			ajaxUrl : '/user/pagingCashLog',
+			ajaxData : {
+				//"pageIndex": 1,
+				//"pageSize": 10,
+				"startDate" : starTime,
+				"endDate" : endTime, 
+			//是否是追号 0不是追号 1追号
+			},
+			success : function(data) {
+				$("#userCash_record").html(
+						_.template($('#userCash-template').html(), {
+							items : data
+						}));
+			}
+		});
+		pagination.init();
+	}
+	}); 
+	
+	
+</script>
+
+<script type="text/html" id="userCash-template">
+	 <%_.each(items,function(item,index) {%>
+		<tr>
+			<td><%=index+1%></td>
+            <td><%=item.applyOrder%></td>
+			<td><%=item.applyTime %></td>
+			<td><%=item.bankName %></td>
+			<td><%=item.userName %></td>
+			<td><%=item.amount.toFixed(4) %></td>
+	        <td><%=(item.aduitTime|| '-----')%>
+            <td><%=item.remark %></td>
+			<td>
+				<%if(item.status==-1||item.status==0){%> 处理中 <%}%>
+				<%if(item.status==1){%> 处理成功 <%}%>
+				<%if(item.status==2){%> 处理失败 <%}%>
+			</td>
+		</tr>
+	<%})%>
+</script>

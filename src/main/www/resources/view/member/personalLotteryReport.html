@@ -1,0 +1,116 @@
+<div class="main-box-info tb-imte">
+	<table class="mem-biao" id="personallotteryReport">
+		<thead>
+			<tr>
+				<th colspan="8"><span>时间：</span> <input
+					class="layriqi starTime" type="text"
+					onclick="laydate({format:'YYYY-MM-DD',isclear:false});"
+					readonly="true"> <span class="zhi">至</span> <input
+					class="layriqi endTime" type="text"
+					onclick="laydate({format:'YYYY-MM-DD',isclear:false});"
+					readonly="true"> 
+				<span>彩种类型：</span> <select class="lottery">
+				</select><a href="javascript:;" class="butsty1">查询</a></th>
+			</tr>
+		</thead>
+	</table>
+	<table class="mem-biao" style="width: 100%">
+		<tbody>
+			<tr>
+				<th>序号</th>
+				<th>游戏类别</th>
+				<th>购买单数</th>
+				<th>购买注数</th>
+				<th>购买金额</th>
+				<th>撤单金额</th>
+				<th>中奖注数</th>
+				<th>中奖奖金</th>
+				<th>返点金额</th>
+				<th>盈亏金额</th>
+			</tr>
+		</tbody>
+		<tbody id="personallotteryReport-data">
+		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		$("#personallotteryReport .starTime").val(laydate.now(-3));
+		$("#personallotteryReport .endTime").val(laydate.now(1)); 
+		$("#personallotteryReport .butsty1").livequery("click",lotteryReport);
+		$("#personallotteryReport .butsty1").trigger('click');
+		$.ajax({
+				url : "/sscList",
+				method : 'GET',
+				success : function(data) {
+					if (data.retcode == 0) {
+					   $("#personallotteryReport .lottery").append(new Option("全部彩种",""));
+					   for(var i=0;i<data.data.length;i++){
+						   var lottery = data.data[i];
+						   for(var j = 0 ;j <lottery.lotteryList.length;j++)
+						   {
+							   var op = new Option(lottery.lotteryList[j].lotteryName,lottery.lotteryList[j].id);
+							   $("#personallotteryReport .lottery").append(op);
+						   }
+					   }  
+					} else {
+						popTips(data.message, "error");
+					}
+				}
+			});
+	});
+	
+	//获取订单信息（不包括追号订单）
+	function lotteryReport() {
+		var starTime = $("#personallotteryReport .starTime").val();
+		var endTime = $("#personallotteryReport .endTime").val();
+		if (dateDiff(starTime, endTime) < 0) {
+			popTips('查询结束日期要大于开始日期', 'error');
+			return false;
+		}  
+		var pagination = $.pagination({
+			render : '.paging',
+			pageSize : 10,
+			pageLength : 3,
+			ajaxType : 'get',
+			hideInfos : false,
+			hideGo : true,
+			ajaxUrl : '/bet/personalLotteryReport',
+			ajaxData : { 
+				"startDate" : starTime,
+				"endDate" : endTime, 
+				"lotteryId" :  $("#lotteryReport .lottery").val()
+			//是否是追号 0不是追号 1追号
+			},
+			success : function(data) {
+				$("#personallotteryReport-data").html(
+						_.template($('#personallotteryReport_template').html(), {
+							items : data
+						}));
+			}
+		});
+		pagination.init();
+	}
+</script>
+
+
+
+<script type="text/html" id="personallotteryReport_template"> 
+<%_.each(items,function(item,index) {%>
+       <tr style="border-right: 1px solid #ccc; border-left: 1px solid #ccc; cursor: pointer">
+		<td><%=index+1 %></td>
+		<td><%=item.lname %></td>
+		<td><%=item.betsCount %></td>
+		<td><%=item.betsNum %></td>
+		<td><%=item.amount.toFixed(4) %></td>
+        <td><%=item.cancelBetAmount.toFixed(4)%></td>
+		<td><%=item.zjCount||0%></td>
+		<td><%=item.bonus || 0.0 %></td>
+		<td><%=item.fanDian || 0.0%></td>  
+		<td> 
+           <%=((item.bonus || 0.0) + (item.fanDian || 0.0) - item.amount).toFixed(4)%>
+        </td> 
+	</tr>    
+<%})%>
+</script>

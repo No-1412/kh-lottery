@@ -1,0 +1,303 @@
+<div class="main-box-info  tb-imte">
+	<table class="mem-biao" id="userTeamBets">
+		<thead>
+			<tr>
+				<th><span>投注模式：</span> <select class="state" id="betsMode" >
+						<option value="" selected="selected">全部</option>
+						<option value="2.00">元</option>
+						<option value="0.20">角</option>
+						<option value="0.02">分</option>
+						<option value="0.002">厘</option>
+				</select></th>
+				<th><span>彩种类型：</span> <select class="lottery">
+				</select></th>
+				<th><span>投注时间：</span> <input placeholder="投注开始时间"
+					class="layriqi starTime" type="text"
+					onclick="laydate({format:'YYYY-MM-DD',isclear:false});"
+					readonly="true"> <span class="zhi">至</span> <input
+					placeholder="投注结束时间" class="layriqi endTime" type="text"
+					onclick="laydate({format:'YYYY-MM-DD',isclear:false});"
+					readonly="true"></th>
+			<tr>
+				<th><span>订单状态：</span> <select class="state">
+						<option value="">所有状态</option>
+						<option value="1">已派奖</option>
+						<option value="2">未中奖</option>
+						<option value="3">未开奖</option>
+						<option value="4">追号</option>
+						<option value="5">撤单</option>
+				</select></th>
+				<th> <span>用户类型：</span>
+				<select id="userRelation" class="state">
+				<option value="1">所有人</option>
+				<option value="2">我自己</option>
+				<option value="3">直属下线</option>
+				<option value="4">所有下线</option>
+			</select>
+				</th>
+				<th><a href="javascript:void(0);"  
+					class="butsty1">查询</a></th>
+			</tr>
+		</thead>
+	</table>
+	<table class="mem-biao" style="width: 100%">
+		<tbody>
+			<tr>
+				<th>单号</th>
+				<th>投注时间</th>
+				<th>彩种</th>
+				<th>玩法</th>
+				<th>期号</th>
+				<th>倍数</th>
+				<th>模式</th>
+				<th>金额(元)</th>
+				<th>奖金(元)</th>
+				<th>状态</th>
+				<th>操作</th>
+			</tr>
+		</tbody>
+		<tbody id="userTeamBets_record">
+		</tbody>
+	</table> 
+</div> 
+<div id="dingdan2" class="aar aar-center" style="display: none;width: 500px"></div>
+
+<div id="commissionTransferTips" class="aar a-one"
+	style="display: none;">
+	<div class="aar-center">
+		<div class="aar-title" way-data="tips.title">温馨提示</div>
+		<a class="aar-close" onclick="closeSystemLayer();"><i
+			class=" demo-icon "></i></a>
+		<div class="tishik">
+			<div class="bd">
+				<div class="bd text-center">
+					<div class="pop-title">
+						<i class="ico-waring"></i>
+						<h4 class="pop-text">您确定要撤单？</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="aar-but">
+			<a class="confirm" href="javascript:;" data-flag="btnOk">确认</a>
+			<a class="confirm" href="javascript:;" style="background-color: red;" onclick="closelayer();">关闭</a>
+		</div>
+	</div>
+</div>
+<script type="text/javascript"> 
+$(function(){
+	 $(".starTime").val(laydate.now(-3));
+	 $(".endTime").val(laydate.now(1)); 
+	 $("#userTeamBets .butsty1").livequery("click",userTeamBetsList);
+	  $.ajax({
+			url : "/sscList",
+			method : 'GET',
+			success : function(data) {
+				if (data.retcode == 0) {
+				   $(".lottery").append(new Option("全部彩种",""));
+				   for(var i=0;i<data.data.length;i++){
+					   var lottery = data.data[i];
+					   for(var j = 0 ;j <lottery.lotteryList.length;j++)
+					   {
+						   var op = new Option(lottery.lotteryList[j].lotteryName,lottery.lotteryList[j].id);
+						   $(".lottery").append(op);
+					   }
+				   }  
+				} else {
+					popTips(data.message, "error");
+				}
+			}
+		});
+	  $("#userBets .butsty1").trigger('click')
+	/**
+	* 撤单
+	*/ 
+	$('#userTeamBets_record').delegate('[data-flag="cancel_order"]','click', function() {
+			var _this = $(this);
+			pop("commissionTransferTips");
+			$('#commissionTransferTips [data-flag="btnOk"]').on("click",function(){
+				closelayer();
+				$.ajax({
+					url : "/lottery/cancelLotteryBets",
+					dataType : 'json',
+					data : "lotteryBetsId=" + _this.attr('data-id'),
+					contentType : 'application/json',
+					success : function(data) {
+						if (data.retcode == 0) {
+							popTips("撤单成功！", "succeed");
+							info();
+							userBetsList();
+						} else {
+							popTips(data.retmsg, "error");
+						}
+					}
+				});
+			}); 
+		});
+		
+	//游戏记录详情
+	$('#userTeamBets_record').delegate('[data-flag="bets_order_detail"]','click', function() {
+		var _this = $(this); 
+		$.ajax({
+				 url : "/lottery_bets/detail",
+				 dataType : 'json',
+				 data : "id=" +  _this.attr('data-id'),
+				 contentType : 'application/json',
+				 success : function(data) { 
+						$("#dingdan2").html( _.template($('#userBets_detail_template').html(), {item:data}));
+						pop("dingdan2");
+				 }
+			 }); 
+	     }); 
+	
+	
+	//获取订单信息（不包括追号订单）
+	function userTeamBetsList() {
+		var starTime = $(".starTime").val();
+		var endTime = $(".endTime").val();
+		if (!checkTowDate(starTime, endTime) || dateDiff(starTime, endTime) > 7) {
+			popTips('查询日期不能跨月，并且时间间隔不能超过7天', 'error');
+			return false;
+		} else if (dateDiff(starTime, endTime) < 0) {
+			popTips('查询结束日期要大于开始日期', 'error');
+			return false;
+		}
+		var lotteryId = $(".lottery").val();
+		var state = $(".state").val(); 
+		var pagination = $.pagination({
+			render : '.paging',
+			pageSize : 10,
+			pageLength : 3,
+			ajaxType : 'get',
+			hideInfos : false,
+			hideGo : true,
+			ajaxUrl : '/team/pagingGameRecord',
+			ajaxData : { 
+				"betsStartTime" : starTime,
+				"betsEndTime" : endTime,
+				"lotteryId" : lotteryId,
+				"status" : state,
+				"userRelation" : $("#userRelation").val(),
+				"betsMode" : $("#betsMode").val()
+			//是否是追号 0不是追号 1追号
+			},
+			success : function(data) {
+				$("#userTeamBets_record").html(
+						_.template($('#userTeamBets_record_template').html(), {
+							items : data
+						}));
+			}
+		});
+		pagination.init();
+	}
+	}); 
+	
+	
+</script>
+
+<script type="text/html" id="userTeamBets_record_template"> 
+<%_.each(items,function(item,index) {%>
+       <tr style="border-right: 1px solid #ccc; border-left: 1px solid #ccc; cursor: pointer">
+		<th><a href="javascript:;" data-id="<%=item.id%>" class="bets_order" data-flag="bets_order_detail"><%=item.bets_order %></a></th>
+		<th><%=item.bets_time %></th>
+		<th><%=item.lottery_lname %></th>
+		<th><%=item.play_name %></th>
+		<th><%=item.lottery_no %></th>
+        <th><%=item.bets_beishu %>倍</th>
+		<th><%if(item.bets_mode==2){%>元<%}else if(item.bets_mode==0.2){%>角<%}else if(item.bets_mode==0.02){%>分<%}else if(item.bets_mode==0.002){%>厘<%} %></th>
+		<th><%= item.bets_amount  %></th>
+		<th><%= item.bets_bonus||'---'  %></th>  
+	    <% if(item.betsStatus=='中奖'){ %>
+				<td class="prize" ><%=item.betsStatus %></td>
+			<%}else{%>
+				<td class="noPrize"><%=item.betsStatus %></td>
+			<%}%>
+		<th> 
+           <%if(item.status === 'Y'){%>
+					<a href="javascript:;" data-id="<%=item.id%>" data-flag="cancel_order">撤单</a>
+				<%}else{%>
+					-----
+				<%}%>
+        </th> 
+	</tr>    
+<%})%>
+</script>
+
+<script type="text/html" id="userBets_detail_template"> 
+    <div class="aar-title">投注详情</div>
+    <a class="aar-close" onclick="closelayer()"><i class="demo-icon"></i></a>
+    <div class="tishik">
+        <div class="dd-xiangq"> 
+            <table style ="margin: 2% 2% 2% 2%;">
+                <tbody>
+                <tr>
+                    <td>期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：
+                         <%=item.lottery_no %>
+                    </td>
+                    <td>
+                                                                                   彩&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种： 
+                         <%=item.lottery_name %>
+                    </td>
+                </tr>
+                <tr> 
+                    <td>玩&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;法：
+                        <%=item.group_name%>/<%=item.play_name %>
+                    </td>
+                    <td>注&nbsp;&nbsp;&nbsp;&nbsp;数：
+                       <%=item.bets_num %>
+                    </td>
+                </tr>
+                <tr> 
+                    <td>订&nbsp;单&nbsp;号： 
+                         <%=item.bets_order %>
+                    </td>
+                    <td>下单时间：
+                         <%=item.bets_time %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>投注金额：<%=item.bets_amount %>元</td>
+                    <td>奖金/返点：
+                        <%=item.bets_bonusProp %>-<%=item.bets_fanDian %>%
+                    </td>
+                </tr>
+                <tr>
+                    <td>模&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;式：
+                        <%if(item.bets_mode==2){%>元<%}else if(item.bets_mode==0.2){%>角<%}else if(item.bets_mode==0.02){%>分<%}else if(item.bets_mode==0.002){%>厘<%} %>
+                    </td>
+                    <td>倍&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数：
+                        <%=item.bets_beiShu %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：
+                        <%=item.betsStatus%>
+                    </td>
+                    <td>中奖金额：
+                       <%=item.bets_bonus||0 %>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">开奖号码：
+                         <%=item.bets_lotteryNo||'-----'%>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">投注内容：</td>
+                </tr>
+                <tr>
+                   <td colspan="2">
+                   <textarea id="textareacode1" style="width: 99%;overflow: scroll;" disabled="disabled"><%=item.bets_data%></textarea>
+                    </td>
+                </tr>
+                </tbody>
+            </table> 
+        </div>
+    </div>
+                </tbody>
+            </table> 
+        </div>
+    </div>
+</div>  
+</script>

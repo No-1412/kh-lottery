@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+	<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+	<mapper namespace="com.front.dao.mapper.UserCoinLogMapper">  
+	<resultMap type="com.front.model.UserCoinLog" id="userCoin">
+	   <result property="id" column="id"/>
+	   <result property="uid" column="uid"/> 
+	   <result property="coinOrder" column="coin_order"/>
+	   <result property="lotteryId" column="lottery_id"/> 
+	   <result property="lotteryNo" column="lottery_No"/> 
+       <result property="betsMode" column="bets_Mode"/> 
+	   <result property="playId" column="play_id"/> 
+	   <result property="userId" column="userId"/>  
+	   <result property="uname" column="uname"/>
+	   <result property="coin" column="coin"/>
+	   <result property="fcoin" column="fcoin"/>
+	   <result property="liqType" column="liqType"/>
+	   <result property="remark" column="remark"/>
+	   <result property="actionUid" column="actionUid"/>
+	   <result property="actionDate" column="actionDate"/>
+	   <result property="actionAddr" column="actionAddr"/> 
+	   <result property="extendfield1" column="extendfield1"/>
+	   <result property="extendfield2" column="extendfield2"/>
+	   <result property="extendfield3" column="extendfield3"/> 
+	</resultMap>
+	<!-- 添加帐变记录 -->
+    <insert id="addUserCoinLog" parameterType="com.front.model.UserCoinLog">
+         insert into tr_user_coin_log( 
+         uid,
+         lottery_id,
+         coin_order,
+         play_id,
+         userId,
+         uname,
+         coin,
+         userCoin,
+         fcoin,
+         liqType ,
+         remark,
+         actionUID,
+         actionDate,
+         actionAddr,
+         lottery_No,
+         bets_Mode,
+         extendfield1,
+         extendfield2,
+         extendfield3)
+         values(
+         #{coin.uid},
+         #{coin.lotteryId},
+         #{coin.coinOrder},
+         #{coin.playId},
+         #{coin.userId},
+         #{coin.uname},
+         #{coin.coin},
+         #{coin.userCoin},
+         #{coin.fcoin},
+         #{coin.liqType},
+         #{coin.remark},
+         #{coin.actionUid}, 
+         now(),
+         #{coin.actionAddr},
+         #{coin.lotteryNo},
+         #{coin.betsMode},
+         #{coin.extendfield1},
+         #{coin.extendfield2},
+         #{coin.extendfield3}      
+         )
+    </insert> 
+    
+    
+    <!-- 批量添加帐变记录 -->
+    <insert id="addUserCoinLogBatch" parameterType="java.util.List">
+         insert into tr_user_coin_log( 
+         uid,
+         lottery_id,
+         coin_order,
+         play_id,
+         userId,
+         uname,
+         coin,
+         userCoin,
+         fcoin,
+         liqType ,
+         remark,
+         actionUID,
+         actionDate,
+         actionAddr,
+         lottery_No,
+         bets_Mode,
+         extendfield1,
+         extendfield2,
+         extendfield3)
+         values
+        <foreach collection="coins" item="coin" index="index"  
+        separator=",">  
+         (  
+         #{coin.uid},
+         #{coin.lotteryId},
+         #{coin.coinOrder},
+         #{coin.playId},
+         #{coin.userId},
+         #{coin.uname},
+         #{coin.coin},
+         #{coin.userCoin},
+         #{coin.fcoin},
+         #{coin.liqType},
+         #{coin.remark},
+         #{coin.actionUid}, 
+         now(),
+         #{coin.actionAddr},
+         #{coin.lotteryNo},
+         #{coin.betsMode},
+         #{coin.extendfield1},
+         #{coin.extendfield2},
+         #{coin.extendfield3}     
+         )
+       </foreach>  
+      
+    </insert> 
+</mapper>  

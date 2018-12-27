@@ -1,0 +1,53 @@
+<div class="main-box-info mar-lr20 tb-imte">
+	<div class="m-a-nav-min tab" id="indexAgent"></div>
+</div>
+<script type="text/javascript"> 
+ $(function(){
+	  $.ajax({
+			url : "/content/team/coinall",
+			method : 'GET',
+			success : function(data) {
+				if (data.retcode == 0) {
+					$("#indexAgent").html( _.template($('#indexAgent_template').html(), {teamCoin:data.data}));
+				} else {
+					popTips(data.message, "error");
+				}
+			}
+		});
+ }); 
+</script>
+<script type="text/html" id="indexAgent_template">
+ 		<div class="tb-imte"> 
+				<div class="m-a-kaihu m-warm-prompt" style="padding-left: 30%;padding-right: 30%">
+					<dl class="ty-biaodan"> 
+                        <dd>
+							<span class="tt" style="margin-left: 120px;"><h5>团队统计</h5></span>  
+						</dd>
+						<dd>
+							<span class="tt">账号类型：</span> 
+							<span><input type="text" value="<% if(teamCoin.userType==0){%>代理<%}else{%>会员<%}%>" disabled="disabled" >   </span>  
+						</dd>
+						<dd>
+							<span class="tt">我的账号：</span> <span>
+                              <input type="text" value="<%=teamCoin.loginName%>" disabled="disabled" ></span>  
+						</dd>
+	                    <dd>
+							<span class="tt">可用余额：</span> <span>
+                              <input type="text" value="<%=teamCoin.coin%>元"  disabled="disabled"></span>  
+						</dd>
+                        <dd>
+							<span class="tt">团队余额：</span> <span>
+                              <input type="text" value="<%=teamCoin.tuanDui%>元"  disabled="disabled"></span>  
+						</dd>
+                        <dd>
+							<span class="tt">直属下级：</span> <span>
+                              <input type="text" value="<%=teamCoin.zhiShu%>个"  disabled="disabled"></span>  
+						</dd>
+						<dd>
+							<span class="tt">所有下级：</span> <span>
+                              <input type="text" value="<%=teamCoin.allTeam%>个"  disabled="disabled"></span>  
+						</dd>
+					</dl> 
+				</div>
+			</div>  
+</script>
